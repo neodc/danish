@@ -14,23 +14,26 @@ public class Danish{
 	LinkedList<Card> stack;
 	LinkedList<Card> graveyard;
 	
-	boolean finish;
 	boolean playing;
 	int currentPlayer;
+	Player winner;
 
 	public Danish(){
-		players = new ArrayList<>();
+		players = null;
 		
 		this.initDeck();
 		stack = new LinkedList<>();
 		graveyard = new LinkedList<>();
 		
-		finish = false;
 		playing = false;
 		currentPlayer = 0;
+		winner = null;
 	}
 
 	public List<Player> getPlayers(){
+		if( players == null ){
+			return null;
+		}
 		return new ArrayList<>(players);
 	}
 
@@ -46,10 +49,6 @@ public class Danish{
 		return new ArrayList<>(graveyard);
 	}
 
-	public boolean isFinish(){
-		return finish;
-	}
-
 	public boolean isPlaying(){
 		return playing;
 	}
@@ -58,16 +57,30 @@ public class Danish{
 		return currentPlayer;
 	}
 	
-	public boolean addPlayer( String name ){
-		if( !playing && players.size() < 4 ){
-			return players.add( new Player(name) );
+	public void setPlayers( List<String> names ){
+		if(players == null && names.size() >= 2 && names.size() <= 4){
+			
+			players = new ArrayList<>(names.size());
+			Player p;
+			
+			for( String name : names ){
+				p = new Player(name);
+				
+				for( int i = 0; i < 3; ++i ){
+					p.getHand().add(deck.poll());
+					p.addHidden(deck.poll());
+					p.addVisible(deck.poll());
+				}
+				
+				players.add(p);
+			}
+			
+			Collections.shuffle(players);
 		}
-		return false;
 	}
 	
 	public boolean begin(){
-		if( players.size() > 0 ){
-			Collections.shuffle(players);
+		if( players != null && winner == null ){
 			playing = true;
 		}
 		return playing;
@@ -125,9 +138,55 @@ public class Danish{
 	
 	public void turn( List<Card> cards, int player ){
 		
-		// TODO
+		if( cards.isEmpty() || !playing().getHand().containsAll( cards ) ){ // on ne joue pas de carte ou on joue des carte que l'on a pas
+			return;
+		}
 		
+		Rank rank = null;
+		
+		for( Card c : cards ){
+			if( rank == null ){
+				rank = c.getRank();
+			}else if( c.getRank() != rank ){ // différent rank
+				return;
+			}
+		}
+		
+		if( rank != Rank.ACE && (rank != Rank.THREE || getRankStack() != Rank.ACE) ){ // soit on joue un as soit on en copie un
+			return;
+		}
+		
+		if( player < 0 || player >= players.size() || player == currentPlayer ){ // player invalide ou actuel
+			return;
+		}
+		
+		// fin des test => on effectue
+		
+		playing().getHand().removeAll(cards);
+		
+		stack.addAll(cards);
+		
+		draw();
+		
+		if( doesCut() ){
+			return;
+		}
+		
+		currentPlayer = player;
 	}
+	
+	public void switchCard( int p, Card visible, Card hand ){
+		if( (p >= 0 || p < players.size()) && players != null && !playing ){
+			switchCard(players.get(p), visible, hand);
+		}
+	}
+	
+	public void switchCard( Player player, Card visible, Card hand ){
+		if( !playing ){
+			player.switchCard(visible, hand);
+		}
+	}
+	
 	
 	
 	private void initDeck(){
@@ -138,6 +197,8 @@ public class Danish{
 				deck.add( new Card(r, s) );
 			}
 		}
+		
+		Collections.shuffle( deck );
 	}
 	
 	private Player playing(){
@@ -190,6 +251,10 @@ public class Danish{
 			playing().getHand().add( deck.poll() );
 		}
 		
+		if( playing().draw() ){
+			winner = playing();
+			playing = false;
+		}
 	}
 	
 	public static void main( String[] args ){

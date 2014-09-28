@@ -56,4 +56,34 @@ public class Player{
 	public boolean removeHidden(Card c){
 		return hidden.remove(c);
 	}
+	
+	public void switchCard( Card visible, Card hand ){
+		
+		int iVisible, iHand;
+		
+		if( (iHand = this.hand.indexOf(hand)) == -1 || (iVisible = this.visible.indexOf(visible)) == -1 ){
+			return;
+		}
+		
+		this.hand.remove(iHand);
+		this.visible.remove(iVisible);
+		
+		this.hand.add(iHand, visible);
+		this.visible.add(iVisible, hand);
+		
+	}
+	
+	public boolean draw(){
+		
+		if( !hand.isEmpty() ){
+		}else if( hand.addAll(visible) ){
+			visible.clear();
+		}else if( !hidden.isEmpty() ){
+			hand.add( hidden.remove(0) );
+		}else{
+			return true;
+		}
+		
+		return false;
+	}
 }
