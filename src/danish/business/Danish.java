@@ -6,6 +6,10 @@ import java.util.Iterator;
 import java.util.LinkedList;
 import java.util.List;
 
+/**
+ * The class representing the whole Danish game.
+ * @author Noé, Julien, Loup.
+ */
 public class Danish{
 
 	List<Player> players;
@@ -18,6 +22,9 @@ public class Danish{
 	int currentPlayer;
 	Player winner;
 
+        /**
+         * Danish constructor without parameter.
+         */
 	public Danish(){
 		players = null;
 		
@@ -30,6 +37,10 @@ public class Danish{
 		winner = null;
 	}
 
+        /**
+         * Getter of the players.
+         * @return The list of the players, null if the list is empty.
+         */
 	public List<Player> getPlayers(){
 		if( players == null ){
 			return null;
@@ -37,26 +48,50 @@ public class Danish{
 		return new ArrayList<>(players);
 	}
 
+        /**
+         * Getter of the deck, the cards to draw.
+         * @return The deck.
+         */
 	public List<Card> getDeck(){
 		return new ArrayList<>(deck);
 	}
 
+        /**
+         * Getter of the stack, the played cards of one trick.
+         * @return The stack.
+         */
 	public List<Card> getStack(){
 		return new ArrayList<>(stack);
 	}
 
+        /**
+         * Getter of the graveyard, the cards that have been removed from play.
+         * @return The graveyard.
+         */
 	public List<Card> getGraveyard(){
 		return new ArrayList<>(graveyard);
 	}
 
+        /**
+         * Tells if the game has begun.
+         * @return If the game has begun.
+         */
 	public boolean isPlaying(){
 		return playing;
 	}
 
+        /**
+         * Getter of the index of the current player in the players list.
+         * @return The index of the current player.
+         */
 	public int getCurrentPlayer(){
 		return currentPlayer;
 	}
 	
+        /**
+         * Creates the list of players and deals their cards.
+         * @param names The name of the players.
+         */
 	public void setPlayers( List<String> names ){
 		if(players == null && names.size() >= 2 && names.size() <= 4){
 			
@@ -79,6 +114,10 @@ public class Danish{
 		}
 	}
 	
+        /**
+         * Makes the match begin.
+         * @return If the match has begun.
+         */
 	public boolean begin(){
 		if( players != null && winner == null ){
 			playing = true;
@@ -86,6 +125,10 @@ public class Danish{
 		return playing;
 	}
 	
+        /**
+         * Resolves a turn.
+         * @param cards The cards to be played.
+         */
 	public void turn( List<Card> cards ){
 		
 		if( cards.isEmpty() ){ // il prend
@@ -135,7 +178,11 @@ public class Danish{
 		currentPlayer = (currentPlayer+i)%players.size();
 		
 	}
-	
+	/**
+         * Resolves an attack.
+         * @param cards The cards to be played (normally, only aces and threes).
+         * @param player The attacked player.
+         */
 	public void turn( List<Card> cards, int player ){
 		
 		if( cards.isEmpty() || !playing().getHand().containsAll( cards ) ){ // on ne joue pas de carte ou on joue des carte que l'on a pas
@@ -174,21 +221,31 @@ public class Danish{
 		
 		currentPlayer = player;
 	}
-	
+        
+	/**
+         * Switches a card in the hand with a visible one.
+         * @param p The index of the player who wants to switch.
+         * @param visible The visible card to take in hand.
+         * @param hand The card in hand to make visible.
+         */
 	public void switchCard( int p, Card visible, Card hand ){
-		if( (p >= 0 || p < players.size()) && players != null && !playing ){
+		if( (p >= 0 || p < players.size()) && players != null ){
 			switchCard(players.get(p), visible, hand);
 		}
 	}
-	
+	/**
+         * Switches a card in the hand with a visible one.
+         * @param player The player who wants to switch.
+         * @param visible The visible card to take in hand.
+         * @param hand The card in hand to make visible.
+         */
 	public void switchCard( Player player, Card visible, Card hand ){
 		if( !playing ){
 			player.switchCard(visible, hand);
 		}
 	}
 	
-	
-	
+
 	private void initDeck(){
 		deck = new LinkedList<>();
 		

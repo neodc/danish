@@ -1,5 +1,9 @@
 package danish.business;
 
+/**
+ * An enumeration of the 13 possible values of a card.
+ * @author Noé, Julien, Loup.
+ */
 public enum Rank{
 	TWO(2, "Two"),
 	THREE(3, "Three"),
@@ -15,9 +19,14 @@ public enum Rank{
 	KING(13, "King"),
 	ACE(14, "Ace");
 
-	private int value;
-	private String display;
+	private final int value;
+	private final String display;
 
+        /**
+         * Rank constructor with two parameters.
+         * @param value A number representing the power of the card.
+         * @param display A .
+         */
 	private Rank (int value, String display) {
 		this.value = value;
 		this.display = display;
