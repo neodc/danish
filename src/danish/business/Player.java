@@ -11,9 +11,9 @@ public class Player{
 	
 	private final String name;
 	
-	private final List<Card> hand;
-	private final List<Card> visible;
-	private final List<Card> hidden;
+	protected final List<Card> hand;
+	protected final List<Card> visible;
+	protected final List<Card> hidden;
 
         /**
          * Player constructor with one parameter.

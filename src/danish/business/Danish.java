@@ -267,7 +267,11 @@ public class Danish{
 		stack.clear();
 	}
 	
-	private Rank getRankStack(){
+	public Rank getRankStack(){
+		if (stack.isEmpty()){
+			return Rank.TWO;
+		}
+		
 		Iterator<Card> i = stack.descendingIterator();
 		Rank r = null;
 		

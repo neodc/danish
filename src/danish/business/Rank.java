@@ -41,6 +41,10 @@ public enum Rank{
 	}
 	
 	public boolean placeable( Rank r ){
-		return r == ACE || r == TWO || r == THREE || r == TEN || (this == SEVEN && r.value <= this.value) || r.value >= this.value;
+		return r.isJoker() || (this == SEVEN && r.value <= this.value) || r.value >= this.value;
+	}
+	
+	public boolean isJoker(){
+		return this == ACE || this == TWO || this == THREE || this == TEN;
 	}
 }
