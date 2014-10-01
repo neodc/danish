@@ -69,5 +69,9 @@ public class Card implements Comparable{
 		}
 		return power - oPower;
 	}
-	
+
+	@Override
+	public String toString() {
+		return rank + " of " + suit;
+	}
 }

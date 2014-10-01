@@ -336,7 +336,6 @@ public class Danish implements DanishInterface{
 	}
 	
 	public static void main( String[] args ){
-		
 	}
 	
 }

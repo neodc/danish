@@ -47,4 +47,9 @@ public enum Rank{
 	public boolean isJoker(){
 		return this == ACE || this == TWO || this == THREE || this == TEN;
 	}
+
+	@Override
+	public String toString() {
+		return display;
+	}
 }
