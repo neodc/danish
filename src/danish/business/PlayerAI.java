@@ -4,15 +4,15 @@ import java.util.ArrayList;
 import java.util.List;
 
 /**
- *
- * @author Loup
+ * The class representing a non-human Player.
+ * @author Noé, Julien, Loup.
  */
 public class PlayerAI extends Player{
 	
 	private final Danish danish;
 
-	public PlayerAI(String name, Danish danish) {
-		super(name);
+	public PlayerAI(Danish danish) {
+		super("AI");
 		this.danish = danish;
 	}
 	
