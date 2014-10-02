@@ -36,12 +36,27 @@ public class Card implements Comparable{
 	public Suit getSuit(){
 		return suit;
 	}
-
+        
+        /**
+         * Compare this card object with another card object. two card are 
+         * identical if they have the same rank and the same suit.
+         * @param obj An other Card, to compare with.
+         * @return true if the objects are identical, false if they are not, or
+         * if the object is not a card.
+         */
 	@Override
 	public boolean equals(Object obj) {
+            if (obj instanceof Card ){
 		return this.rank == ((Card)obj).rank && this.suit == ((Card)obj).suit;
-	}
-
+            }else{
+                return false;
+            }
+        }
+        
+        /**
+         * Returns a hash code for this card.
+         * @return a hash code value for this card.
+         */
 	@Override
 	public int hashCode() {
 		int hash = 3;
@@ -50,7 +65,12 @@ public class Card implements Comparable{
 		return hash;
 	}
 
-	
+	/**
+         * Compare the power of two card 
+         * @param o An other Card, to compare with.
+         * @return A positive int if this card has more power, 0 if they have 
+         * the same, and a negative int the other card has more power
+         */
 	@Override
 	public int compareTo(Object o) {
 		int power;
@@ -70,6 +90,10 @@ public class Card implements Comparable{
 		return power - oPower;
 	}
 
+        /**
+         * A textual représentation of the card
+         * @return The textual représentation of the card
+         */
 	@Override
 	public String toString() {
 		return rank + " of " + suit;

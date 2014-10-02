@@ -78,7 +78,7 @@ public class Danish implements DanishInterface{
 
         /**
          * Tells if the game has begun.
-         * @return If the game has begun.
+         * @return true, if the game has begun.
          */
 	@Override
 	public boolean isPlaying(){
@@ -127,7 +127,7 @@ public class Danish implements DanishInterface{
 	
         /**
          * Makes the match begin.
-         * @return If the match has begun.
+         * @return true, if the match has begun.
          */
 	@Override
 	public boolean begin(){
@@ -262,6 +262,10 @@ public class Danish implements DanishInterface{
 		}
 	}
 	
+        /**
+         * Check the rank of the stack.
+         * @return The rank of the stack.
+         */
 	@Override
 	public Rank getRankStack(){
 		if (stack.isEmpty()){

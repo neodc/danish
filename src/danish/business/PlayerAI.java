@@ -10,12 +10,19 @@ import java.util.List;
 public class PlayerAI extends Player{
 	
 	private final Danish danish;
-
+        
+        /**
+         * Player constructor with one parameter.
+         * @param danish The danish where the AI is playing.
+         */
 	public PlayerAI(Danish danish) {
 		super("AI");
 		this.danish = danish;
 	}
 	
+        /**
+         * Play a turn of the AI.
+         */
 	public void play(){
 		List<Card> cards = new ArrayList<>();
 		

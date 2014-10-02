@@ -31,23 +31,44 @@ public enum Rank{
 		this.value = value;
 		this.display = display;
 	}
-
+        
+        /**
+         * Getter of the value.
+         * @return The value.
+         */
 	public int getValue() {
 		return this.value;
 	}
-
+        
+        /**
+         * Getter of the display.
+         * @return The display.
+         */
 	public String getDisplay() {
 		return this.display;
 	}
 	
+        /**
+         * Check if the given rank is placeable on the stack.
+         * @param r The rank to check
+         * @return true, if the rank is placeable.
+         */
 	public boolean placeable( Rank r ){
 		return r.isJoker() || (this == SEVEN && r.value <= this.value) || r.value >= this.value;
 	}
 	
+        /**
+         * Check if the instance is a joker card.
+         * @return true, if it's a joker card.
+         */
 	public boolean isJoker(){
 		return this == ACE || this == TWO || this == THREE || this == TEN;
 	}
 
+        /**
+         * A textual représentation of the rank
+         * @return The textual représentation of the rank
+         */
 	@Override
 	public String toString() {
 		return display;
