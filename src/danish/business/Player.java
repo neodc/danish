@@ -138,7 +138,7 @@ public class Player {
 	 * He will take all the visible cards if his hand is empty.
 	 * He will take one hidden card if he has no card in hand and no visible card.
 	 *
-	 * @return If the player has drawn. If he hasn't, he has no card left.
+	 * @return If he has no card left.
 	 */
 	public boolean draw() {
 
