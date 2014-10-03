@@ -312,6 +312,7 @@ public class Danish implements DanishInterface {
 	private void take(Player p) {
 		p.getHand().addAll(stack);
 		stack.clear();
+                currentPlayer = (currentPlayer + 1) % players.size();
 	}
 
 	private boolean doesCut() {
