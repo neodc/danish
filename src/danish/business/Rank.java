@@ -28,7 +28,7 @@ public enum Rank {
 	 * Rank constructor with two parameters.
 	 *
 	 * @param value A number representing the power of the card.
-	 * @param display A .
+	 * @param display A string representing the name of the rank.
 	 */
 	private Rank(int value, String display) {
 		this.value = value;
@@ -54,28 +54,28 @@ public enum Rank {
 	}
 
 	/**
-	 * Check if the given rank is placeable on the stack.
+	 * Checks if the given rank makes a card placeable on another card.
 	 *
-	 * @param r The rank to check
-	 * @return true, if the rank is placeable.
+	 * @param r The rank of the card to play on.
+	 * @return true if the card is placeable, false otherwise.
 	 */
 	public boolean placeable(Rank r) {
 		return r.isJoker() || (this == SEVEN && r.value <= this.value) || r.value >= this.value;
 	}
 
 	/**
-	 * Check if the instance is a joker card.
+	 * Checks if the instance is a joker card.
 	 *
-	 * @return true, if it's a joker card.
+	 * @return true if it's a joker card, false otherwise.
 	 */
 	public boolean isJoker() {
 		return this == ACE || this == TWO || this == THREE || this == TEN;
 	}
 
 	/**
-	 * A textual représentation of the rank
+	 * A textual representation of the rank.
 	 *
-	 * @return The textual représentation of the rank
+	 * @return The textual representation of the rank.
 	 */
 	@Override
 	public String toString() {

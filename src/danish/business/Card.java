@@ -42,12 +42,11 @@ public class Card implements Comparable {
 	}
 
 	/**
-	 * Compare this card object with another card object. two card are identical
-	 * if they have the same rank and the same suit.
+	 * Compares this card object with another card object.
+	 * Two cards are identical if they have the same rank and the same suit.
 	 *
 	 * @param obj An other Card, to compare with.
-	 * @return true if the objects are identical, false if they are not, or if
-	 * the object is not a card.
+	 * @return true if the objects are identical, false if they are not or if the object is not a card.
 	 */
 	@Override
 	public boolean equals(Object obj) {
@@ -72,11 +71,10 @@ public class Card implements Comparable {
 	}
 
 	/**
-	 * Compare the power of two card
+	 * Compares the power of two cards
 	 *
 	 * @param o An other Card, to compare with.
-	 * @return A positive int if this card has more power, 0 if they have the
-	 * same, and a negative int the other card has more power
+	 * @return A positive int if this card has more power, 0 if they have the same, and a negative int the other card has more power.
 	 */
 	@Override
 	public int compareTo(Object o) {
@@ -112,9 +110,9 @@ public class Card implements Comparable {
 	}
 
 	/**
-	 * A textual representation of the card
+	 * A textual representation of the card.
 	 *
-	 * @return The textual representation of the card
+	 * @return The textual representation of the card.
 	 */
 	@Override
 	public String toString() {
