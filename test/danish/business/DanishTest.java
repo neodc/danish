@@ -232,7 +232,8 @@ public class DanishTest{
 	public void testTurn_List(){
 		System.out.println( "turn" );
                 Player p;
-                int stacksize = 0;
+                int stacksize;
+                int playerHandSize;
 		ArrayList<Card> cards = new ArrayList<>();
 		ArrayList<String> names = new ArrayList<>();
 		Danish instance = new Danish();
@@ -241,33 +242,89 @@ public class DanishTest{
 		instance.setPlayers(names);
                 instance.begin();
                 p = instance.getPlayers().get(instance.getCurrentPlayer());
+                
+                //test the play with one card
                 cards.add(p.getHand().get(0));
-                //p1 hand size = 3
-                System.out.println(cards.get(0));
+                instance.turn(cards);
+                
+                assertTrue(instance.getStack().containsAll(cards)
+                        || verifyAceOrTen(instance.getStack(), cards));
+                assertTrue(!(p.getHand().contains(cards.get(0))) 
+                        || cards.get(0).getRank() == Rank.ACE);
+                
+                //test the fact that the stack isn't affected when an 
+                //ACE is played
+                if (cards.get(0).getRank() == Rank.ACE){
+                    assertFalse(instance.getStack().contains(cards.get(0)));
+                }
+                
+                
+                //test the play with no cards
+                cards.clear();
+                p = instance.getPlayers().get(instance.getCurrentPlayer());
+                playerHandSize = p.getHand().size();
+                stacksize = instance.getStack().size();
+                
+                instance.turn(cards);
+                
+                assertTrue((instance.getStack().isEmpty())&&(p.getHand().size() 
+                        == playerHandSize + stacksize));
+                
+                
+		instance = new Danish();
+		instance.setPlayers(names);
+                cards.clear();
+                p = instance.getPlayers().get(instance.getCurrentPlayer());
+                
+                cards.add(p.getHand().get(0));
                 
                 stacksize = instance.getStack().size();
+                //test the play with card we have
                 instance.turn(cards);
-                //p1 hand size = 2
-                assertTrue(instance.getStack().size() == stacksize + 1 
-                        || cards.get(0).getRank() == Rank.ACE 
-                        || instance.getStack().isEmpty() && cards.get(0).getRank() == Rank.TEN);
-                if (cards.get(0).getRank() == Rank.ACE){
-                    instance.turn(cards, 1);
-                }
-                cards = new ArrayList<>();
+                assertTrue(instance.getStack().size()== stacksize + cards.size()
+                        || verifyAceOrTen(instance.getStack(), cards));
+                //test the play with card we don't have (we are playing 
+                //the same cards than before)
+                instance.turn(cards);
+                assertTrue(instance.getStack().size()== stacksize + cards.size()
+                        || verifyAceOrTen(instance.getStack(), cards));
                 
+                
+		instance = new Danish();
+		instance.setPlayers(names);
+                cards.clear();
                 p = instance.getPlayers().get(instance.getCurrentPlayer());
-                //p2 hand size = 3
-                instance.turn(cards);
-                //p2 hand size = 4
                 
-                assertTrue((instance.getStack().isEmpty())&&(p.getHand().size() == 4));
+                // playing the hand with diffenrent rank
+                cards.addAll(p.getHand());
                 
+                if (!verifyHand(cards)){
+                    instance.turn(cards);
+                    //He's playing different ranks
+                    assertTrue(instance.getStack().isEmpty());
+                }
+                
+		instance = new Danish();
+		instance.setPlayers(names);
+                
+                /*cards.clear();
+                p = instance.getPlayers().get(instance.getCurrentPlayer());
                 cards.add(p.getHand().get(0));
-                //p1
                 instance.turn(cards);
-                //assertTrue((instance.getStack().isEmpty())&&(p.getHand().size() == 4));
+                cards.clear();
+                p = instance.getPlayers().get(instance.getCurrentPlayer());
+                cards.add(p.getHand().get(0));
                 
+                while(instance.getRankStack().placeable(cards.get(0).getRank())){
+                    instance.turn(cards);
+                    p = instance.getPlayers().get(instance.getCurrentPlayer());
+                    cards.clear();
+                    cards.add(p.getHand().get(0));
+                }
+                stacksize = instance.getStack().size();
+                instance.turn(cards);
+                System.out.println(cards.get(0));
+                assertTrue(instance.getStack().size() == stacksize);*/
                 
 	}
 
@@ -276,13 +333,13 @@ public class DanishTest{
 	 */
 	@Test
 	public void testTurn_List_int(){
-		System.out.println( "turn" );
+		/*System.out.println( "turn" );
 		List<Card> cards = null;
 		int player = 0;
 		Danish instance = new Danish();
 		instance.turn( cards, player );
 		// TODO review the generated test code and remove the default call to fail.
-		fail( "The test case is a prototype." );
+		fail( "The test case is a prototype." );*/
 	}
 
 	/**
@@ -338,4 +395,21 @@ public class DanishTest{
 		assertTrue( p.getHand().contains( visible ) );
 		assertTrue( p.getVisible().contains( hand ) );
 	}
+        
+        private boolean verifyAceOrTen(List<Card> stack, ArrayList<Card> cards){
+            return cards.get(0).getRank() == Rank.ACE 
+                        || stack.isEmpty() && cards.get(0).getRank() == Rank.TEN;
+            
+        }
+        private boolean verifyHand(List<Card> hand){
+            Rank rank = null;
+            for (Card c : hand) {
+                if (rank == null) {
+                        rank = c.getRank();
+                } else if (c.getRank() != rank) { // He's playing different ranks
+                        return false;
+                }
+            }
+            return true;
+        }
 }
