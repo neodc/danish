@@ -10,9 +10,9 @@ public enum Suit {
 	HEART, DIAMOND, CLUB, SPADE;
 
 	/**
-	 * A textual representation of the suit
+	 * A textual representation of the suit.
 	 *
-	 * @return The textual representation of the suit
+	 * @return The textual representation of the suit.
 	 */
 	@Override
 	public String toString() {

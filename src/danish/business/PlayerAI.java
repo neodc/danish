@@ -5,6 +5,7 @@ import java.util.List;
 
 /**
  * The class representing a non-human Player.
+ * The player is controlled by an artificial intelligence.
  *
  * @author Noé, Julien, Loup.
  */
@@ -13,9 +14,9 @@ public class PlayerAI extends Player {
 	private final Danish danish;
 
 	/**
-	 * Player constructor with one parameter.
+	 * PlayerAI constructor with one parameter.
 	 *
-	 * @param danish The danish where the AI is playing.
+	 * @param danish The danish the AI is playing in.
 	 */
 	public PlayerAI(Danish danish) {
 		super("AI");
@@ -23,7 +24,8 @@ public class PlayerAI extends Player {
 	}
 
 	/**
-	 * Play a turn of the AI.
+	 * plays a turn of the AI.
+	 * It will play the least powerful cards he can.
 	 */
 	public void play() {
 		List<Card> cards = new ArrayList<>();

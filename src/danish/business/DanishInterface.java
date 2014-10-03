@@ -3,7 +3,7 @@ package danish.business;
 import java.util.List;
 
 /**
- * The interface for a danish game.
+ * The interface for a Danish game.
  *
  * @author Noé, Julien, Loup.
  */

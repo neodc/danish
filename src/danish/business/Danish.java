@@ -13,11 +13,11 @@ import java.util.List;
  */
 public class Danish implements DanishInterface {
 
-	List<Player> players;
+	private List<Player> players;
 
-	LinkedList<Card> deck;
-	LinkedList<Card> stack;
-	LinkedList<Card> graveyard;
+	private LinkedList<Card> deck;
+	private LinkedList<Card> stack;
+	private LinkedList<Card> graveyard;
 
 	boolean playing;
 	int currentPlayer;
@@ -84,7 +84,7 @@ public class Danish implements DanishInterface {
 	/**
 	 * Tells if the game has begun.
 	 *
-	 * @return true, if the game has begun.
+	 * @return true if the game has begun, false otherwise.
 	 */
 	@Override
 	public boolean isPlaying() {
@@ -103,6 +103,7 @@ public class Danish implements DanishInterface {
 
 	/**
 	 * Creates the list of players and deals their cards.
+	 * Any null name will create an AI player.
 	 *
 	 * @param names The name of the players.
 	 */
@@ -135,8 +136,9 @@ public class Danish implements DanishInterface {
 
 	/**
 	 * Makes the match begin.
+	 * It cannot begin if the player list is null or if there is a winner.
 	 *
-	 * @return true, if the match has begun.
+	 * @return true if the match has successfully begun, false otherwise.
 	 */
 	@Override
 	public boolean begin() {
@@ -148,18 +150,19 @@ public class Danish implements DanishInterface {
 
 	/**
 	 * Resolves a turn.
+	 * It will check if the cards are valid and will change the current player if the turn has been played without problem.
 	 *
 	 * @param cards The cards to be played.
 	 */
 	@Override
 	public void turn(List<Card> cards) {
 
-		if (cards.isEmpty()) { // il prend
+		if (cards.isEmpty()) { // The player takes because he doesn't play anything
 			take(playing());
 			return;
 		}
 
-		if (!playing().getHand().containsAll(cards)) { // on joue des carte que l'on a pas
+		if (!playing().getHand().containsAll(cards)) { // He plays cards he doesn't have
 			return;
 		}
 
@@ -168,20 +171,20 @@ public class Danish implements DanishInterface {
 		for (Card c : cards) {
 			if (rank == null) {
 				rank = c.getRank();
-			} else if (c.getRank() != rank) { // différent rank
+			} else if (c.getRank() != rank) { // He's playing different ranks
 				return;
 			}
 		}
 
-		if (rank == Rank.ACE) { // devrait indiquer qui il attaque
+		if (rank == Rank.ACE) { // He should declare who he's attacking
 			return;
 		}
 
-		if (!stack.isEmpty() && !getRankStack().placeable(rank)) { // carte non jouable
+		if (!stack.isEmpty() && !getRankStack().placeable(rank)) { // Unplayable cards
 			return;
 		}
 
-		// fin des test => on effectue
+		// End of tests => The turn is now resolved
 		playing().getHand().removeAll(cards);
 
 		stack.addAll(cards);
@@ -209,8 +212,8 @@ public class Danish implements DanishInterface {
 	@Override
 	public void turn(List<Card> cards, int player) {
 
-		if (cards.isEmpty() || !playing().getHand().containsAll(cards)) { // on ne joue pas de carte ou on joue des carte que l'on a pas
-			return;
+		if (cards.isEmpty() || !playing().getHand().containsAll(cards)) {	// The player's playing nothing
+			return;															// or cards he doesn't have
 		}
 
 		Rank rank = null;
@@ -218,20 +221,20 @@ public class Danish implements DanishInterface {
 		for (Card c : cards) {
 			if (rank == null) {
 				rank = c.getRank();
-			} else if (c.getRank() != rank) { // différent rank
+			} else if (c.getRank() != rank) { // Different ranks
 				return;
 			}
 		}
 
-		if (rank != Rank.ACE && (rank != Rank.THREE || getRankStack() != Rank.ACE)) { // soit on joue un as soit on en copie un
-			return;
+		if (rank != Rank.ACE && (rank != Rank.THREE || getRankStack() != Rank.ACE)) {	// He doesn't play an ACE
+			return;																		// or a THREE above an ACE
 		}
 
-		if (player < 0 || player >= players.size() || player == currentPlayer) { // player invalide ou actuel
-			return;
+		if (player < 0 || player >= players.size() || player == currentPlayer) {	// He attacks himself
+			return;																	// or a non-existing player
 		}
 
-		// fin des test => on effectue
+		// End of tests => The turn is now resolved
 		playing().getHand().removeAll(cards);
 
 		stack.addAll(cards);
@@ -274,9 +277,9 @@ public class Danish implements DanishInterface {
 	}
 
 	/**
-	 * Check the rank of the stack.
+	 * Checks the rank of the last card of the stack.
 	 *
-	 * @return The rank of the stack.
+	 * @return The rank of the last card of the stack.
 	 */
 	@Override
 	public Rank getRankStack() {
