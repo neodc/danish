@@ -231,11 +231,44 @@ public class DanishTest{
 	@Test
 	public void testTurn_List(){
 		System.out.println( "turn" );
-		List<Card> cards = null;
+                Player p;
+                int stacksize = 0;
+		ArrayList<Card> cards = new ArrayList<>();
+		ArrayList<String> names = new ArrayList<>();
 		Danish instance = new Danish();
-		instance.turn( cards );
-		// TODO review the generated test code and remove the default call to fail.
-		fail( "The test case is a prototype." );
+		names.add("test1");
+		names.add("test2");
+		instance.setPlayers(names);
+                instance.begin();
+                p = instance.getPlayers().get(instance.getCurrentPlayer());
+                cards.add(p.getHand().get(0));
+                //p1 hand size = 3
+                System.out.println(cards.get(0));
+                
+                stacksize = instance.getStack().size();
+                instance.turn(cards);
+                //p1 hand size = 2
+                assertTrue(instance.getStack().size() == stacksize + 1 
+                        || cards.get(0).getRank() == Rank.ACE 
+                        || instance.getStack().isEmpty() && cards.get(0).getRank() == Rank.TEN);
+                if (cards.get(0).getRank() == Rank.ACE){
+                    instance.turn(cards, 1);
+                }
+                cards = new ArrayList<>();
+                
+                p = instance.getPlayers().get(instance.getCurrentPlayer());
+                //p2 hand size = 3
+                instance.turn(cards);
+                //p2 hand size = 4
+                
+                assertTrue((instance.getStack().isEmpty())&&(p.getHand().size() == 4));
+                
+                cards.add(p.getHand().get(0));
+                //p1
+                instance.turn(cards);
+                //assertTrue((instance.getStack().isEmpty())&&(p.getHand().size() == 4));
+                
+                
 	}
 
 	/**
