@@ -255,7 +255,7 @@ public class DanishTest{
 		assertTrue( !( p.getHand().contains( cards.get( 0 ) ) )
 				|| cards.get( 0 ).getRank() == Rank.ACE );
 
-                //test the fact that the stack isn't affected when an 
+		//test the fact that the stack isn't affected when an 
 		//ACE is played
 		if( cards.get( 0 ).getRank() == Rank.ACE ){
 			assertFalse( instance.getStack().contains( cards.get( 0 ) ) );
@@ -270,8 +270,7 @@ public class DanishTest{
 
 		instance.turn( cards );
 
-		assertTrue( ( instance.getStack().isEmpty() ) && ( p.getHand().size()
-														  == playerHandSize + stacksize ) );
+		assertTrue( ( instance.getStack().isEmpty() ) && ( p.getHand().size() == playerHandSize + stacksize ) );
 
 		instance = new Danish();
 		instance.setPlayers( names );
@@ -285,8 +284,7 @@ public class DanishTest{
 		instance.turn( cards );
 		assertTrue( instance.getStack().size() == stacksize + cards.size()
 				|| verifyAceOrTen( instance.getStack(), cards, stacksize ) );
-                //test the play with card we don't have (we are playing 
-		//the same cards than before)
+		//test the play with card we don't have (we are playing the same cards than before)
 		instance.turn( cards );
 		assertTrue( instance.getStack().size() == stacksize + cards.size()
 				|| verifyAceOrTen( instance.getStack(), cards, stacksize ) );
@@ -343,13 +341,12 @@ public class DanishTest{
 			cards.clear();
 			cards.add( p.getHand().get( 0 ) );
 			Player nextP = instance.getPlayers().get( ( instance.getCurrentPlayer() + 1 ) % names.size() );
-                    // if the card is not playable, or if the next player have a eight,
-			// we take the stack
+            // if the card is not playable, or if the next player have a eight, we take the stack
 			if( !( instance.getRankStack().placeable( cards.get( 0 ).getRank() ) )
 					|| ( nextP.getHand().contains( diamond )
-						|| nextP.getHand().contains( spade )
-						|| nextP.getHand().contains( club )
-						|| nextP.getHand().contains( heart ) ) ){
+					|| nextP.getHand().contains( spade )
+					|| nextP.getHand().contains( club )
+					|| nextP.getHand().contains( heart ) ) ){
 				cards.clear();
 				instance.turn( cards );
 			}else if( cards.get( 0 ).getRank() == Rank.ACE ){
@@ -428,7 +425,7 @@ public class DanishTest{
 		stacksize = instance.getStack().size();
 		currentP = instance.getCurrentPlayer();
 
-                //test the attack with card we don't have (we are playing 
+        //test the attack with card we don't have (we are playing 
 		//the same cards than before)
 		instance.turn( cards, nextP );
 		assertTrue( ( instance.getStack().size() == stacksize )
@@ -445,7 +442,7 @@ public class DanishTest{
 		cards.addAll( p.getHand() );
 		instance.turn( cards, nextP );
 
-		//He's playing different ranks
+		// He's playing different ranks
 		if( !verifyHand( cards ) ){
 			assertTrue( instance.getStack().isEmpty() );
 		}
@@ -468,7 +465,7 @@ public class DanishTest{
 		nextP = ( instance.getCurrentPlayer() + 1 ) % names.size();
 		cards.add( p.getHand().get( 0 ) );
 
-		//attack the next player while we have ACE or THREE over ACE
+		// attack the next player while we have ACE or THREE over ACE
 		while( cards.get( 0 ).getRank() == Rank.ACE
 				|| ( cards.get( 0 ).getRank() == Rank.THREE
 					&& instance.getRankStack() == Rank.ACE ) ){
@@ -478,8 +475,7 @@ public class DanishTest{
 			cards.clear();
 			cards.add( p.getHand().get( 0 ) );
 		}
-                //attack the next player with no ACE or THREE over ACE (else it 
-		//would still be in the while)
+        // attack the next player with no ACE or THREE over ACE (else it would still be in the while)
 		playerHandSize = p.getHand().size();
 		stacksize = instance.getStack().size();
 		currentP = instance.getCurrentPlayer();
@@ -488,7 +484,7 @@ public class DanishTest{
 				&& ( p.getHand().size() == playerHandSize )
 				&& currentP == instance.getCurrentPlayer() );
 
-		//play while we don't have a ACE or a THREE over ACE
+		// play while we don't have a ACE or a THREE over ACE
 		while( cards.get( 0 ).getRank() != Rank.ACE
 				&& ( cards.get( 0 ).getRank() != Rank.THREE
 					|| instance.getRankStack() != Rank.ACE ) ){
@@ -507,12 +503,12 @@ public class DanishTest{
 		stacksize = instance.getStack().size();
 		currentP = instance.getCurrentPlayer();
 
-		//attack himself
+		// attack himself
 		instance.turn( cards, instance.getCurrentPlayer() );
 		assertTrue( ( instance.getStack().size() == stacksize )
 				&& ( p.getHand().size() == playerHandSize )
 				&& currentP == instance.getCurrentPlayer() );
-		//attack invalid player
+		// attack invalid player
 		instance.turn( cards, -1 );
 		assertTrue( ( instance.getStack().size() == stacksize )
 				&& ( p.getHand().size() == playerHandSize )
@@ -522,7 +518,7 @@ public class DanishTest{
 				&& ( p.getHand().size() == playerHandSize )
 				&& currentP == instance.getCurrentPlayer() );
 
-		//attack correct player
+		// attack correct player
 		nextP = ( instance.getCurrentPlayer() + 2 ) % names.size();
 		instance.turn( cards, nextP );
 
