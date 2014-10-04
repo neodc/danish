@@ -24,6 +24,15 @@ public class Danish implements DanishInterface {
 	Player winner;
 
 	/**
+	 * Getter of the winner.
+	 * 
+	 * @return The winner, null if not over.
+	 */
+	public Player getWinner(){
+		return winner;
+	}
+
+	/**
 	 * Danish constructor without parameter.
 	 */
 	public Danish() {
