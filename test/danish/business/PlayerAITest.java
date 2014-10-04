@@ -44,15 +44,4 @@ public class PlayerAITest{
 		assertFalse( instance.isPlaying() );
 		
 	}
-	
-	@Test
-	public void testPlayMax(){
-		
-		for(int i = 0; i < 1000; ++i){
-			testPlay();
-		}
-		
-		assertTrue( true );
-	}
-	
 }
