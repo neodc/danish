@@ -41,7 +41,7 @@ public class PlayerAI extends Player {
 			}
 		}
 
-		if (cards.get(0).getRank() == Rank.ACE) {
+		if (cards.get(0).getRank() == Rank.ACE || cards.get(0).getRank() == Rank.THREE && danish.getRankStack() == Rank.ACE) {
 			Player player = null;
 			Player oPlayer;
 			int i;
