@@ -18,45 +18,14 @@ public class RankTest{
 	}
 
 	/**
-	 * Test of values method, of class Rank.
-	 */
-	@Test
-	public void testValues(){
-		System.out.println( "values" );
-		
-		Rank[] expResult = null;
-		Rank[] result = Rank.values();
-		assertArrayEquals( expResult, result );
-		// TODO review the generated test code and remove the default call to fail.
-		fail( "The test case is a prototype." );
-	}
-
-	/**
-	 * Test of valueOf method, of class Rank.
-	 */
-	@Test
-	public void testValueOf(){
-		System.out.println( "valueOf" );
-		String name = "";
-		Rank expResult = null;
-		Rank result = Rank.valueOf( name );
-		assertEquals( expResult, result );
-		// TODO review the generated test code and remove the default call to fail.
-		fail( "The test case is a prototype." );
-	}
-
-	/**
 	 * Test of getValue method, of class Rank.
 	 */
 	@Test
 	public void testGetValue(){
 		System.out.println( "getValue" );
-		Rank instance = null;
-		int expResult = 0;
-		int result = instance.getValue();
-		assertEquals( expResult, result );
-		// TODO review the generated test code and remove the default call to fail.
-		fail( "The test case is a prototype." );
+		
+		assertEquals( 2, Rank.TWO.getValue() );
+		assertEquals( 14, Rank.ACE.getValue() );
 	}
 
 	/**
@@ -65,12 +34,9 @@ public class RankTest{
 	@Test
 	public void testGetDisplay(){
 		System.out.println( "getDisplay" );
-		Rank instance = null;
-		String expResult = "";
-		String result = instance.getDisplay();
-		assertEquals( expResult, result );
-		// TODO review the generated test code and remove the default call to fail.
-		fail( "The test case is a prototype." );
+		
+		assertEquals( "Two", Rank.TWO.getDisplay() );
+		assertEquals( "Ace", Rank.ACE.getDisplay() );
 	}
 
 	/**
@@ -79,13 +45,12 @@ public class RankTest{
 	@Test
 	public void testPlaceable(){
 		System.out.println( "placeable" );
-		Rank r = null;
-		Rank instance = null;
-		boolean expResult = false;
-		boolean result = instance.placeable( r );
-		assertEquals( expResult, result );
-		// TODO review the generated test code and remove the default call to fail.
-		fail( "The test case is a prototype." );
+		
+		assertTrue( Rank.NINE.placeable( Rank.TEN ) );
+		assertTrue( Rank.NINE.placeable( Rank.TWO ) );
+		assertTrue( Rank.SEVEN.placeable( Rank.FOUR ) );
+		assertTrue( Rank.SEVEN.placeable( Rank.TEN ) );
+		assertFalse(Rank.SEVEN.placeable( Rank.JACK ) );
 	}
 
 	/**
@@ -94,12 +59,12 @@ public class RankTest{
 	@Test
 	public void testIsJoker(){
 		System.out.println( "isJoker" );
-		Rank instance = null;
-		boolean expResult = false;
-		boolean result = instance.isJoker();
-		assertEquals( expResult, result );
-		// TODO review the generated test code and remove the default call to fail.
-		fail( "The test case is a prototype." );
+		
+		assertTrue( Rank.ACE.isJoker() );
+		assertTrue( Rank.TWO.isJoker() );
+		assertTrue( Rank.THREE.isJoker() );
+		assertTrue( Rank.TEN.isJoker() );
+		assertFalse(Rank.EIGHT.isJoker() );
 	}
 
 	/**
@@ -108,12 +73,9 @@ public class RankTest{
 	@Test
 	public void testToString(){
 		System.out.println( "toString" );
-		Rank instance = null;
-		String expResult = "";
-		String result = instance.toString();
-		assertEquals( expResult, result );
-		// TODO review the generated test code and remove the default call to fail.
-		fail( "The test case is a prototype." );
+		
+		assertEquals( "Two", Rank.TWO.toString() );
+		assertEquals( "Ace", Rank.ACE.toString() );
 	}
 	
 }

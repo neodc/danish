@@ -18,44 +18,16 @@ public class SuitTest{
 	}
 
 	/**
-	 * Test of values method, of class Suit.
-	 */
-	@Test
-	public void testValues(){
-		System.out.println( "values" );
-		Suit[] expResult = null;
-		Suit[] result = Suit.values();
-		assertArrayEquals( expResult, result );
-		// TODO review the generated test code and remove the default call to fail.
-		fail( "The test case is a prototype." );
-	}
-
-	/**
-	 * Test of valueOf method, of class Suit.
-	 */
-	@Test
-	public void testValueOf(){
-		System.out.println( "valueOf" );
-		String name = "";
-		Suit expResult = null;
-		Suit result = Suit.valueOf( name );
-		assertEquals( expResult, result );
-		// TODO review the generated test code and remove the default call to fail.
-		fail( "The test case is a prototype." );
-	}
-
-	/**
 	 * Test of toString method, of class Suit.
 	 */
 	@Test
 	public void testToString(){
 		System.out.println( "toString" );
-		Suit instance = null;
-		String expResult = "";
-		String result = instance.toString();
-		assertEquals( expResult, result );
-		// TODO review the generated test code and remove the default call to fail.
-		fail( "The test case is a prototype." );
+		
+		assertEquals( "Heart", Suit.HEART.toString() );
+		assertEquals( "Diamond", Suit.DIAMOND.toString() );
+		assertEquals( "Club", Suit.CLUB.toString() );
+		assertEquals( "Spade", Suit.SPADE.toString() );
 	}
 	
 }

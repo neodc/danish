@@ -60,7 +60,7 @@ public enum Rank {
 	 * @return true if the card is placeable, false otherwise.
 	 */
 	public boolean placeable(Rank r) {
-		return r.isJoker() || (this == SEVEN && r.value <= this.value) || r.value >= this.value;
+		return r.isJoker() || (this == SEVEN && r.value <= this.value) || (this != SEVEN && r.value >= this.value);
 	}
 
 	/**
