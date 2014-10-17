@@ -11,6 +11,7 @@ public class Card implements Comparable {
 
 	private final Rank rank;
 	private final Suit suit;
+	private Card next;
 
 	/**
 	 * Card constructor with two parameters.
@@ -21,6 +22,7 @@ public class Card implements Comparable {
 	public Card(Rank rank, Suit suit) {
 		this.rank = rank;
 		this.suit = suit;
+		this.next = null;
 	}
 
 	/**
@@ -117,5 +119,13 @@ public class Card implements Comparable {
 	@Override
 	public String toString() {
 		return rank + " of " + suit;
+	}
+
+	public Card getNext(){
+		return next;
+	}
+
+	public void setNext( Card next ){
+		this.next = next;
 	}
 }
