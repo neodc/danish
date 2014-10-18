@@ -33,6 +33,18 @@ public class Card implements Comparable {
 	public Rank getRank() {
 		return rank;
 	}
+	
+	public Rank getRealRank(){
+		if( this.rank != Rank.THREE ){
+			return this.getRank();
+		}
+		
+		if( this.next != null ){
+			return this.next.getRealRank();
+		}
+		
+		return Rank.TWO;
+	}
 
 	/**
 	 * Getter of the suit.
