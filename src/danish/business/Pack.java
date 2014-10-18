@@ -9,9 +9,11 @@ import java.util.Queue;
 public class Pack implements Queue<Card>{
 	
 	private Card head;
+	private int size;
 
 	public Pack(){
 		this.head = null;
+		this.size = 0;
 	}
 
 	@Override
@@ -31,6 +33,7 @@ public class Pack implements Queue<Card>{
 			head = c;
 		}
 		
+		++this.size;
 		return true;
 	}
 
@@ -50,15 +53,14 @@ public class Pack implements Queue<Card>{
 
 	@Override
 	public Card poll(){
-		
 		Card ret = this.head;
 		
 		if( head != null ){
 			this.head = head.getNext();
+			--this.size;
 		}
 		
 		return ret;
-		
 	}
 
 	@Override
@@ -75,12 +77,8 @@ public class Pack implements Queue<Card>{
 	}
 
 	@Override
-	public int size(){ // TODO : Pourais peut-être être géré par un attribut modifier lors de l'add/remove
-		int size = 0;
-		for( Card c : this ){
-			++size;
-		}
-		return size;
+	public int size(){
+		return this.size;
 	}
 
 	@Override
@@ -204,6 +202,7 @@ public class Pack implements Queue<Card>{
 	@Override
 	public void clear(){
 		this.head = null;
+		this.size = 0;
 	}
 
 }
