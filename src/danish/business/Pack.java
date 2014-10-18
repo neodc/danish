@@ -20,6 +20,29 @@ public class Pack implements Queue<Card>{
 		this.addAll(c);
 	}
 
+	public void pour( Pack source ){
+		
+		if( source.isEmpty() ){
+			return;
+		}
+		
+		if( this.isEmpty() ){
+			this.head = source.head;
+		}else{
+			Iterator<Card> i = this.iterator();
+
+			Card c = i.next();
+
+			while( i.hasNext() ){
+				c = i.next();
+			}
+			
+			c.setNext( source.head );
+		}
+		
+		source.clear();
+	}
+	
 	@Override
 	public boolean add( Card c ){
 		if( c == null ){

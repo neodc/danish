@@ -345,8 +345,7 @@ public class Danish implements DanishInterface {
 			}
 
 			if (r == Rank.TEN || ++cpt == 4) {
-				graveyard.addAll(stack);
-				stack.clear();
+				graveyard.pour(stack);
 
 				return true;
 			}
