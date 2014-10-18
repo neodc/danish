@@ -15,9 +15,9 @@ public class Danish implements DanishInterface {
 
 	private List<Player> players;
 
-	private LinkedList<Card> deck;
-	private LinkedList<Card> stack;
-	private LinkedList<Card> graveyard;
+	private Pack deck;
+	private Pack stack;
+	private Pack graveyard;
 
 	boolean playing;
 	int currentPlayer;
@@ -39,8 +39,8 @@ public class Danish implements DanishInterface {
 		players = null;
 
 		this.initDeck();
-		stack = new LinkedList<>();
-		graveyard = new LinkedList<>();
+		stack = new Pack();
+		graveyard = new Pack();
 
 		playing = false;
 		currentPlayer = 0;
@@ -296,7 +296,7 @@ public class Danish implements DanishInterface {
 			return Rank.TWO;
 		}
 
-		Iterator<Card> i = stack.descendingIterator();
+		Iterator<Card> i = stack.iterator();
 		Rank r = null;
 
 		while (i.hasNext() && (r = i.next().getRank()) == Rank.THREE) {
@@ -306,15 +306,17 @@ public class Danish implements DanishInterface {
 	}
 
 	private void initDeck() {
-		deck = new LinkedList<>();
+		ArrayList<Card> list = new ArrayList<>();
 
 		for (Suit s : Suit.values()) {
 			for (Rank r : Rank.values()) {
-				deck.add(new Card(r, s));
+				list.add(new Card(r, s));
 			}
 		}
 
-		Collections.shuffle(deck);
+		Collections.shuffle(list);
+		
+		deck = new Pack(list);
 	}
 
 	private Player playing() {
@@ -328,7 +330,7 @@ public class Danish implements DanishInterface {
 	}
 
 	private boolean doesCut() {
-		Iterator<Card> i = stack.descendingIterator();
+		Iterator<Card> i = stack.iterator();
 		Rank r = null;
 		Rank ir;
 		int cpt = 0;
