@@ -30,11 +30,13 @@ public class Pack implements Queue<Card>{
 			throw new ClassCastException();
 		}
 		
+		Card card = new Card( c.getRank(), c.getSuit() );
+		
 		if( head == null ){
-			head = c;
+			head = card;
 		}else{
-			c.setNext( head );
-			head = c;
+			card.setNext( head );
+			head = card;
 		}
 		
 		++this.size;
