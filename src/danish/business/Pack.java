@@ -15,6 +15,10 @@ public class Pack implements Queue<Card>{
 		this.head = null;
 		this.size = 0;
 	}
+	
+	public Pack(Collection<? extends Card> c){
+		this.addAll(c);
+	}
 
 	@Override
 	public boolean add( Card c ){
