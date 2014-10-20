@@ -235,7 +235,7 @@ public class Pack implements Queue<Card>{
 	}
 	
 	@Override
-	public Pack clone() throws CloneNotSupportedException{
+	public Pack clone(){
 		Pack p = new Pack();
 		
 		if (head != null) {
