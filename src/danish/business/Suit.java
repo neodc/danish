@@ -17,6 +17,10 @@ public enum Suit {
 	private Suit(String display) {
 		this.display = display;
 	}
+
+	public String getDisplay() {
+		return display;
+	}
 	
 	/**
 	 * A textual representation of the suit.
