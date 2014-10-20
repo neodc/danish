@@ -233,5 +233,15 @@ public class Pack implements Queue<Card>{
 		this.head = null;
 		this.size = 0;
 	}
-
+	
+	@Override
+	public Pack clone() throws CloneNotSupportedException{
+		Pack p = new Pack();
+		
+		if (head != null) {
+			p.head = head.clone();
+		}
+		
+		return p;
+	}
 }

@@ -140,4 +140,15 @@ public class Card implements Comparable {
 	public void setNext( Card next ){
 		this.next = next;
 	}
+	
+	@Override
+	public Card clone(){
+		Card c = new Card(this.rank, this.suit);
+		
+		if (this.next != null){
+			c.setNext(next.clone());
+		}
+		
+		return c;
+	}
 }
