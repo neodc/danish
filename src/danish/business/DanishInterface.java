@@ -1,6 +1,7 @@
 package danish.business;
 
 import java.util.List;
+import sun.misc.Queue;
 
 /**
  * The interface for a Danish game.
@@ -21,21 +22,21 @@ public interface DanishInterface{
 	 *
 	 * @return The deck.
 	 */
-	public List<Card> getDeck();
+	public Pack getDeck();
 
 	/**
 	 * Getter of the stack, the played cards of one trick.
 	 *
 	 * @return The stack.
 	 */
-	public List<Card> getStack();
+	public Pack getStack();
 
 	/**
 	 * Getter of the graveyard, the cards that have been removed from play.
 	 *
 	 * @return The graveyard.
 	 */
-	public List<Card> getGraveyard();
+	public Pack getGraveyard();
 
 	/**
 	 * Tells if the game has begun.

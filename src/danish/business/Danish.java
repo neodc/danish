@@ -5,6 +5,7 @@ import java.util.Collections;
 import java.util.Iterator;
 import java.util.LinkedList;
 import java.util.List;
+import sun.misc.Queue;
 
 /**
  * The class representing the whole Danish game.
@@ -66,8 +67,8 @@ public class Danish implements DanishInterface {
 	 * @return The deck.
 	 */
 	@Override
-	public List<Card> getDeck() {
-		return new ArrayList<>(deck);
+	public Pack getDeck() {
+		return deck.clone();
 	}
 
 	/**
@@ -76,8 +77,8 @@ public class Danish implements DanishInterface {
 	 * @return The stack.
 	 */
 	@Override
-	public List<Card> getStack() {
-		return new ArrayList<>(stack);
+	public Pack getStack() {
+		return stack.clone();
 	}
 
 	/**
@@ -86,8 +87,8 @@ public class Danish implements DanishInterface {
 	 * @return The graveyard.
 	 */
 	@Override
-	public List<Card> getGraveyard() {
-		return new ArrayList<>(graveyard);
+	public Pack getGraveyard() {
+		return graveyard.clone();
 	}
 
 	/**
