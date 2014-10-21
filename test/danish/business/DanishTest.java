@@ -83,7 +83,7 @@ public class DanishTest{
 		System.out.println( "getDeck" );
 		Danish instance = new Danish();
 
-		List<Card> result = instance.getDeck();
+		Pack result = instance.getDeck();
 
 		for( Suit s : Suit.values() ){
 			for( Rank r : Rank.values() ){
@@ -581,7 +581,7 @@ public class DanishTest{
 		assertTrue( p.getVisible().contains( hand ) );
 	}
 
-	private boolean verifyAceOrTen( List<Card> stack, ArrayList<Card> cards, int stacksize ){
+	private boolean verifyAceOrTen(Pack stack, ArrayList<Card> cards, int stacksize ){
 		return stacksize == stack.size() && cards.get( 0 ).getRank() == Rank.ACE
 				|| stack.isEmpty() && cards.get( 0 ).getRank() == Rank.TEN;
 

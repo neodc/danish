@@ -40,6 +40,8 @@ public class Pack implements Queue<Card>{
 			c.setNext( source.head );
 		}
 		
+		this.size += source.size;
+		
 		source.clear();
 	}
 	
@@ -240,6 +242,7 @@ public class Pack implements Queue<Card>{
 		
 		if (head != null) {
 			p.head = head.clone();
+			p.size = this.size;
 		}
 		
 		return p;
