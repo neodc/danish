@@ -6,21 +6,21 @@ import java.util.Iterator;
 import java.util.NoSuchElementException;
 import java.util.Queue;
 
-public class Pack implements Queue<Card>{
+public class CardPack implements Queue<Card>{
 	
 	private Card head;
 	private int size;
 
-	public Pack(){
+	public CardPack(){
 		this.head = null;
 		this.size = 0;
 	}
 	
-	public Pack(Collection<? extends Card> c){
+	public CardPack(Collection<? extends Card> c){
 		this.addAll(c);
 	}
 
-	public void pour( Pack source ){
+	public void pour( CardPack source ){
 		
 		if( source.isEmpty() ){
 			return;
@@ -237,8 +237,8 @@ public class Pack implements Queue<Card>{
 	}
 	
 	@Override
-	public Pack clone(){
-		Pack p = new Pack();
+	public CardPack clone(){
+		CardPack p = new CardPack();
 		
 		if (head != null) {
 			p.head = head.clone();

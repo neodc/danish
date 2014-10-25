@@ -16,9 +16,9 @@ public class Danish implements DanishInterface {
 
 	private List<Player> players;
 
-	private Pack deck;
-	private Pack stack;
-	private Pack graveyard;
+	private CardPack deck;
+	private CardPack stack;
+	private CardPack graveyard;
 
 	boolean playing;
 	int currentPlayer;
@@ -40,8 +40,8 @@ public class Danish implements DanishInterface {
 		players = null;
 
 		this.initDeck();
-		stack = new Pack();
-		graveyard = new Pack();
+		stack = new CardPack();
+		graveyard = new CardPack();
 
 		playing = false;
 		currentPlayer = 0;
@@ -67,7 +67,7 @@ public class Danish implements DanishInterface {
 	 * @return The deck.
 	 */
 	@Override
-	public Pack getDeck() {
+	public CardPack getDeck() {
 		return deck.clone();
 	}
 
@@ -77,7 +77,7 @@ public class Danish implements DanishInterface {
 	 * @return The stack.
 	 */
 	@Override
-	public Pack getStack() {
+	public CardPack getStack() {
 		return stack.clone();
 	}
 
@@ -87,7 +87,7 @@ public class Danish implements DanishInterface {
 	 * @return The graveyard.
 	 */
 	@Override
-	public Pack getGraveyard() {
+	public CardPack getGraveyard() {
 		return graveyard.clone();
 	}
 
@@ -317,7 +317,7 @@ public class Danish implements DanishInterface {
 
 		Collections.shuffle(list);
 		
-		deck = new Pack(list);
+		deck = new CardPack(list);
 	}
 
 	private Player playing() {

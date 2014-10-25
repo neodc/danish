@@ -22,21 +22,21 @@ public interface DanishInterface{
 	 *
 	 * @return The deck.
 	 */
-	public Pack getDeck();
+	public CardPack getDeck();
 
 	/**
 	 * Getter of the stack, the played cards of one trick.
 	 *
 	 * @return The stack.
 	 */
-	public Pack getStack();
+	public CardPack getStack();
 
 	/**
 	 * Getter of the graveyard, the cards that have been removed from play.
 	 *
 	 * @return The graveyard.
 	 */
-	public Pack getGraveyard();
+	public CardPack getGraveyard();
 
 	/**
 	 * Tells if the game has begun.
