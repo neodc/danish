@@ -56,7 +56,7 @@ public class CardDanish extends Card implements Comparable {
 		return this.getPower() - ((CardDanish) o).getPower();
 	}
 	
-	public int getPower(){
+	private int getPower(){
 		int power = this.getRank().getValue();
 		
 		switch (this.getRank()) {

@@ -21,7 +21,7 @@ public class Player {
 	 *
 	 * @param name The player's name.
 	 */
-	public Player(String name) {
+	Player(String name) {
 		this.name = name;
 
 		hand = new ArrayList<>();
@@ -35,7 +35,7 @@ public class Player {
 	 * @return The player's hand.
 	 */
 	public List<CardDanish> getHand() {
-		return hand;
+		return new ArrayList<>(hand);
 	}
 
 	/**
@@ -71,7 +71,7 @@ public class Player {
 	 * @param c The card to add.
 	 * @return If the card has been added.
 	 */
-	public boolean addVisible(CardDanish c) {
+	boolean addVisible(CardDanish c) {
 		if (visible.size() < 3) {
 			return visible.add(c);
 		}
@@ -84,7 +84,7 @@ public class Player {
 	 * @param c The card to add.
 	 * @return If the card has been added.
 	 */
-	public boolean addHidden(CardDanish c) {
+	boolean addHidden(CardDanish c) {
 		if (hidden.size() < 3) {
 			return hidden.add(c);
 		}
@@ -97,7 +97,7 @@ public class Player {
 	 * @param c The card to remove.
 	 * @return If the card has been removed.
 	 */
-	public boolean removeVisible(CardDanish c) {
+	boolean removeVisible(CardDanish c) {
 		return visible.remove(c);
 	}
 
@@ -107,7 +107,7 @@ public class Player {
 	 * @param c The card to remove.
 	 * @return If the card has been removed.
 	 */
-	public boolean removeHidden(CardDanish c) {
+	boolean removeHidden(CardDanish c) {
 		return hidden.remove(c);
 	}
 
@@ -117,7 +117,7 @@ public class Player {
 	 * @param visible The visible card to take in hand.
 	 * @param hand The card in hand to make visible.
 	 */
-	public void switchCard(CardDanish visible, CardDanish hand) {
+	void switchCard(CardDanish visible, CardDanish hand) {
 
 		int iVisible, iHand;
 
@@ -140,7 +140,7 @@ public class Player {
 	 *
 	 * @return If he has no card left.
 	 */
-	public boolean draw() {
+	boolean draw() {
 
 		if (!hand.isEmpty()) {
 		} else if (hand.addAll(visible)) {

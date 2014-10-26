@@ -1,11 +1,5 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package danish.business;
 
-import java.util.List;
 import org.junit.Test;
 import static org.junit.Assert.*;
 
@@ -29,10 +23,10 @@ public class PlayerTest{
 		CardDanish c = new CardDanish(Rank.TWO, Suit.CLUB );
 		
 		assertEquals( 0, p.getHand().size());
-		p.getHand().add(c);
+		p.hand.add(c);
 		assertEquals( 1, p.getHand().size());
 		assertEquals( c, p.getHand().get(0));
-		p.getHand().remove(c);
+		p.hand.remove(c);
 		assertEquals( 0, p.getHand().size());
 		
 	}
@@ -124,23 +118,23 @@ public class PlayerTest{
 		CardDanish c3 = new CardDanish(Rank.FOUR, Suit.CLUB );
 		CardDanish c4 = new CardDanish(Rank.FIVE, Suit.CLUB );
 		
-		assertEquals( 0, p.getVisible().size());
+		assertEquals( 0, p.visible.size());
 		p.addVisible(c1);
-		assertEquals( 1, p.getVisible().size());
+		assertEquals( 1, p.visible.size());
 		p.addVisible(c2);
-		assertEquals( 2, p.getVisible().size());
+		assertEquals( 2, p.visible.size());
 		p.addVisible(c3);
-		assertEquals( 3, p.getVisible().size());
+		assertEquals( 3, p.visible.size());
 		p.addVisible(c4);
-		assertEquals( 3, p.getVisible().size());
+		assertEquals( 3, p.visible.size());
 		
 		
 		p.removeVisible(c3);
-		assertEquals( 2, p.getVisible().size());
+		assertEquals( 2, p.visible.size());
 		p.removeVisible(c2);
-		assertEquals( 1, p.getVisible().size());
+		assertEquals( 1, p.visible.size());
 		p.removeVisible(c1);
-		assertEquals( 0, p.getVisible().size());
+		assertEquals( 0, p.visible.size());
 	}
 
 	/**
@@ -156,23 +150,23 @@ public class PlayerTest{
 		CardDanish c3 = new CardDanish(Rank.FOUR, Suit.CLUB );
 		CardDanish c4 = new CardDanish(Rank.FIVE, Suit.CLUB );
 		
-		assertEquals( 0, p.getHidden().size());
+		assertEquals( 0, p.hidden.size());
 		p.addHidden(c1);
-		assertEquals( 1, p.getHidden().size());
+		assertEquals( 1, p.hidden.size());
 		p.addHidden(c2);
-		assertEquals( 2, p.getHidden().size());
+		assertEquals( 2, p.hidden.size());
 		p.addHidden(c3);
-		assertEquals( 3, p.getHidden().size());
+		assertEquals( 3, p.hidden.size());
 		p.addHidden(c4);
-		assertEquals( 3, p.getHidden().size());
+		assertEquals( 3, p.hidden.size());
 		
 		
 		p.removeHidden(c3);
-		assertEquals( 2, p.getHidden().size());
+		assertEquals( 2, p.hidden.size());
 		p.removeHidden(c2);
-		assertEquals( 1, p.getHidden().size());
+		assertEquals( 1, p.hidden.size());
 		p.removeHidden(c1);
-		assertEquals( 0, p.getHidden().size());
+		assertEquals( 0, p.hidden.size());
 	}
 
 	/**
@@ -188,23 +182,23 @@ public class PlayerTest{
 		CardDanish c3 = new CardDanish(Rank.FOUR, Suit.CLUB );
 		CardDanish c4 = new CardDanish(Rank.FIVE, Suit.CLUB );
 		
-		assertEquals( 0, p.getVisible().size());
+		assertEquals( 0, p.visible.size());
 		p.addVisible(c1);
-		assertEquals( 1, p.getVisible().size());
+		assertEquals( 1, p.visible.size());
 		p.addVisible(c2);
-		assertEquals( 2, p.getVisible().size());
+		assertEquals( 2, p.visible.size());
 		p.addVisible(c3);
-		assertEquals( 3, p.getVisible().size());
+		assertEquals( 3, p.visible.size());
 		p.addVisible(c4);
-		assertEquals( 3, p.getVisible().size());
+		assertEquals( 3, p.visible.size());
 		
 		
 		p.removeVisible(c3);
-		assertEquals( 2, p.getVisible().size());
+		assertEquals( 2, p.visible.size());
 		p.removeVisible(c2);
-		assertEquals( 1, p.getVisible().size());
+		assertEquals( 1, p.visible.size());
 		p.removeVisible(c1);
-		assertEquals( 0, p.getVisible().size());
+		assertEquals( 0, p.visible.size());
 	}
 
 	/**
@@ -220,23 +214,23 @@ public class PlayerTest{
 		CardDanish c3 = new CardDanish(Rank.FOUR, Suit.CLUB );
 		CardDanish c4 = new CardDanish(Rank.FIVE, Suit.CLUB );
 		
-		assertEquals( 0, p.getHidden().size());
+		assertEquals( 0, p.hidden.size());
 		p.addHidden(c1);
-		assertEquals( 1, p.getHidden().size());
+		assertEquals( 1, p.hidden.size());
 		p.addHidden(c2);
-		assertEquals( 2, p.getHidden().size());
+		assertEquals( 2, p.hidden.size());
 		p.addHidden(c3);
-		assertEquals( 3, p.getHidden().size());
+		assertEquals( 3, p.hidden.size());
 		p.addHidden(c4);
-		assertEquals( 3, p.getHidden().size());
+		assertEquals( 3, p.hidden.size());
 		
 		
 		p.removeHidden(c3);
-		assertEquals( 2, p.getHidden().size());
+		assertEquals( 2, p.hidden.size());
 		p.removeHidden(c2);
-		assertEquals( 1, p.getHidden().size());
+		assertEquals( 1, p.hidden.size());
 		p.removeHidden(c1);
-		assertEquals( 0, p.getHidden().size());
+		assertEquals( 0, p.hidden.size());
 	}
 
 	/**
@@ -250,13 +244,13 @@ public class PlayerTest{
 		CardDanish v = new CardDanish(Rank.TWO, Suit.CLUB );
 		CardDanish h = new CardDanish(Rank.THREE, Suit.CLUB );
 		
-		p.getHand().add(h);
+		p.hand.add(h);
 		p.addVisible(v);
 		
 		p.switchCard(v, h);
 		
-		assertEquals( v, p.getHand().get(0));
-		assertEquals( h, p.getVisible().get(0));
+		assertEquals( v, p.hand.get(0));
+		assertEquals( h, p.visible.get(0));
 	}
 
 	/**
@@ -284,54 +278,54 @@ public class PlayerTest{
 		p.addVisible(v1);
 		p.addVisible(v2);
 		p.addVisible(v3);
-		p.getHand().add(h1);
-		p.getHand().add(h2);
-		p.getHand().add(h3);
+		p.hand.add(h1);
+		p.hand.add(h2);
+		p.hand.add(h3);
 		
-		assertEquals( 3, p.getHidden().size());
-		assertEquals( 3, p.getVisible().size());
-		assertEquals( 3, p.getHand().size());
+		assertEquals( 3, p.hidden.size());
+		assertEquals( 3, p.visible.size());
+		assertEquals( 3, p.hand.size());
 		
 		assertFalse( p.draw() );
 		
-		assertEquals( 3, p.getHidden().size());
-		assertEquals( 3, p.getVisible().size());
-		assertEquals( 3, p.getHand().size());
+		assertEquals( 3, p.hidden.size());
+		assertEquals( 3, p.visible.size());
+		assertEquals( 3, p.hand.size());
 		
-		p.getHand().clear();
+		p.hand.clear();
 		assertFalse( p.draw() );
 		
-		assertEquals( 3, p.getHidden().size());
-		assertEquals( 0, p.getVisible().size());
-		assertEquals( 3, p.getHand().size());
+		assertEquals( 3, p.hidden.size());
+		assertEquals( 0, p.visible.size());
+		assertEquals( 3, p.hand.size());
 		
-		p.getHand().clear();
+		p.hand.clear();
 		assertFalse( p.draw() );
 		
-		assertEquals( 2, p.getHidden().size());
-		assertEquals( 0, p.getVisible().size());
-		assertEquals( 1, p.getHand().size());
+		assertEquals( 2, p.hidden.size());
+		assertEquals( 0, p.visible.size());
+		assertEquals( 1, p.hand.size());
 		
-		p.getHand().clear();
+		p.hand.clear();
 		assertFalse( p.draw() );
 		
-		assertEquals( 1, p.getHidden().size());
-		assertEquals( 0, p.getVisible().size());
-		assertEquals( 1, p.getHand().size());
+		assertEquals( 1, p.hidden.size());
+		assertEquals( 0, p.visible.size());
+		assertEquals( 1, p.hand.size());
 		
-		p.getHand().clear();
+		p.hand.clear();
 		assertFalse( p.draw() );
 		
-		assertEquals( 0, p.getHidden().size());
-		assertEquals( 0, p.getVisible().size());
-		assertEquals( 1, p.getHand().size());
+		assertEquals( 0, p.hidden.size());
+		assertEquals( 0, p.visible.size());
+		assertEquals( 1, p.hand.size());
 		
-		p.getHand().clear();
+		p.hand.clear();
 		assertTrue(p.draw() );
 		
-		assertEquals( 0, p.getHidden().size());
-		assertEquals( 0, p.getVisible().size());
-		assertEquals( 0, p.getHand().size());
+		assertEquals( 0, p.hidden.size());
+		assertEquals( 0, p.visible.size());
+		assertEquals( 0, p.hand.size());
 	}
 	
 }

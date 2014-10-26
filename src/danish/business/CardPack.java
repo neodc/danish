@@ -54,6 +54,21 @@ public class CardPack implements Queue<CardDanish>{
 		source.clear();
 	}
 	
+	public int getNumberSimilarCard(){
+		if( this.isEmpty() ){
+			return 0;
+		}
+		int ret = 1;
+		CardDanish c = head;
+		
+		while( c.getNext() != null && c.getRank() == c.getNext().getRank() ){
+			++ret;
+			c = c.getNext();
+		}
+		
+		return ret;
+	}
+	
 	@Override
 	public boolean add( CardDanish c ){
 		if( c == null ){

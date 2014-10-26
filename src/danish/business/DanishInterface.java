@@ -1,7 +1,6 @@
 package danish.business;
 
 import java.util.List;
-import sun.misc.Queue;
 
 /**
  * The interface for a Danish game.
@@ -105,4 +104,6 @@ public interface DanishInterface{
 	 * @return The rank of the stack.
 	 */
 	public Rank getRankStack();
+	
+	public Player getPlaying();
 }

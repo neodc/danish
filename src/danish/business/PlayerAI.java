@@ -57,9 +57,9 @@ public class PlayerAI extends Player {
 				if (player == null) {
 					player = oPlayer;
 					iPlayer = i;
-				} else if (oPlayer.getHidden().size() < player.getHidden().size()
-						|| oPlayer.getVisible().size() < player.getVisible().size()
-						|| oPlayer.getHand().size() < player.getHand().size()) {
+				} else if (oPlayer.hidden.size() < player.hidden.size()
+						|| oPlayer.visible.size() < player.visible.size()
+						|| oPlayer.hand.size() < player.hand.size()) {
 					player = oPlayer;
 					iPlayer = i;
 				}
