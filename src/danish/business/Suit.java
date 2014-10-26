@@ -7,8 +7,21 @@ package danish.business;
  */
 public enum Suit {
 
-	HEART, DIAMOND, CLUB, SPADE;
+	HEART("Heart"),
+	DIAMOND("Diamond"),
+	CLUB("Club"),
+	SPADE("Spade");
+	
+	public final String display;
 
+	private Suit(String display) {
+		this.display = display;
+	}
+
+	public String getDisplay() {
+		return display;
+	}
+	
 	/**
 	 * A textual representation of the suit.
 	 *
@@ -16,21 +29,6 @@ public enum Suit {
 	 */
 	@Override
 	public String toString() {
-		String suit = null;
-		switch (this) {
-			case HEART:
-				suit = "Heart";
-				break;
-			case DIAMOND:
-				suit = "Diamond";
-				break;
-			case CLUB:
-				suit = "Club";
-				break;
-			case SPADE:
-				suit = "Spade";
-				break;
-		}
-		return suit;
+		return display;
 	}
 }
