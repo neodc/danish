@@ -87,7 +87,7 @@ public class DanishTest{
 
 		for( Suit s : Suit.values() ){
 			for( Rank r : Rank.values() ){
-				assertTrue( result.contains( new Card( r, s ) ) );
+				assertTrue( result.contains( new CardDanish( r, s ) ) );
 			}
 		}
 	}
@@ -234,7 +234,7 @@ public class DanishTest{
 		Player p;
 		int stacksize;
 		int playerHandSize;
-		ArrayList<Card> cards = new ArrayList<>();
+		ArrayList<CardDanish> cards = new ArrayList<>();
 		ArrayList<String> names = new ArrayList<>();
 		Danish instance = new Danish();
 		names.add( "test1" );
@@ -328,10 +328,10 @@ public class DanishTest{
 
 		instance = new Danish();
 		instance.setPlayers( names );
-		Card diamond = new Card( Rank.EIGHT, Suit.DIAMOND );
-		Card spade = new Card( Rank.EIGHT, Suit.SPADE );
-		Card club = new Card( Rank.EIGHT, Suit.CLUB );
-		Card heart = new Card( Rank.EIGHT, Suit.HEART );
+		CardDanish diamond = new CardDanish( Rank.EIGHT, Suit.DIAMOND );
+		CardDanish spade = new CardDanish( Rank.EIGHT, Suit.SPADE );
+		CardDanish club = new CardDanish( Rank.EIGHT, Suit.CLUB );
+		CardDanish heart = new CardDanish( Rank.EIGHT, Suit.HEART );
 		p = instance.getPlayers().get( instance.getCurrentPlayer() );
 		// play while the player don't have a eight
 		while( !( p.getHand().contains( diamond )
@@ -387,7 +387,7 @@ public class DanishTest{
 		int currentP;
 		int stacksize;
 		int playerHandSize;
-		ArrayList<Card> cards = new ArrayList<>();
+		ArrayList<CardDanish> cards = new ArrayList<>();
 		ArrayList<String> names = new ArrayList<>();
 		Danish instance = new Danish();
 		names.add( "test1" );
@@ -534,8 +534,8 @@ public class DanishTest{
 	public void testSwitchCard_3args_1(){
 		System.out.println( "switchCard" );
 		int p = 0;
-		Card visible;
-		Card hand;
+		CardDanish visible;
+		CardDanish hand;
 		Danish instance = new Danish();
 
 		ArrayList<String> names = new ArrayList<>();
@@ -560,8 +560,8 @@ public class DanishTest{
 	public void testSwitchCard_3args_2(){
 		System.out.println( "switchCard" );
 		Player p;
-		Card visible;
-		Card hand;
+		CardDanish visible;
+		CardDanish hand;
 		Danish instance = new Danish();
 
 		ArrayList<String> names = new ArrayList<>();
@@ -581,15 +581,15 @@ public class DanishTest{
 		assertTrue( p.getVisible().contains( hand ) );
 	}
 
-	private boolean verifyAceOrTen(CardPack stack, ArrayList<Card> cards, int stacksize ){
+	private boolean verifyAceOrTen(CardPack stack, ArrayList<CardDanish> cards, int stacksize ){
 		return stacksize == stack.size() && cards.get( 0 ).getRank() == Rank.ACE
 				|| stack.isEmpty() && cards.get( 0 ).getRank() == Rank.TEN;
 
 	}
 
-	private boolean verifyHand( List<Card> hand ){
+	private boolean verifyHand( List<CardDanish> hand ){
 		Rank rank = null;
-		for( Card c : hand ){
+		for( CardDanish c : hand ){
 			if( rank == null ){
 				rank = c.getRank();
 			}else if( c.getRank() != rank ){ // He's playing different ranks

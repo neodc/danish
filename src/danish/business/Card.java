@@ -2,17 +2,10 @@ package danish.business;
 
 import java.util.Objects;
 
-/**
- * A class representing a game Card.
- *
- * @author Noé, Julien, Loup.
- */
-public class Card implements Comparable {
-
+public class Card{
 	private final Rank rank;
 	private final Suit suit;
-	private Card next;
-
+	
 	/**
 	 * Card constructor with two parameters.
 	 *
@@ -22,9 +15,12 @@ public class Card implements Comparable {
 	public Card(Rank rank, Suit suit) {
 		this.rank = rank;
 		this.suit = suit;
-		this.next = null;
 	}
-
+	
+	public Card( Card c ){
+		this(c.rank, c.suit);
+	}
+	
 	/**
 	 * Getter of the rank.
 	 *
@@ -32,18 +28,6 @@ public class Card implements Comparable {
 	 */
 	public Rank getRank() {
 		return rank;
-	}
-	
-	public Rank getRealRank(){
-		if( this.rank != Rank.THREE ){
-			return this.getRank();
-		}
-		
-		if( this.next != null ){
-			return this.next.getRealRank();
-		}
-		
-		return Rank.TWO;
 	}
 
 	/**
@@ -59,7 +43,7 @@ public class Card implements Comparable {
 	 * Compares this card object with another card object.
 	 * Two cards are identical if they have the same rank and the same suit.
 	 *
-	 * @param obj An other Card, to compare with.
+	 * @param obj An other CardDanish, to compare with.
 	 * @return true if the objects are identical, false if they are not or if the object is not a card.
 	 */
 	@Override
@@ -85,45 +69,6 @@ public class Card implements Comparable {
 	}
 
 	/**
-	 * Compares the power of two cards
-	 *
-	 * @param o An other Card, to compare with.
-	 * @return A positive int if this card has more power, 0 if they have the same, and a negative int the other card has more power.
-	 */
-	@Override
-	public int compareTo(Object o) {
-		int power;
-		int oPower;
-		switch (this.rank.getValue()) {
-			case 2:
-				power = 16;
-				break;
-			case 3:
-				power = 15;
-				break;
-			case 10:
-				power = 17;
-				break;
-			default:
-				power = this.rank.getValue();
-		}
-		switch (((Card) o).rank.getValue()) {
-			case 2:
-				oPower = 16;
-				break;
-			case 3:
-				oPower = 15;
-				break;
-			case 10:
-				oPower = 17;
-				break;
-			default:
-				oPower = ((Card) o).rank.getValue();
-		}
-		return power - oPower;
-	}
-
-	/**
 	 * A textual representation of the card.
 	 *
 	 * @return The textual representation of the card.
@@ -131,24 +76,5 @@ public class Card implements Comparable {
 	@Override
 	public String toString() {
 		return rank + " of " + suit;
-	}
-
-	public Card getNext(){
-		return next;
-	}
-
-	public void setNext( Card next ){
-		this.next = next;
-	}
-	
-	@Override
-	public Card clone(){
-		Card c = new Card(this.rank, this.suit);
-		
-		if (this.next != null){
-			c.setNext(next.clone());
-		}
-		
-		return c;
 	}
 }

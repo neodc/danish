@@ -6,9 +6,9 @@ import java.util.Iterator;
 import java.util.NoSuchElementException;
 import java.util.Queue;
 
-public class CardPack implements Queue<Card>{
+public class CardPack implements Queue<CardDanish>{
 	
-	private Card head;
+	private CardDanish head;
 	private int size;
 
 	public CardPack(){
@@ -16,8 +16,17 @@ public class CardPack implements Queue<Card>{
 		this.size = 0;
 	}
 	
-	public CardPack(Collection<? extends Card> c){
+	public CardPack(Collection<? extends CardDanish> c){
 		this.addAll(c);
+	}
+	
+	public CardPack( CardPack c ){
+		this.size = c.size;
+		if( c.head != null ){
+			this.head = new CardDanish(c.head, true);
+		}else{
+			this.head = null;
+		}
 	}
 
 	public void pour( CardPack source ){
@@ -29,9 +38,9 @@ public class CardPack implements Queue<Card>{
 		if( this.isEmpty() ){
 			this.head = source.head;
 		}else{
-			Iterator<Card> i = this.iterator();
+			Iterator<CardDanish> i = this.iterator();
 
-			Card c = i.next();
+			CardDanish c = i.next();
 
 			while( i.hasNext() ){
 				c = i.next();
@@ -46,16 +55,16 @@ public class CardPack implements Queue<Card>{
 	}
 	
 	@Override
-	public boolean add( Card c ){
+	public boolean add( CardDanish c ){
 		if( c == null ){
 			throw new NullPointerException();
 		}
 		
-		if( !( c instanceof Card ) ){
+		if( !( c instanceof CardDanish ) ){
 			throw new ClassCastException();
 		}
 		
-		Card card = new Card( c.getRank(), c.getSuit() );
+		CardDanish card = new CardDanish(c, false);
 		
 		if( head == null ){
 			head = card;
@@ -69,12 +78,12 @@ public class CardPack implements Queue<Card>{
 	}
 
 	@Override
-	public boolean offer( Card e ){
+	public boolean offer( CardDanish e ){
 		return this.add(e);
 	}
 
 	@Override
-	public Card remove(){
+	public CardDanish remove(){
 		if( this.isEmpty() ){
 			throw new NoSuchElementException();
 		}
@@ -83,8 +92,8 @@ public class CardPack implements Queue<Card>{
 	}
 
 	@Override
-	public Card poll(){
-		Card ret = this.head;
+	public CardDanish poll(){
+		CardDanish ret = this.head;
 		
 		if( head != null ){
 			this.head = head.getNext();
@@ -95,7 +104,7 @@ public class CardPack implements Queue<Card>{
 	}
 
 	@Override
-	public Card element(){
+	public CardDanish element(){
 		if( this.isEmpty() ){
 			throw new NoSuchElementException();
 		}
@@ -103,7 +112,7 @@ public class CardPack implements Queue<Card>{
 	}
 
 	@Override
-	public Card peek(){
+	public CardDanish peek(){
 		return head;
 	}
 
@@ -123,13 +132,13 @@ public class CardPack implements Queue<Card>{
 			throw new NullPointerException();
 		}
 		
-		if( !( o instanceof Card ) ){
+		if( !( o instanceof CardDanish ) ){
 			throw new ClassCastException();
 		}
 		
-		Card card = (Card) o;
+		CardDanish card = (CardDanish) o;
 		
-		for( Card c : this ){
+		for( CardDanish c : this ){
 			if( c.equals(card) ){
 				return true;
 			}
@@ -138,10 +147,10 @@ public class CardPack implements Queue<Card>{
 	}
 
 	@Override
-	public Iterator<Card> iterator(){
-		return new Iterator<Card>() {
+	public Iterator<CardDanish> iterator(){
+		return new Iterator<CardDanish>() {
 			
-			private Card next = head;
+			private CardDanish next = head;
 			
 			@Override
 			public boolean hasNext(){
@@ -149,12 +158,12 @@ public class CardPack implements Queue<Card>{
 			}
 
 			@Override
-			public Card next(){
+			public CardDanish next(){
 				if( !this.hasNext() ){
 					throw new NoSuchElementException();
 				}
 				
-				Card ret = next;
+				CardDanish ret = next;
 				next = next.getNext();
 				return ret;
 			}
@@ -171,7 +180,7 @@ public class CardPack implements Queue<Card>{
 		Object[] ret = new Object[ this.size() ];
 		
 		int i = 0;
-		for( Card c : this ){
+		for( CardDanish c : this ){
 			ret[i++] = c;
 		}
 		return ret;
@@ -187,7 +196,7 @@ public class CardPack implements Queue<Card>{
 		}
 
 		int i = 0;
-		for( Card e : this ){
+		for( CardDanish e : this ){
 			array[i++] = (T) e;
 		}
 		return array;
@@ -203,7 +212,7 @@ public class CardPack implements Queue<Card>{
 		Iterator<?> e = c.iterator();
 		
 		while( e.hasNext() ){
-			if( !contains( e.next() ) ){
+			if( !this.contains( e.next() ) ){
 				return false;
 			}
 		}
@@ -211,11 +220,11 @@ public class CardPack implements Queue<Card>{
 	}
 
 	@Override
-	public boolean addAll( Collection<? extends Card> c ){
+	public boolean addAll( Collection<? extends CardDanish> c ){
 		Iterator<?> e = c.iterator();
 		
 		while( e.hasNext() ){
-			this.add((Card) e.next());
+			this.add((CardDanish) e.next());
 		}
 		return true;
 	}
@@ -234,17 +243,5 @@ public class CardPack implements Queue<Card>{
 	public void clear(){
 		this.head = null;
 		this.size = 0;
-	}
-	
-	@Override
-	public CardPack clone(){
-		CardPack p = new CardPack();
-		
-		if (head != null) {
-			p.head = head.clone();
-			p.size = this.size;
-		}
-		
-		return p;
 	}
 }

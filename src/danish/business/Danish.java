@@ -3,9 +3,7 @@ package danish.business;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Iterator;
-import java.util.LinkedList;
 import java.util.List;
-import sun.misc.Queue;
 
 /**
  * The class representing the whole Danish game.
@@ -68,7 +66,7 @@ public class Danish implements DanishInterface {
 	 */
 	@Override
 	public CardPack getDeck() {
-		return deck.clone();
+		return new CardPack(deck);
 	}
 
 	/**
@@ -78,7 +76,7 @@ public class Danish implements DanishInterface {
 	 */
 	@Override
 	public CardPack getStack() {
-		return stack.clone();
+		return new CardPack(stack);
 	}
 
 	/**
@@ -88,7 +86,7 @@ public class Danish implements DanishInterface {
 	 */
 	@Override
 	public CardPack getGraveyard() {
-		return graveyard.clone();
+		return new CardPack(graveyard);
 	}
 
 	/**
@@ -165,7 +163,7 @@ public class Danish implements DanishInterface {
 	 * @param cards The cards to be played.
 	 */
 	@Override
-	public void turn(List<Card> cards) {
+	public void turn(List<CardDanish> cards) {
 
 		if (cards.isEmpty()) { // The player takes because he doesn't play anything
 			take(playing());
@@ -178,7 +176,7 @@ public class Danish implements DanishInterface {
 
 		Rank rank = null;
 
-		for (Card c : cards) {
+		for (CardDanish c : cards) {
 			if (rank == null) {
 				rank = c.getRank();
 			} else if (c.getRank() != rank) { // He's playing different ranks
@@ -220,7 +218,7 @@ public class Danish implements DanishInterface {
 	 * @param player The attacked player.
 	 */
 	@Override
-	public void turn(List<Card> cards, int player) {
+	public void turn(List<CardDanish> cards, int player) {
 
 		if (cards.isEmpty() || !playing().getHand().containsAll(cards)) {	// The player's playing nothing
 			return;															// or cards he doesn't have
@@ -228,7 +226,7 @@ public class Danish implements DanishInterface {
 
 		Rank rank = null;
 
-		for (Card c : cards) {
+		for (CardDanish c : cards) {
 			if (rank == null) {
 				rank = c.getRank();
 			} else if (c.getRank() != rank) { // Different ranks
@@ -266,7 +264,7 @@ public class Danish implements DanishInterface {
 	 * @param hand The card in hand to make visible.
 	 */
 	@Override
-	public void switchCard(int p, Card visible, Card hand) {
+	public void switchCard(int p, CardDanish visible, CardDanish hand) {
 		if ((p >= 0 || p < players.size()) && players != null) {
 			switchCard(players.get(p), visible, hand);
 		}
@@ -280,7 +278,7 @@ public class Danish implements DanishInterface {
 	 * @param hand The card in hand to make visible.
 	 */
 	@Override
-	public void switchCard(Player player, Card visible, Card hand) {
+	public void switchCard(Player player, CardDanish visible, CardDanish hand) {
 		if (!playing) {
 			player.switchCard(visible, hand);
 		}
@@ -297,7 +295,7 @@ public class Danish implements DanishInterface {
 			return Rank.TWO;
 		}
 
-		Iterator<Card> i = stack.iterator();
+		Iterator<CardDanish> i = stack.iterator();
 		Rank r = null;
 
 		while (i.hasNext() && (r = i.next().getRank()) == Rank.THREE) {
@@ -307,11 +305,11 @@ public class Danish implements DanishInterface {
 	}
 
 	private void initDeck() {
-		ArrayList<Card> list = new ArrayList<>();
+		ArrayList<CardDanish> list = new ArrayList<>();
 
 		for (Suit s : Suit.values()) {
 			for (Rank r : Rank.values()) {
-				list.add(new Card(r, s));
+				list.add(new CardDanish(r, s));
 			}
 		}
 
@@ -331,7 +329,7 @@ public class Danish implements DanishInterface {
 	}
 
 	private boolean doesCut() {
-		Iterator<Card> i = stack.iterator();
+		Iterator<CardDanish> i = stack.iterator();
 		Rank r = null;
 		Rank ir;
 		int cpt = 0;

@@ -71,7 +71,7 @@ public interface DanishInterface{
 	 *
 	 * @param cards The cards to be played.
 	 */
-	public void turn( List<Card> cards );
+	public void turn( List<CardDanish> cards );
 
 	/**
 	 * Resolves an attack.
@@ -79,7 +79,7 @@ public interface DanishInterface{
 	 * @param cards The cards to be played (normally, only aces and threes).
 	 * @param player The attacked player.
 	 */
-	public void turn( List<Card> cards, int player );
+	public void turn( List<CardDanish> cards, int player );
 
 	/**
 	 * Switches a card in the hand with a visible one.
@@ -88,7 +88,7 @@ public interface DanishInterface{
 	 * @param visible The visible card to take in hand.
 	 * @param hand The card in hand to make visible.
 	 */
-	public void switchCard( int p, Card visible, Card hand );
+	public void switchCard( int p, CardDanish visible, CardDanish hand );
 
 	/**
 	 * Switches a card in the hand with a visible one.
@@ -97,7 +97,7 @@ public interface DanishInterface{
 	 * @param visible The visible card to take in hand.
 	 * @param hand The card in hand to make visible.
 	 */
-	public void switchCard( Player player, Card visible, Card hand );
+	public void switchCard( Player player, CardDanish visible, CardDanish hand );
 
 	/**
 	 * Check the rank of the stack.
