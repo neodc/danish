@@ -28,9 +28,9 @@ public class PlayerAI extends Player {
 	 * It will play the least powerful cards he can.
 	 */
 	public void play() {
-		List<Card> cards = new ArrayList<>();
+		List<CardDanish> cards = new ArrayList<>();
 
-		for (Card c : hand) {
+		for (CardDanish c : hand) {
 			if (danish.getRankStack().placeable( c.getRank() )) {
 				if (cards.isEmpty() || cards.get(0).compareTo(c) == 0) {
 					cards.add(c);
@@ -57,9 +57,9 @@ public class PlayerAI extends Player {
 				if (player == null) {
 					player = oPlayer;
 					iPlayer = i;
-				} else if (oPlayer.getHidden().size() < player.getHidden().size()
-						|| oPlayer.getVisible().size() < player.getVisible().size()
-						|| oPlayer.getHand().size() < player.getHand().size()) {
+				} else if (oPlayer.hidden.size() < player.hidden.size()
+						|| oPlayer.visible.size() < player.visible.size()
+						|| oPlayer.hand.size() < player.hand.size()) {
 					player = oPlayer;
 					iPlayer = i;
 				}

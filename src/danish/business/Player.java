@@ -12,16 +12,16 @@ public class Player {
 
 	private final String name;
 
-	protected final List<Card> hand;
-	protected final List<Card> visible;
-	protected final List<Card> hidden;
+	protected final List<CardDanish> hand;
+	protected final List<CardDanish> visible;
+	protected final List<CardDanish> hidden;
 
 	/**
 	 * Player constructor with one parameter.
 	 *
 	 * @param name The player's name.
 	 */
-	public Player(String name) {
+	Player(String name) {
 		this.name = name;
 
 		hand = new ArrayList<>();
@@ -34,8 +34,8 @@ public class Player {
 	 *
 	 * @return The player's hand.
 	 */
-	public List<Card> getHand() {
-		return hand;
+	public List<CardDanish> getHand() {
+		return new ArrayList<>(hand);
 	}
 
 	/**
@@ -43,7 +43,7 @@ public class Player {
 	 *
 	 * @return The player's visible cards.
 	 */
-	public List<Card> getVisible() {
+	public List<CardDanish> getVisible() {
 		return new ArrayList<>(visible);
 	}
 
@@ -52,7 +52,7 @@ public class Player {
 	 *
 	 * @return The player's hidden cards.
 	 */
-	public List<Card> getHidden() {
+	public List<CardDanish> getHidden() {
 		return new ArrayList<>(hidden);
 	}
 
@@ -71,7 +71,7 @@ public class Player {
 	 * @param c The card to add.
 	 * @return If the card has been added.
 	 */
-	public boolean addVisible(Card c) {
+	boolean addVisible(CardDanish c) {
 		if (visible.size() < 3) {
 			return visible.add(c);
 		}
@@ -84,7 +84,7 @@ public class Player {
 	 * @param c The card to add.
 	 * @return If the card has been added.
 	 */
-	public boolean addHidden(Card c) {
+	boolean addHidden(CardDanish c) {
 		if (hidden.size() < 3) {
 			return hidden.add(c);
 		}
@@ -97,7 +97,7 @@ public class Player {
 	 * @param c The card to remove.
 	 * @return If the card has been removed.
 	 */
-	public boolean removeVisible(Card c) {
+	boolean removeVisible(CardDanish c) {
 		return visible.remove(c);
 	}
 
@@ -107,7 +107,7 @@ public class Player {
 	 * @param c The card to remove.
 	 * @return If the card has been removed.
 	 */
-	public boolean removeHidden(Card c) {
+	boolean removeHidden(CardDanish c) {
 		return hidden.remove(c);
 	}
 
@@ -117,7 +117,7 @@ public class Player {
 	 * @param visible The visible card to take in hand.
 	 * @param hand The card in hand to make visible.
 	 */
-	public void switchCard(Card visible, Card hand) {
+	void switchCard(CardDanish visible, CardDanish hand) {
 
 		int iVisible, iHand;
 
@@ -140,7 +140,7 @@ public class Player {
 	 *
 	 * @return If he has no card left.
 	 */
-	public boolean draw() {
+	boolean draw() {
 
 		if (!hand.isEmpty()) {
 		} else if (hand.addAll(visible)) {

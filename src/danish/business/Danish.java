@@ -2,8 +2,6 @@ package danish.business;
 
 import java.util.ArrayList;
 import java.util.Collections;
-import java.util.Iterator;
-import java.util.LinkedList;
 import java.util.List;
 
 /**
@@ -15,13 +13,13 @@ public class Danish implements DanishInterface {
 
 	private List<Player> players;
 
-	private LinkedList<Card> deck;
-	private LinkedList<Card> stack;
-	private LinkedList<Card> graveyard;
+	private CardPack deck;
+	private CardPack stack;
+	private CardPack graveyard;
 
-	boolean playing;
-	int currentPlayer;
-	Player winner;
+	private boolean playing;
+	private int currentPlayer;
+	private Player winner;
 
 	/**
 	 * Getter of the winner.
@@ -36,15 +34,15 @@ public class Danish implements DanishInterface {
 	 * Danish constructor without parameter.
 	 */
 	public Danish() {
-		players = null;
+		this.players = null;
 
 		this.initDeck();
-		stack = new LinkedList<>();
-		graveyard = new LinkedList<>();
+		this.stack = new CardPack();
+		this.graveyard = new CardPack();
 
-		playing = false;
-		currentPlayer = 0;
-		winner = null;
+		this.playing = false;
+		this.currentPlayer = 0;
+		this.winner = null;
 	}
 
 	/**
@@ -54,7 +52,7 @@ public class Danish implements DanishInterface {
 	 */
 	@Override
 	public List<Player> getPlayers() {
-		if (players == null) {
+		if (this.players == null) {
 			return null;
 		}
 		return new ArrayList<>(players);
@@ -66,8 +64,8 @@ public class Danish implements DanishInterface {
 	 * @return The deck.
 	 */
 	@Override
-	public List<Card> getDeck() {
-		return new ArrayList<>(deck);
+	public CardPack getDeck() {
+		return new CardPack(deck);
 	}
 
 	/**
@@ -76,8 +74,8 @@ public class Danish implements DanishInterface {
 	 * @return The stack.
 	 */
 	@Override
-	public List<Card> getStack() {
-		return new ArrayList<>(stack);
+	public CardPack getStack() {
+		return new CardPack(stack);
 	}
 
 	/**
@@ -86,8 +84,8 @@ public class Danish implements DanishInterface {
 	 * @return The graveyard.
 	 */
 	@Override
-	public List<Card> getGraveyard() {
-		return new ArrayList<>(graveyard);
+	public CardPack getGraveyard() {
+		return new CardPack(graveyard);
 	}
 
 	/**
@@ -131,7 +129,7 @@ public class Danish implements DanishInterface {
 				}
 
 				for (int i = 0; i < 3; ++i) {
-					p.getHand().add(deck.poll());
+					p.hand.add(deck.poll());
 					p.addHidden(deck.poll());
 					p.addVisible(deck.poll());
 				}
@@ -164,20 +162,20 @@ public class Danish implements DanishInterface {
 	 * @param cards The cards to be played.
 	 */
 	@Override
-	public void turn(List<Card> cards) {
+	public void turn(List<CardDanish> cards) {
 
 		if (cards.isEmpty()) { // The player takes because he doesn't play anything
-			take(playing());
+			take(getPlaying());
 			return;
 		}
 
-		if (!playing().getHand().containsAll(cards)) { // He plays cards he doesn't have
+		if (!getPlaying().hand.containsAll(cards)) { // He plays cards he doesn't have
 			return;
 		}
 
 		Rank rank = null;
 
-		for (Card c : cards) {
+		for (CardDanish c : cards) {
 			if (rank == null) {
 				rank = c.getRank();
 			} else if (c.getRank() != rank) { // He's playing different ranks
@@ -194,7 +192,7 @@ public class Danish implements DanishInterface {
 		}
 
 		// End of tests => The turn is now resolved
-		playing().getHand().removeAll(cards);
+		getPlaying().hand.removeAll(cards);
 
 		stack.addAll(cards);
 
@@ -219,15 +217,15 @@ public class Danish implements DanishInterface {
 	 * @param player The attacked player.
 	 */
 	@Override
-	public void turn(List<Card> cards, int player) {
+	public void turn(List<CardDanish> cards, int player) {
 
-		if (cards.isEmpty() || !playing().getHand().containsAll(cards)) {	// The player's playing nothing
+		if (cards.isEmpty() || !getPlaying().hand.containsAll(cards)) {	// The player's playing nothing
 			return;															// or cards he doesn't have
 		}
 
 		Rank rank = null;
 
-		for (Card c : cards) {
+		for (CardDanish c : cards) {
 			if (rank == null) {
 				rank = c.getRank();
 			} else if (c.getRank() != rank) { // Different ranks
@@ -244,7 +242,7 @@ public class Danish implements DanishInterface {
 		}
 
 		// End of tests => The turn is now resolved
-		playing().getHand().removeAll(cards);
+		getPlaying().hand.removeAll(cards);
 
 		stack.addAll(cards);
 
@@ -265,7 +263,7 @@ public class Danish implements DanishInterface {
 	 * @param hand The card in hand to make visible.
 	 */
 	@Override
-	public void switchCard(int p, Card visible, Card hand) {
+	public void switchCard(int p, CardDanish visible, CardDanish hand) {
 		if ((p >= 0 || p < players.size()) && players != null) {
 			switchCard(players.get(p), visible, hand);
 		}
@@ -279,7 +277,7 @@ public class Danish implements DanishInterface {
 	 * @param hand The card in hand to make visible.
 	 */
 	@Override
-	public void switchCard(Player player, Card visible, Card hand) {
+	public void switchCard(Player player, CardDanish visible, CardDanish hand) {
 		if (!playing) {
 			player.switchCard(visible, hand);
 		}
@@ -295,72 +293,51 @@ public class Danish implements DanishInterface {
 		if (stack.isEmpty()) {
 			return Rank.TWO;
 		}
-
-		Iterator<Card> i = stack.descendingIterator();
-		Rank r = null;
-
-		while (i.hasNext() && (r = i.next().getRank()) == Rank.THREE) {
-		}
-
-		return r;
+		
+		return stack.peek().getRealRank();
 	}
 
-	private void initDeck() {
-		deck = new LinkedList<>();
-
-		for (Suit s : Suit.values()) {
-			for (Rank r : Rank.values()) {
-				deck.add(new Card(r, s));
-			}
-		}
-
-		Collections.shuffle(deck);
-	}
-
-	private Player playing() {
+	@Override
+	public Player getPlaying() {
 		return players.get(currentPlayer);
 	}
 
+	private void initDeck() {
+		ArrayList<CardDanish> list = new ArrayList<>();
+
+		for (Suit s : Suit.values()) {
+			for (Rank r : Rank.values()) {
+				list.add(new CardDanish(r, s));
+			}
+		}
+
+		Collections.shuffle(list);
+		
+		deck = new CardPack(list);
+	}
+
 	private void take(Player p) {
-		p.getHand().addAll(stack);
+		p.hand.addAll(stack);
 		stack.clear();
 		currentPlayer = (currentPlayer + 1) % players.size();
 	}
 
 	private boolean doesCut() {
-		Iterator<Card> i = stack.descendingIterator();
-		Rank r = null;
-		Rank ir;
-		int cpt = 0;
-
-		while (i.hasNext()) {
-			ir = i.next().getRank();
-
-			if (r == null) {
-				r = ir;
-			} else if (r != ir) {
-				return false;
-			}
-
-			if (r == Rank.TEN || ++cpt == 4) {
-				graveyard.addAll(stack);
-				stack.clear();
-
-				return true;
-			}
+		if( this.getRankStack() == Rank.TEN || stack.getNumberSimilarCard() >= 4){
+			graveyard.pour(stack);
+			return true;
 		}
-
 		return false;
 	}
 
 	private void draw() {
 
-		while (!deck.isEmpty() && playing().getHand().size() < 3) {
-			playing().getHand().add(deck.poll());
+		while (!deck.isEmpty() && getPlaying().hand.size() < 3) {
+			getPlaying().hand.add(deck.poll());
 		}
 
-		if (playing().draw()) {
-			winner = playing();
+		if (getPlaying().draw()) {
+			winner = getPlaying();
 			playing = false;
 		}
 	}

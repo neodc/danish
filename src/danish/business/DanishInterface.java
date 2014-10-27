@@ -21,21 +21,21 @@ public interface DanishInterface{
 	 *
 	 * @return The deck.
 	 */
-	public List<Card> getDeck();
+	public CardPack getDeck();
 
 	/**
 	 * Getter of the stack, the played cards of one trick.
 	 *
 	 * @return The stack.
 	 */
-	public List<Card> getStack();
+	public CardPack getStack();
 
 	/**
 	 * Getter of the graveyard, the cards that have been removed from play.
 	 *
 	 * @return The graveyard.
 	 */
-	public List<Card> getGraveyard();
+	public CardPack getGraveyard();
 
 	/**
 	 * Tells if the game has begun.
@@ -70,7 +70,7 @@ public interface DanishInterface{
 	 *
 	 * @param cards The cards to be played.
 	 */
-	public void turn( List<Card> cards );
+	public void turn( List<CardDanish> cards );
 
 	/**
 	 * Resolves an attack.
@@ -78,7 +78,7 @@ public interface DanishInterface{
 	 * @param cards The cards to be played (normally, only aces and threes).
 	 * @param player The attacked player.
 	 */
-	public void turn( List<Card> cards, int player );
+	public void turn( List<CardDanish> cards, int player );
 
 	/**
 	 * Switches a card in the hand with a visible one.
@@ -87,7 +87,7 @@ public interface DanishInterface{
 	 * @param visible The visible card to take in hand.
 	 * @param hand The card in hand to make visible.
 	 */
-	public void switchCard( int p, Card visible, Card hand );
+	public void switchCard( int p, CardDanish visible, CardDanish hand );
 
 	/**
 	 * Switches a card in the hand with a visible one.
@@ -96,7 +96,7 @@ public interface DanishInterface{
 	 * @param visible The visible card to take in hand.
 	 * @param hand The card in hand to make visible.
 	 */
-	public void switchCard( Player player, Card visible, Card hand );
+	public void switchCard( Player player, CardDanish visible, CardDanish hand );
 
 	/**
 	 * Check the rank of the stack.
@@ -104,4 +104,6 @@ public interface DanishInterface{
 	 * @return The rank of the stack.
 	 */
 	public Rank getRankStack();
+	
+	public Player getPlaying();
 }

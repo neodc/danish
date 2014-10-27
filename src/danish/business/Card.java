@@ -2,16 +2,10 @@ package danish.business;
 
 import java.util.Objects;
 
-/**
- * A class representing a game Card.
- *
- * @author Noé, Julien, Loup.
- */
-public class Card implements Comparable {
-
+public class Card{
 	private final Rank rank;
 	private final Suit suit;
-
+	
 	/**
 	 * Card constructor with two parameters.
 	 *
@@ -22,7 +16,11 @@ public class Card implements Comparable {
 		this.rank = rank;
 		this.suit = suit;
 	}
-
+	
+	public Card( Card c ){
+		this(c.rank, c.suit);
+	}
+	
 	/**
 	 * Getter of the rank.
 	 *
@@ -45,7 +43,7 @@ public class Card implements Comparable {
 	 * Compares this card object with another card object.
 	 * Two cards are identical if they have the same rank and the same suit.
 	 *
-	 * @param obj An other Card, to compare with.
+	 * @param obj An other CardDanish, to compare with.
 	 * @return true if the objects are identical, false if they are not or if the object is not a card.
 	 */
 	@Override
@@ -68,45 +66,6 @@ public class Card implements Comparable {
 		hash = 13 * hash + Objects.hashCode(this.rank);
 		hash = 13 * hash + Objects.hashCode(this.suit);
 		return hash;
-	}
-
-	/**
-	 * Compares the power of two cards
-	 *
-	 * @param o An other Card, to compare with.
-	 * @return A positive int if this card has more power, 0 if they have the same, and a negative int the other card has more power.
-	 */
-	@Override
-	public int compareTo(Object o) {
-		int power;
-		int oPower;
-		switch (this.rank.getValue()) {
-			case 2:
-				power = 16;
-				break;
-			case 3:
-				power = 15;
-				break;
-			case 10:
-				power = 17;
-				break;
-			default:
-				power = this.rank.getValue();
-		}
-		switch (((Card) o).rank.getValue()) {
-			case 2:
-				oPower = 16;
-				break;
-			case 3:
-				oPower = 15;
-				break;
-			case 10:
-				oPower = 17;
-				break;
-			default:
-				oPower = ((Card) o).rank.getValue();
-		}
-		return power - oPower;
 	}
 
 	/**
