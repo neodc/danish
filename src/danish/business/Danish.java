@@ -322,14 +322,10 @@ public class Danish implements DanishInterface {
 	}
 
 	private boolean doesCut() {
-		System.out.print( "<"+this.getRankStack()+" - "+stack.getNumberSimilarCard() );
-		
 		if( this.getRankStack() == Rank.TEN || stack.getNumberSimilarCard() >= 4){
 			graveyard.pour(stack);
-			System.out.println( ">" );
 			return true;
 		}
-		System.out.println( ">" );
 		return false;
 	}
 
