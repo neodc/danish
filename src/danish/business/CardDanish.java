@@ -34,15 +34,11 @@ public class CardDanish extends Card implements Comparable {
 	}
 	
 	public Rank getRealRank(){
-		if( this.getRank() != Rank.THREE ){
+		if( this.getRank() != Rank.THREE || this.next == null ){
 			return this.getRank();
-		}
-		
-		if( this.next != null ){
+		}else{
 			return this.next.getRealRank();
 		}
-		
-		return Rank.TWO;
 	}
 
 	/**
