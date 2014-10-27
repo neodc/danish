@@ -297,6 +297,7 @@ public class Danish implements DanishInterface {
 		return stack.peek().getRealRank();
 	}
 
+	@Override
 	public Player getPlaying() {
 		return players.get(currentPlayer);
 	}
