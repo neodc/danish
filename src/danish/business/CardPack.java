@@ -35,10 +35,8 @@ public class CardPack implements Queue<CardDanish>{
 			return;
 		}
 		
-		if( this.isEmpty() ){
-			this.head = source.head;
-		}else{
-			Iterator<CardDanish> i = this.iterator();
+		if( !this.isEmpty() ){
+			Iterator<CardDanish> i = source.iterator();
 
 			CardDanish c = i.next();
 
@@ -46,8 +44,9 @@ public class CardPack implements Queue<CardDanish>{
 				c = i.next();
 			}
 			
-			c.setNext( source.head );
+			c.setNext( this.head );
 		}
+		this.head = source.head;
 		
 		this.size += source.size;
 		
