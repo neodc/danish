@@ -40,7 +40,25 @@ public class CardDanish extends Card implements Comparable {
 			return this.next.getRealRank();
 		}
 	}
+	
+	/**
+	 * Checks if the given rank makes a card placeable on another card.
+	 * @param c 
+	 * @return true if the card is placeable, false otherwise.
+	 */
+	public boolean placeable(CardDanish c) {
+		return c.isJoker() || (this.getRank() == Rank.SEVEN && c.getRank().getValue() <= this.getRank().getValue()) || (this.getRank() != Rank.SEVEN && c.getRank().getValue() >= this.getRank().getValue());
+	}
 
+	/**
+	 * Checks if the instance is a joker card.
+	 *
+	 * @return true if it's a joker card, false otherwise.
+	 */
+	public boolean isJoker() {
+		return this.getRank() == Rank.ACE || this.getRank() == Rank.TWO || this.getRank() == Rank.THREE || this.getRank() == Rank.TEN;
+	}
+	
 	/**
 	 * Compares the power of two cards
 	 *

@@ -31,7 +31,7 @@ public class PlayerAI extends Player {
 		List<CardDanish> cards = new ArrayList<>();
 
 		for (CardDanish c : hand) {
-			if (danish.getRankStack().placeable( c.getRank() )) {
+			if (danish.getStack().peek().placeable(c)) {
 				if (cards.isEmpty() || cards.get(0).compareTo(c) == 0) {
 					cards.add(c);
 				} else if (cards.get(0).compareTo(c) > 0) {
