@@ -74,10 +74,6 @@ public class CardPack implements Queue<CardDanish>{
 			throw new NullPointerException();
 		}
 		
-		if( !( c instanceof CardDanish ) ){
-			throw new ClassCastException();
-		}
-		
 		CardDanish card = new CardDanish(c, false);
 		
 		if( head == null ){

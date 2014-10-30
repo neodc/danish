@@ -598,4 +598,72 @@ public class DanishTest{
 		}
 		return true;
 	}
+
+	/**
+	 * Test of getWinner method, of class Danish.
+	 */
+	@Test
+	public void testGetWinner(){
+		System.out.println( "getWinner" );
+		
+		ArrayList<String> names = new ArrayList<>();
+		
+		Danish instance = new Danish();
+		
+		assertNull( instance.getWinner() );
+		
+		names.add( null );
+		names.add( null );
+		instance.setPlayers( names );
+		instance.begin();
+		
+		assertNull( instance.getWinner() );
+		
+		while(instance.getWinner() == null){
+			((PlayerAI)instance.getPlaying()).play();
+		}
+		
+		assertNotNull( instance.getWinner() );
+		assertTrue(instance.getWinner().hand.isEmpty() );
+		assertTrue(instance.getWinner().hidden.isEmpty() );
+		assertTrue(instance.getWinner().visible.isEmpty() );
+	}
+
+	/**
+	 * Test of getRankStack method, of class Danish.
+	 */
+	@Test
+	public void testGetRankStack(){
+		System.out.println( "getRankStack" );
+		
+		ArrayList<String> names = new ArrayList<>();
+		
+		Danish instance = new Danish();
+		
+		names.add( null );
+		names.add( null );
+		instance.setPlayers( names );
+		instance.begin();
+		
+		while(instance.getWinner() == null){
+			((PlayerAI)instance.getPlaying()).play();
+			
+			if( instance.getStack().isEmpty() ){
+				assertEquals( instance.getRankStack(), Rank.TWO);
+			}else{
+				assertEquals( instance.getRankStack(), instance.getStack().peek().getRealRank() );
+			}
+		}
+	}
+
+	/**
+	 * Test of getPlaying method, of class Danish.
+	 */
+	@Test
+	public void testGetPlaying(){
+		System.out.println( "getPlaying" );
+		
+		Danish instance = new Danish();
+		assertNull(instance.getPlaying());
+	}
 }

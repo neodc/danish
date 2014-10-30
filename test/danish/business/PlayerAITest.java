@@ -31,7 +31,7 @@ public class PlayerAITest{
 		int i = 0;
 		
 		while(instance.getWinner() == null){
-			((PlayerAI)instance.getPlayers().get( instance.getCurrentPlayer() )).play();
+			((PlayerAI)instance.getPlaying()).play();
 			assertTrue( ++i < 1000 );
 			
 		}
