@@ -11,17 +11,27 @@ public enum Suit {
 	DIAMOND("Diamond"),
 	CLUB("Club"),
 	SPADE("Spade");
-	
+
 	public final String display;
 
+	/**
+	 * Suit constructor with one parameter.
+	 *
+	 * @param display A string representing the suit of the card.
+	 */
 	private Suit(String display) {
 		this.display = display;
 	}
 
+	/**
+	 * Getter of the display.
+	 *
+	 * @return The display.
+	 */
 	public String getDisplay() {
 		return display;
 	}
-	
+
 	/**
 	 * A textual representation of the suit.
 	 *

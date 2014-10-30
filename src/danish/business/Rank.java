@@ -54,25 +54,6 @@ public enum Rank {
 	}
 
 	/**
-	 * Checks if the given rank makes a card placeable on another card.
-	 *
-	 * @param r The rank of the card to play on.
-	 * @return true if the card is placeable, false otherwise.
-	 */
-	public boolean placeable(Rank r) {
-		return r.isJoker() || (this == SEVEN && r.value <= this.value) || (this != SEVEN && r.value >= this.value);
-	}
-
-	/**
-	 * Checks if the instance is a joker card.
-	 *
-	 * @return true if it's a joker card, false otherwise.
-	 */
-	public boolean isJoker() {
-		return this == ACE || this == TWO || this == THREE || this == TEN;
-	}
-
-	/**
 	 * A textual representation of the rank.
 	 *
 	 * @return The textual representation of the rank.
