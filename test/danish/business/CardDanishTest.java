@@ -13,55 +13,6 @@ public class CardDanishTest{
 	}
 
 	/**
-	 * Test of getRank method, of class CardDanish.
-	 */
-	@Test
-	public void testGetRank(){
-		System.out.println( "getRank" );
-		assertEquals(Rank.ACE, new CardDanish(Rank.ACE, Suit.CLUB).getRank() );
-		assertEquals(Rank.EIGHT, new CardDanish(Rank.EIGHT, Suit.DIAMOND).getRank() );
-		assertEquals(Rank.JACK, new CardDanish(Rank.JACK, Suit.HEART).getRank() );
-		assertEquals(Rank.TWO, new CardDanish(Rank.TWO, Suit.SPADE).getRank() );
-	}
-
-	/**
-	 * Test of getSuit method, of class CardDanish.
-	 */
-	@Test
-	public void testGetSuit(){
-		System.out.println( "getSuit" );
-		assertEquals(Suit.CLUB, new CardDanish(Rank.ACE, Suit.CLUB).getSuit());
-		assertEquals(Suit.DIAMOND, new CardDanish(Rank.EIGHT, Suit.DIAMOND).getSuit() );
-		assertEquals(Suit.HEART, new CardDanish(Rank.JACK, Suit.HEART).getSuit() );
-		assertEquals(Suit.SPADE, new CardDanish(Rank.TWO, Suit.SPADE).getSuit() );
-	}
-
-	/**
-	 * Test of equals method, of class CardDanish.
-	 */
-	@Test
-	public void testEquals(){
-		System.out.println( "equals" );
-		
-		assertTrue(new CardDanish(Rank.ACE, Suit.CLUB).equals(new CardDanish(Rank.ACE, Suit.CLUB) ) );
-		assertFalse(new CardDanish(Rank.ACE, Suit.CLUB).equals(new CardDanish(Rank.ACE, Suit.DIAMOND) ) );
-		assertFalse(new CardDanish(Rank.ACE, Suit.CLUB).equals(new CardDanish(Rank.EIGHT, Suit.CLUB) ) );
-		assertFalse(new CardDanish(Rank.ACE, Suit.CLUB).equals( null ) );
-	}
-
-	/**
-	 * Test of hashCode method, of class CardDanish.
-	 */
-	@Test
-	public void testHashCode(){
-		System.out.println( "hashCode" );
-		
-		assertTrue(new CardDanish(Rank.ACE, Suit.CLUB).hashCode() == new CardDanish(Rank.ACE, Suit.CLUB).hashCode() );
-		assertFalse(new CardDanish(Rank.ACE, Suit.CLUB).hashCode() == new CardDanish(Rank.ACE, Suit.DIAMOND).hashCode() );
-		assertFalse(new CardDanish(Rank.ACE, Suit.CLUB).hashCode() == new CardDanish(Rank.EIGHT, Suit.CLUB).hashCode() );
-	}
-
-	/**
 	 * Test of compareTo method, of class CardDanish.
 	 */
 	@Test
@@ -72,17 +23,57 @@ public class CardDanishTest{
 		assertTrue(new CardDanish(Rank.ACE, Suit.CLUB).compareTo(new CardDanish(Rank.ACE, Suit.DIAMOND)) == 0 );
 		assertTrue(new CardDanish(Rank.FIVE, Suit.CLUB).compareTo(new CardDanish(Rank.FOUR, Suit.CLUB)) > 0 );
 		assertTrue(new CardDanish(Rank.FOUR, Suit.CLUB).compareTo(new CardDanish(Rank.FIVE, Suit.CLUB)) < 0 );
-		assertTrue(new CardDanish(Rank.FOUR, Suit.CLUB).compareTo(new CardDanish(Rank.FIVE, Suit.CLUB)) < 0 );
 	}
 
 	/**
-	 * Test of toString method, of class CardDanish.
+	 * Test of getRealRank method, of class CardDanish.
 	 */
 	@Test
-	public void testToString(){
-		System.out.println( "toString" );
+	public void testGetRealRank(){
+		System.out.println( "getRealRank" );
 		
-		assertEquals(Rank.ACE + " of " + Suit.CLUB, new CardDanish(Rank.ACE, Suit.CLUB).toString());
+		CardDanish cardAce = new CardDanish( Rank.ACE, Suit.CLUB );
+		CardDanish cardThree = new CardDanish( Rank.THREE, Suit.CLUB );
+		
+		assertEquals( Rank.ACE, cardAce.getRealRank() );
+		assertEquals( Rank.THREE, cardThree.getRealRank() );
+		
+		cardThree.setNext( cardAce );
+		
+		assertEquals( Rank.ACE, cardThree.getRealRank() );
 	}
-	
+
+	/**
+	 * Test of getNext method, of class CardDanish.
+	 */
+	@Test
+	public void testGetNext(){
+		System.out.println( "getNext" );
+		
+		CardDanish test1 = new CardDanish( Rank.ACE, Suit.CLUB );
+		CardDanish test2 = new CardDanish( Rank.ACE, Suit.DIAMOND );
+
+		assertNull( test1.getNext() );
+
+		test1.setNext( test2 );
+		
+		assertEquals( test1.getNext(), test2 );
+	}
+
+	/**
+	 * Test of setNext method, of class CardDanish.
+	 */
+	@Test
+	public void testSetNext(){
+		System.out.println( "setNext" );
+		
+		CardDanish test1 = new CardDanish( Rank.ACE, Suit.CLUB );
+		CardDanish test2 = new CardDanish( Rank.ACE, Suit.DIAMOND );
+
+		assertNull( test1.getNext() );
+
+		test1.setNext( test2 );
+		
+		assertEquals( test1.getNext(), test2 );
+	}
 }

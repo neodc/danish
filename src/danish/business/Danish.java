@@ -286,7 +286,7 @@ public class Danish implements DanishInterface {
 	/**
 	 * Checks the rank of the last card of the stack.
 	 *
-	 * @return The rank of the last card of the stack.
+	 * @return The rank of the last card of the stack or two if empty.
 	 */
 	@Override
 	public Rank getRankStack() {
@@ -299,6 +299,9 @@ public class Danish implements DanishInterface {
 
 	@Override
 	public Player getPlaying() {
+		if( players == null ){
+			return null;
+		}
 		return players.get(currentPlayer);
 	}
 
