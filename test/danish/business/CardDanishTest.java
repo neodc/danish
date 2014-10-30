@@ -84,5 +84,18 @@ public class CardDanishTest{
 		
 		assertEquals(Rank.ACE + " of " + Suit.CLUB, new CardDanish(Rank.ACE, Suit.CLUB).toString());
 	}
-	
+        
+	@Test
+	public void testNext(){
+		System.out.println( "Next" );
+                CardDanish test1 = new CardDanish(Rank.ACE, Suit.CLUB);
+		
+                assertNull(test1.getNext());
+                
+                CardDanish test2 = new CardDanish(Rank.ACE, Suit.DIAMOND);
+                test1.setNext(test2);
+		assertEquals(test1.getNext(), new CardDanish(Rank.ACE, Suit.DIAMOND));
+		assertNull(test2.getNext());
+                
+	}
 }
