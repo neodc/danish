@@ -2,6 +2,7 @@ package danish.business;
 
 import java.util.Collection;
 import java.util.Iterator;
+import java.util.NoSuchElementException;
 import org.junit.Test;
 import static org.junit.Assert.*;
 
@@ -23,6 +24,7 @@ public class CardPackTest{
 		CardDanish test1 = new CardDanish( Rank.ACE, Suit.CLUB );
 		CardDanish test2 = new CardDanish( Rank.ACE, Suit.DIAMOND );
 		CardDanish test3 = new CardDanish( Rank.ACE, Suit.HEART );
+		assertNull( cardPack.peek());
 		cardPack.add( test1 );
 		assertTrue( cardPack.peek().equals( new CardDanish( Rank.ACE, Suit.CLUB ) ) );
 		cardPack.add( test2 );
@@ -30,14 +32,20 @@ public class CardPackTest{
 		cardPack.add( test3 );
 		assertTrue( cardPack.peek().equals( new CardDanish( Rank.ACE, Suit.HEART ) ) );
 	}
-
+	
+	@Test (expected = NullPointerException.class)
+	public void testAdd_NullPointerException() throws NullPointerException{
+		System.out.println( "Add_NullPointerException" );
+		cardPack.add( null );
+	}
+	
+	
 	@Test
 	public void testAdd(){
 		System.out.println( "Add" );
 		CardDanish test1 = new CardDanish( Rank.ACE, Suit.CLUB );
 		CardDanish test2 = new CardDanish( Rank.ACE, Suit.DIAMOND );
 		CardDanish test3 = new CardDanish( Rank.ACE, Suit.HEART );
-		//TODO test exeptions
 		assertTrue( cardPack.isEmpty() );
 		cardPack.add( test1 );
 		assertTrue( cardPack.peek().equals( new CardDanish( Rank.ACE, Suit.CLUB ) ) );
@@ -56,7 +64,6 @@ public class CardPackTest{
 		CardDanish test1 = new CardDanish( Rank.ACE, Suit.CLUB );
 		CardDanish test2 = new CardDanish( Rank.ACE, Suit.DIAMOND );
 		CardDanish test3 = new CardDanish( Rank.ACE, Suit.HEART );
-		//TODO test exeptions
 		assertTrue( cardPack.isEmpty() );
 		cardPack.offer( test1 );
 		assertTrue( cardPack.peek().equals( new CardDanish( Rank.ACE, Suit.CLUB ) ) );
@@ -79,9 +86,13 @@ public class CardPackTest{
 		assertTrue( cardPack.isEmpty() );
 	}
 
+
+	/**
+	 * Test of isEmpty method, of class CardPack.
+	 */
 	@Test
-	public void testEmpty(){
-		System.out.println( "Empty" );
+	public void testIsEmpty(){
+		System.out.println( "isEmpty" );
 		CardDanish test1 = new CardDanish( Rank.ACE, Suit.CLUB );
 		assertTrue( cardPack.isEmpty() );
 		cardPack.add( test1 );
@@ -91,8 +102,8 @@ public class CardPackTest{
 	}
 
 	@Test
-	public void testNumberSimilarCard(){
-		System.out.println( "NumberSimilarCard" );
+	public void testGetNumberSimilarCard(){
+		System.out.println( "getNumberSimilarCard" );
 		CardDanish test1 = new CardDanish( Rank.ACE, Suit.CLUB );
 		CardDanish test2 = new CardDanish( Rank.ACE, Suit.DIAMOND );
 		CardDanish test3 = new CardDanish( Rank.ACE, Suit.HEART );
@@ -107,6 +118,12 @@ public class CardPackTest{
 		cardPack.offer( test4 );
 		assertTrue( cardPack.getNumberSimilarCard() == 4 );
 		cardPack.clear();
+		cardPack.offer( test1 );
+		cardPack.offer( test2 );
+		cardPack.offer( new CardDanish( Rank.THREE, Suit.SPADE ));
+		cardPack.offer( test3 );
+		cardPack.offer( test4 );
+		assertTrue( cardPack.getNumberSimilarCard() == 2 );
 
 	}
 
@@ -116,39 +133,70 @@ public class CardPackTest{
 	@Test
 	public void testPour(){
 		System.out.println( "pour" );
-		CardPack source = null;
-		CardPack instance = new CardPack();
-		instance.pour( source );
-		// TODO review the generated test code and remove the default call to fail.
-		fail( "The test case is a prototype." );
+		CardPack tmp = new CardPack();
+		tmp.offer(new CardDanish( Rank.ACE, Suit.SPADE ));
+		tmp.offer(new CardDanish( Rank.TWO, Suit.SPADE ));
+		tmp.offer(new CardDanish( Rank.FOUR, Suit.SPADE ));
+		cardPack.pour( tmp );
+		assertTrue(tmp.isEmpty());
+		assertTrue(cardPack.size() == 3);
+		assertTrue(cardPack.peek().equals( new CardDanish( Rank.FOUR, Suit.SPADE )));
+		tmp.offer(new CardDanish( Rank.ACE, Suit.SPADE ));
+		tmp.offer(new CardDanish( Rank.TWO, Suit.SPADE ));
+		tmp.offer(new CardDanish( Rank.FOUR, Suit.SPADE ));
+		assertTrue(cardPack.containsAll( tmp ));
+		
+		cardPack.clear();
+		tmp.clear();
+		cardPack.offer(new CardDanish( Rank.ACE, Suit.SPADE ));
+		cardPack.offer(new CardDanish( Rank.TWO, Suit.SPADE ));
+		cardPack.offer(new CardDanish( Rank.FOUR, Suit.SPADE ));
+		tmp.offer(new CardDanish( Rank.ACE, Suit.DIAMOND ));
+		tmp.offer(new CardDanish( Rank.TWO, Suit.DIAMOND ));
+		tmp.offer(new CardDanish( Rank.FOUR, Suit.DIAMOND ));
+		
+		cardPack.pour( tmp );
+		
+		assertTrue(tmp.isEmpty());
+		assertTrue(cardPack.size() == 6);
+		assertTrue(cardPack.peek().equals( new CardDanish( Rank.FOUR, Suit.DIAMOND )));
+		
+		tmp.offer(new CardDanish( Rank.ACE, Suit.SPADE ));
+		tmp.offer(new CardDanish( Rank.TWO, Suit.SPADE ));
+		tmp.offer(new CardDanish( Rank.FOUR, Suit.SPADE ));
+		tmp.offer(new CardDanish( Rank.ACE, Suit.DIAMOND ));
+		tmp.offer(new CardDanish( Rank.TWO, Suit.DIAMOND ));
+		tmp.offer(new CardDanish( Rank.FOUR, Suit.DIAMOND ));
+		
+		assertTrue(cardPack.containsAll( tmp ));
+		
 	}
 
-	/**
-	 * Test of getNumberSimilarCard method, of class CardPack.
-	 */
-	@Test
-	public void testGetNumberSimilarCard(){
-		System.out.println( "getNumberSimilarCard" );
-		CardPack instance = new CardPack();
-		int expResult = 0;
-		int result = instance.getNumberSimilarCard();
-		assertEquals( expResult, result );
-		// TODO review the generated test code and remove the default call to fail.
-		fail( "The test case is a prototype." );
+	
+	@Test (expected = NoSuchElementException.class)
+	public void testRemove_0args_NoSuchElementException() throws NoSuchElementException{
+		System.out.println( "Remove_0args_NoSuchElementException" );
+		cardPack.remove();
 	}
-
+	
 	/**
 	 * Test of remove method, of class CardPack.
 	 */
 	@Test
 	public void testRemove_0args(){
 		System.out.println( "remove" );
-		CardPack instance = new CardPack();
-		CardDanish expResult = null;
-		CardDanish result = instance.remove();
-		assertEquals( expResult, result );
-		// TODO review the generated test code and remove the default call to fail.
-		fail( "The test case is a prototype." );
+		CardDanish test1 = new CardDanish( Rank.ACE, Suit.CLUB );
+		CardDanish test2 = new CardDanish( Rank.ACE, Suit.DIAMOND );
+		CardDanish test3 = new CardDanish( Rank.ACE, Suit.HEART );
+		cardPack.add( test1 );
+		cardPack.add( test2 );
+		cardPack.add( test3 );
+		assertTrue(cardPack.remove().equals( new CardDanish( Rank.ACE, Suit.HEART )));
+		assertFalse(cardPack.contains(new CardDanish( Rank.ACE, Suit.HEART )));
+		assertTrue(cardPack.remove().equals( new CardDanish( Rank.ACE, Suit.DIAMOND )));
+		assertFalse(cardPack.contains(new CardDanish( Rank.ACE, Suit.DIAMOND )));
+		assertTrue(cardPack.remove().equals( new CardDanish( Rank.ACE, Suit.CLUB )));
+		assertFalse(cardPack.contains(new CardDanish( Rank.ACE, Suit.CLUB )));
 	}
 
 	/**
@@ -157,26 +205,43 @@ public class CardPackTest{
 	@Test
 	public void testPoll(){
 		System.out.println( "poll" );
-		CardPack instance = new CardPack();
-		CardDanish expResult = null;
-		CardDanish result = instance.poll();
-		assertEquals( expResult, result );
-		// TODO review the generated test code and remove the default call to fail.
-		fail( "The test case is a prototype." );
+		CardDanish test1 = new CardDanish( Rank.ACE, Suit.CLUB );
+		CardDanish test2 = new CardDanish( Rank.ACE, Suit.DIAMOND );
+		CardDanish test3 = new CardDanish( Rank.ACE, Suit.HEART );
+		cardPack.add( test1 );
+		cardPack.add( test2 );
+		cardPack.add( test3 );
+		assertTrue(cardPack.poll().equals( new CardDanish( Rank.ACE, Suit.HEART )));
+		assertFalse(cardPack.contains(new CardDanish( Rank.ACE, Suit.HEART )));
+		assertTrue(cardPack.poll().equals( new CardDanish( Rank.ACE, Suit.DIAMOND )));
+		assertFalse(cardPack.contains(new CardDanish( Rank.ACE, Suit.DIAMOND )));
+		assertTrue(cardPack.poll().equals( new CardDanish( Rank.ACE, Suit.CLUB )));
+		assertFalse(cardPack.contains(new CardDanish( Rank.ACE, Suit.CLUB )));
 	}
 
+	
+	@Test (expected = NoSuchElementException.class)
+	public void testElement_NoSuchElementException() throws NoSuchElementException{
+		System.out.println( "Element_NoSuchElementException" );
+		cardPack.element();
+	}
+	
 	/**
 	 * Test of element method, of class CardPack.
 	 */
 	@Test
 	public void testElement(){
 		System.out.println( "element" );
-		CardPack instance = new CardPack();
-		CardDanish expResult = null;
-		CardDanish result = instance.element();
-		assertEquals( expResult, result );
-		// TODO review the generated test code and remove the default call to fail.
-		fail( "The test case is a prototype." );
+		CardDanish test1 = new CardDanish( Rank.ACE, Suit.CLUB );
+		CardDanish test2 = new CardDanish( Rank.ACE, Suit.DIAMOND );
+		CardDanish test3 = new CardDanish( Rank.ACE, Suit.HEART );
+		cardPack.add( test1 );
+		assertTrue( cardPack.element().equals( new CardDanish( Rank.ACE, Suit.CLUB ) ) );
+		cardPack.add( test2 );
+		assertTrue( cardPack.element().equals( new CardDanish( Rank.ACE, Suit.DIAMOND ) ) );
+		cardPack.add( test3 );
+		assertTrue( cardPack.element().equals( new CardDanish( Rank.ACE, Suit.HEART ) ) );
+		
 	}
 
 	/**
@@ -185,41 +250,48 @@ public class CardPackTest{
 	@Test
 	public void testSize(){
 		System.out.println( "size" );
-		CardPack instance = new CardPack();
-		int expResult = 0;
-		int result = instance.size();
-		assertEquals( expResult, result );
-		// TODO review the generated test code and remove the default call to fail.
-		fail( "The test case is a prototype." );
+		CardDanish test1 = new CardDanish( Rank.ACE, Suit.CLUB );
+		CardDanish test2 = new CardDanish( Rank.ACE, Suit.DIAMOND );
+		CardDanish test3 = new CardDanish( Rank.ACE, Suit.HEART );
+		CardDanish test4 = new CardDanish( Rank.ACE, Suit.SPADE );
+		assertTrue( cardPack.size() == 0 );
+		cardPack.offer( test1 );
+		assertTrue( cardPack.size() == 1 );
+		cardPack.offer( test2 );
+		assertTrue( cardPack.size() == 2 );
+		cardPack.offer( test3 );
+		assertTrue( cardPack.size() == 3 );
+		cardPack.offer( test4 );
+		assertTrue( cardPack.size() == 4 );
+		cardPack.clear();
+		assertTrue( cardPack.size() == 0 );
 	}
 
-	/**
-	 * Test of isEmpty method, of class CardPack.
-	 */
-	@Test
-	public void testIsEmpty(){
-		System.out.println( "isEmpty" );
-		CardPack instance = new CardPack();
-		boolean expResult = false;
-		boolean result = instance.isEmpty();
-		assertEquals( expResult, result );
-		// TODO review the generated test code and remove the default call to fail.
-		fail( "The test case is a prototype." );
+	
+	@Test (expected = NullPointerException.class)
+	public void testContains_NullPointerException() throws NullPointerException{
+		System.out.println( "Contains_NullPointerException" );
+		cardPack.contains(null);
 	}
-
+	
+	@Test (expected = ClassCastException.class)
+	public void testContains_NoSuchElementException() throws ClassCastException{
+		System.out.println( "Contains_ClassCastException" );
+		int i = 0;
+		cardPack.contains(i);
+	}
 	/**
 	 * Test of contains method, of class CardPack.
 	 */
 	@Test
 	public void testContains(){
 		System.out.println( "contains" );
-		Object o = null;
-		CardPack instance = new CardPack();
-		boolean expResult = false;
-		boolean result = instance.contains( o );
-		assertEquals( expResult, result );
-		// TODO review the generated test code and remove the default call to fail.
-		fail( "The test case is a prototype." );
+		cardPack.offer(new CardDanish( Rank.ACE, Suit.SPADE ));
+		cardPack.offer(new CardDanish( Rank.TWO, Suit.SPADE ));
+		cardPack.offer(new CardDanish( Rank.FOUR, Suit.SPADE ));
+		assertTrue(cardPack.contains( new CardDanish( Rank.ACE, Suit.SPADE )));
+		assertTrue(cardPack.contains( new CardDanish( Rank.TWO, Suit.SPADE )));
+		assertTrue(cardPack.contains( new CardDanish( Rank.FOUR, Suit.SPADE )));
 	}
 
 	/**
@@ -268,16 +340,10 @@ public class CardPackTest{
 	/**
 	 * Test of remove method, of class CardPack.
 	 */
-	@Test
-	public void testRemove_Object(){
+	@Test (expected=UnsupportedOperationException.class)
+	public void testRemove_Object()throws UnsupportedOperationException{
 		System.out.println( "remove" );
-		Object o = null;
-		CardPack instance = new CardPack();
-		boolean expResult = false;
-		boolean result = instance.remove( o );
-		assertEquals( expResult, result );
-		// TODO review the generated test code and remove the default call to fail.
-		fail( "The test case is a prototype." );
+		cardPack.remove(null);
 	}
 
 	/**
@@ -286,13 +352,15 @@ public class CardPackTest{
 	@Test
 	public void testContainsAll(){
 		System.out.println( "containsAll" );
-		Collection c = null;
-		CardPack instance = new CardPack();
-		boolean expResult = false;
-		boolean result = instance.containsAll( c );
-		assertEquals( expResult, result );
-		// TODO review the generated test code and remove the default call to fail.
-		fail( "The test case is a prototype." );
+		cardPack.offer(new CardDanish( Rank.ACE, Suit.SPADE ));
+		cardPack.offer(new CardDanish( Rank.TWO, Suit.SPADE ));
+		cardPack.offer(new CardDanish( Rank.FOUR, Suit.SPADE ));
+		CardPack tmp = new CardPack();
+		tmp.offer(new CardDanish( Rank.ACE, Suit.SPADE ));
+		tmp.offer(new CardDanish( Rank.TWO, Suit.SPADE ));
+		tmp.offer(new CardDanish( Rank.FOUR, Suit.SPADE ));
+		assertTrue( cardPack.containsAll( tmp) );
+		
 	}
 
 	/**
@@ -301,43 +369,35 @@ public class CardPackTest{
 	@Test
 	public void testAddAll(){
 		System.out.println( "addAll" );
-		Collection<? extends CardDanish> c = null;
-		CardPack instance = new CardPack();
-		boolean expResult = false;
-		boolean result = instance.addAll( c );
-		assertEquals( expResult, result );
-		// TODO review the generated test code and remove the default call to fail.
-		fail( "The test case is a prototype." );
+		CardPack tmp = new CardPack();
+		tmp.offer(new CardDanish(Rank.ACE, Suit.SPADE));
+		tmp.offer(new CardDanish(Rank.TWO, Suit.SPADE));
+		tmp.offer(new CardDanish(Rank.THREE, Suit.SPADE));
+		tmp.offer(new CardDanish(Rank.FOUR, Suit.SPADE));
+		cardPack.addAll( tmp );
+		assertTrue(cardPack.containsAll( tmp ));
 	}
 
 	/**
 	 * Test of removeAll method, of class CardPack.
 	 */
-	@Test
-	public void testRemoveAll(){
+	@Test (expected=UnsupportedOperationException.class)
+	public void testRemoveAll() throws UnsupportedOperationException{
 		System.out.println( "removeAll" );
-		Collection clctn = null;
-		CardPack instance = new CardPack();
-		boolean expResult = false;
-		boolean result = instance.removeAll( clctn );
-		assertEquals( expResult, result );
-		// TODO review the generated test code and remove the default call to fail.
-		fail( "The test case is a prototype." );
+		CardPack tmp = new CardPack();
+		tmp.offer(new CardDanish(Rank.ACE, Suit.SPADE));
+		cardPack.removeAll(tmp);
 	}
 
 	/**
 	 * Test of retainAll method, of class CardPack.
 	 */
-	@Test
-	public void testRetainAll(){
+	@Test (expected=UnsupportedOperationException.class)
+	public void testRetainAll() throws UnsupportedOperationException{
 		System.out.println( "retainAll" );
-		Collection clctn = null;
-		CardPack instance = new CardPack();
-		boolean expResult = false;
-		boolean result = instance.retainAll( clctn );
-		assertEquals( expResult, result );
-		// TODO review the generated test code and remove the default call to fail.
-		fail( "The test case is a prototype." );
+		CardPack tmp = new CardPack();
+		tmp.offer(new CardDanish(Rank.ACE, Suit.SPADE));
+		cardPack.retainAll(tmp);
 	}
 
 }
