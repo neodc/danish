@@ -96,6 +96,19 @@ public class CardPack implements Queue<CardDanish> {
 
 		return ret;
 	}
+	
+	/**
+	 * Checks if a card is placeable on this card.
+	 *
+	 * @param c The card to put on this card.
+	 * @return true if the card is placeable, false otherwise.
+	 */
+	public boolean placeable(CardDanish c) {
+		if (c == null){
+			throw new NullPointerException();
+		}
+		return this.isEmpty() || c.isJoker() || (this.peek().getRank() == Rank.SEVEN && c.getRank().getValue() <= this.peek().getRank().getValue()) || (this.peek().getRank() != Rank.SEVEN && c.getRank().getValue() >= this.peek().getRank().getValue());
+	}
 
 	/**
 	 * Adds a CardDanish.

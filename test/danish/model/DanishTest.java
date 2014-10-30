@@ -311,7 +311,7 @@ public class DanishTest {
 		cards.add(p.getHand().get(0));
 
 		// play until an unplacable card is found
-		while (instance.getStack().peek().placeable(cards.get(0))) {
+		while (instance.getStack().placeable(cards.get(0))) {
 			if (cards.get(0).getRank() == Rank.ACE) {
 				instance.turn(cards, (instance.getCurrentPlayer() + 1) % names.size());
 			} else {
@@ -342,7 +342,7 @@ public class DanishTest {
 			cards.add(p.getHand().get(0));
 			Player nextP = instance.getPlayers().get((instance.getCurrentPlayer() + 1) % names.size());
 			// if the card is not playable, or if the next player have a eight, we take the stack
-			if (!(instance.getStack().peek().placeable(cards.get(0)))
+			if (!(instance.getStack().placeable(cards.get(0)))
 					|| (nextP.getHand().contains(diamond)
 					|| nextP.getHand().contains(spade)
 					|| nextP.getHand().contains(club)
@@ -488,7 +488,7 @@ public class DanishTest {
 		while (cards.get(0).getRank() != Rank.ACE
 				&& (cards.get(0).getRank() != Rank.THREE
 				|| instance.getRankStack() != Rank.ACE)) {
-			if (!instance.getStack().peek().placeable(cards.get(0))) {
+			if (!instance.getStack().placeable(cards.get(0))) {
 				cards.clear();
 				instance.turn(cards);
 			} else {

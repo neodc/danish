@@ -451,5 +451,22 @@ public class CardPackTest {
 		tmp.offer(new CardDanish(Rank.ACE, Suit.SPADE));
 		cardPack.retainAll(tmp);
 	}
+	
+	/**
+	 * Test of placeable method, of class CardDanish.
+	 */
+	@Test
+	public void testPlaceable() {
+		System.out.println("placeable");
+		CardPack cp = new CardPack();
+		assertTrue(cp.placeable(new CardDanish(Rank.FOUR, Suit.CLUB)));
+		cp.add(new CardDanish(Rank.NINE, Suit.CLUB));
+		assertTrue(cp.placeable(new CardDanish(Rank.TEN, Suit.CLUB)));
+		assertTrue(cp.placeable(new CardDanish(Rank.TWO, Suit.CLUB)));
+		cp.add(new CardDanish(Rank.SEVEN, Suit.CLUB));
+		assertTrue(cp.placeable(new CardDanish(Rank.FOUR, Suit.CLUB)));
+		assertTrue(cp.placeable(new CardDanish(Rank.TEN, Suit.CLUB)));
+		assertFalse(cp.placeable(new CardDanish(Rank.JACK, Suit.CLUB)));
+	}
 
 }
