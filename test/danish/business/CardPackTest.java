@@ -1,8 +1,10 @@
 package danish.business;
 
+import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Iterator;
 import java.util.NoSuchElementException;
+import org.junit.Assert;
 import org.junit.Test;
 import static org.junit.Assert.*;
 
@@ -300,12 +302,27 @@ public class CardPackTest{
 	@Test
 	public void testIterator(){
 		System.out.println( "iterator" );
-		CardPack instance = new CardPack();
-		Iterator<CardDanish> expResult = null;
-		Iterator<CardDanish> result = instance.iterator();
-		assertEquals( expResult, result );
-		// TODO review the generated test code and remove the default call to fail.
-		fail( "The test case is a prototype." );
+		
+		CardDanish c1 = new CardDanish(Rank.ACE, Suit.CLUB );
+		CardDanish c2 = new CardDanish(Rank.TWO, Suit.CLUB );
+		CardDanish c3 = new CardDanish(Rank.THREE, Suit.CLUB );
+		
+		cardPack.add(c3);
+		cardPack.add(c2);
+		cardPack.add(c1);
+		
+		Iterator<CardDanish> i = cardPack.iterator();
+		
+		assertTrue(i.hasNext());
+		assertEquals(i.next(), c1);
+		
+		assertTrue(i.hasNext());
+		assertEquals(i.next(), c2);
+		
+		assertTrue(i.hasNext());
+		assertEquals(i.next(), c3);
+		
+		assertFalse(i.hasNext());
 	}
 
 	/**
@@ -314,12 +331,21 @@ public class CardPackTest{
 	@Test
 	public void testToArray_0args(){
 		System.out.println( "toArray" );
-		CardPack instance = new CardPack();
-		Object[] expResult = null;
-		Object[] result = instance.toArray();
-		assertArrayEquals( expResult, result );
-		// TODO review the generated test code and remove the default call to fail.
-		fail( "The test case is a prototype." );
+		
+		CardDanish c1 = new CardDanish(Rank.ACE, Suit.CLUB );
+		CardDanish c2 = new CardDanish(Rank.TWO, Suit.CLUB );
+		CardDanish c3 = new CardDanish(Rank.THREE, Suit.CLUB );
+		
+		cardPack.add(c3);
+		cardPack.add(c2);
+		cardPack.add(c1);
+		
+		Object[] toArray = cardPack.toArray();
+		
+		assertEquals( c1, toArray[0]);
+		assertEquals( c2, toArray[1]);
+		assertEquals( c3, toArray[2]);
+		
 	}
 
 	/**
@@ -328,13 +354,29 @@ public class CardPackTest{
 	@Test
 	public void testToArray_GenericType(){
 		System.out.println( "toArray" );
-		Object[] array = null;
-		CardPack instance = new CardPack();
-		Object[] expResult = null;
-		Object[] result = instance.toArray( array );
-		assertArrayEquals( expResult, result );
-		// TODO review the generated test code and remove the default call to fail.
-		fail( "The test case is a prototype." );
+		
+		CardDanish c1 = new CardDanish(Rank.ACE, Suit.CLUB );
+		CardDanish c2 = new CardDanish(Rank.TWO, Suit.CLUB );
+		CardDanish c3 = new CardDanish(Rank.THREE, Suit.CLUB );
+		
+		cardPack.add(c3);
+		cardPack.add(c2);
+		cardPack.add(c1);
+		
+		CardDanish[] a = new CardDanish[3];
+		
+		assertEquals( a, cardPack.toArray(a));
+		assertEquals( 3, cardPack.toArray(a).length);
+		
+		a = new CardDanish[2];
+		
+		assertEquals( 3, cardPack.toArray(a).length);
+		
+		a = new CardDanish[4];
+		
+		assertEquals( a, cardPack.toArray(a));
+		assertEquals( 4, cardPack.toArray(a).length);
+		assertNull(a[3]);
 	}
 
 	/**
