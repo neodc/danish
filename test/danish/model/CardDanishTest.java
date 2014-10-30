@@ -78,20 +78,6 @@ public class CardDanishTest {
 	}
 
 	/**
-	 * Test of placeable method, of class CardDanish.
-	 */
-	@Test
-	public void testPlaceable() {
-		System.out.println("placeable");
-
-		assertTrue(new CardDanish(Rank.NINE, Suit.CLUB).placeable(new CardDanish(Rank.TEN, Suit.CLUB)));
-		assertTrue(new CardDanish(Rank.NINE, Suit.CLUB).placeable(new CardDanish(Rank.TWO, Suit.CLUB)));
-		assertTrue(new CardDanish(Rank.SEVEN, Suit.CLUB).placeable(new CardDanish(Rank.FOUR, Suit.CLUB)));
-		assertTrue(new CardDanish(Rank.SEVEN, Suit.CLUB).placeable(new CardDanish(Rank.TEN, Suit.CLUB)));
-		assertFalse(new CardDanish(Rank.SEVEN, Suit.CLUB).placeable(new CardDanish(Rank.JACK, Suit.CLUB)));
-	}
-
-	/**
 	 * Test of isJoker method, of class CardDanish.
 	 */
 	@Test

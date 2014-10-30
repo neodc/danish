@@ -60,16 +60,6 @@ public class CardDanish extends Card implements Comparable {
 	}
 
 	/**
-	 * Checks if a card is placeable on this card.
-	 *
-	 * @param c The card to put on this card.
-	 * @return true if the card is placeable, false otherwise.
-	 */
-	public boolean placeable(CardDanish c) {
-		return c.isJoker() || (this.getRank() == Rank.SEVEN && c.getRank().getValue() <= this.getRank().getValue()) || (this.getRank() != Rank.SEVEN && c.getRank().getValue() >= this.getRank().getValue());
-	}
-
-	/**
 	 * Checks if the card is a joker.
 	 *
 	 * @return true if it's a joker (Ace, Two, Three or Ten), false otherwise.

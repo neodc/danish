@@ -187,7 +187,7 @@ public class Danish implements DanishInterface {
 			return;
 		}
 
-		if (!stack.isEmpty() && !stack.peek().placeable(cards.get(0))) { // Unplayable cards
+		if (!stack.isEmpty() && !stack.placeable(cards.get(0))) { // Unplayable cards
 			return;
 		}
 
