@@ -324,6 +324,24 @@ public class CardPackTest{
 		
 		assertFalse(i.hasNext());
 	}
+	
+	@Test (expected=UnsupportedOperationException.class)
+	public void testIteratorRemove(){
+		System.out.println( "iterator" );
+		
+		
+		CardDanish c1 = new CardDanish(Rank.ACE, Suit.CLUB );
+		CardDanish c2 = new CardDanish(Rank.TWO, Suit.CLUB );
+		CardDanish c3 = new CardDanish(Rank.THREE, Suit.CLUB );
+		
+		cardPack.add(c3);
+		cardPack.add(c2);
+		cardPack.add(c1);
+		
+		Iterator<CardDanish> i = cardPack.iterator();
+		
+		i.remove();
+	}
 
 	/**
 	 * Test of toArray method, of class CardPack.
