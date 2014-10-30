@@ -1,10 +1,7 @@
-package danish.business;
+package danish.model;
 
-import java.util.ArrayList;
-import java.util.Collection;
 import java.util.Iterator;
 import java.util.NoSuchElementException;
-import org.junit.Assert;
 import org.junit.Test;
 import static org.junit.Assert.*;
 

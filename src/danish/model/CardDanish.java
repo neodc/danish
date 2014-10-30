@@ -1,4 +1,4 @@
-package danish.business;
+package danish.model;
 
 /**
  * A class representing a game CardDanish.

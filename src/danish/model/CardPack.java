@@ -1,4 +1,4 @@
-package danish.business;
+package danish.model;
 
 import java.lang.reflect.Array;
 import java.util.Collection;

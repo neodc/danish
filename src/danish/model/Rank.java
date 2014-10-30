@@ -1,4 +1,4 @@
-package danish.business;
+package danish.model;
 
 /**
  * An enumeration of the 13 possible values of a card.

@@ -1,4 +1,4 @@
-package danish.business;
+package danish.model;
 
 import java.util.Objects;
 

@@ -1,4 +1,4 @@
-package danish.business;
+package danish.model;
 
 /**
  * An enumeration of the 4 possible suits of a card.
