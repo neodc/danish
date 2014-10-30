@@ -53,7 +53,6 @@ public enum Rank {
 		return this.display;
 	}
 
-
 	/**
 	 * A textual representation of the rank.
 	 *

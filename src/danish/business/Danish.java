@@ -23,10 +23,10 @@ public class Danish implements DanishInterface {
 
 	/**
 	 * Getter of the winner.
-	 * 
+	 *
 	 * @return The winner, null if not over.
 	 */
-	public Player getWinner(){
+	public Player getWinner() {
 		return winner;
 	}
 
@@ -109,8 +109,8 @@ public class Danish implements DanishInterface {
 	}
 
 	/**
-	 * Creates the list of players and deals their cards.
-	 * Any null name will create an AI player.
+	 * Creates the list of players and deals their cards. Any null name will
+	 * create an AI player.
 	 *
 	 * @param names The name of the players.
 	 */
@@ -142,8 +142,8 @@ public class Danish implements DanishInterface {
 	}
 
 	/**
-	 * Makes the match begin.
-	 * It cannot begin if the player list is null or if there is a winner.
+	 * Makes the match begin. It cannot begin if the player list is null or if
+	 * there is a winner.
 	 *
 	 * @return true if the match has successfully begun, false otherwise.
 	 */
@@ -156,8 +156,8 @@ public class Danish implements DanishInterface {
 	}
 
 	/**
-	 * Resolves a turn.
-	 * It will check if the cards are valid and will change the current player if the turn has been played without problem.
+	 * Resolves a turn. It will check if the cards are valid and will change the
+	 * current player if the turn has been played without problem.
 	 *
 	 * @param cards The cards to be played.
 	 */
@@ -293,18 +293,26 @@ public class Danish implements DanishInterface {
 		if (stack.isEmpty()) {
 			return Rank.TWO;
 		}
-		
+
 		return stack.peek().getRealRank();
 	}
 
+	/**
+	 * Returns the currently playing player.
+	 *
+	 * @return The currently playing player.
+	 */
 	@Override
 	public Player getPlaying() {
-		if( players == null ){
+		if (players == null) {
 			return null;
 		}
 		return players.get(currentPlayer);
 	}
 
+	/**
+	 * Creates a complete deck of cards and shuffles it.
+	 */
 	private void initDeck() {
 		ArrayList<CardDanish> list = new ArrayList<>();
 
@@ -315,24 +323,39 @@ public class Danish implements DanishInterface {
 		}
 
 		Collections.shuffle(list);
-		
+
 		deck = new CardPack(list);
 	}
 
+	/**
+	 * Makes a player take all the cards in the stack into his hand.
+	 *
+	 * @param p The player who takes the cards.
+	 */
 	private void take(Player p) {
 		p.hand.addAll(stack);
 		stack.clear();
 		currentPlayer = (currentPlayer + 1) % players.size();
 	}
 
+	/**
+	 * Checks if the stack has to be cut and cut it if so. A ten or 4 identical
+	 * cards cut the stack.
+	 *
+	 * @return If the stack has been cut.
+	 */
 	private boolean doesCut() {
-		if( this.getRankStack() == Rank.TEN || stack.getNumberSimilarCard() >= 4){
+		if (this.getRankStack() == Rank.TEN || stack.getNumberSimilarCard() >= 4) {
 			graveyard.pour(stack);
 			return true;
 		}
 		return false;
 	}
 
+	/**
+	 * Makes the current player draw cards until he has three or until the deck
+	 * is empty.
+	 */
 	private void draw() {
 
 		while (!deck.isEmpty() && getPlaying().hand.size() < 3) {

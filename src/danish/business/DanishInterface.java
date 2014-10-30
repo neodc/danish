@@ -7,7 +7,7 @@ import java.util.List;
  *
  * @author Noé, Julien, Loup.
  */
-public interface DanishInterface{
+public interface DanishInterface {
 
 	/**
 	 * Getter of the players.
@@ -40,6 +40,13 @@ public interface DanishInterface{
 	/**
 	 * Tells if the game has begun.
 	 *
+	 * @return true if the game has begun, false otherwise.
+	 */
+	public Player getPlaying();
+
+	/**
+	 * Tells if the game has begun.
+	 *
 	 * @return true, if the game has begun.
 	 */
 	public boolean isPlaying();
@@ -56,7 +63,7 @@ public interface DanishInterface{
 	 *
 	 * @param names The name of the players.
 	 */
-	public void setPlayers( List<String> names );
+	public void setPlayers(List<String> names);
 
 	/**
 	 * Makes the match begin.
@@ -70,7 +77,7 @@ public interface DanishInterface{
 	 *
 	 * @param cards The cards to be played.
 	 */
-	public void turn( List<CardDanish> cards );
+	public void turn(List<CardDanish> cards);
 
 	/**
 	 * Resolves an attack.
@@ -78,7 +85,7 @@ public interface DanishInterface{
 	 * @param cards The cards to be played (normally, only aces and threes).
 	 * @param player The attacked player.
 	 */
-	public void turn( List<CardDanish> cards, int player );
+	public void turn(List<CardDanish> cards, int player);
 
 	/**
 	 * Switches a card in the hand with a visible one.
@@ -87,7 +94,7 @@ public interface DanishInterface{
 	 * @param visible The visible card to take in hand.
 	 * @param hand The card in hand to make visible.
 	 */
-	public void switchCard( int p, CardDanish visible, CardDanish hand );
+	public void switchCard(int p, CardDanish visible, CardDanish hand);
 
 	/**
 	 * Switches a card in the hand with a visible one.
@@ -96,7 +103,7 @@ public interface DanishInterface{
 	 * @param visible The visible card to take in hand.
 	 * @param hand The card in hand to make visible.
 	 */
-	public void switchCard( Player player, CardDanish visible, CardDanish hand );
+	public void switchCard(Player player, CardDanish visible, CardDanish hand);
 
 	/**
 	 * Check the rank of the stack.
@@ -104,6 +111,5 @@ public interface DanishInterface{
 	 * @return The rank of the stack.
 	 */
 	public Rank getRankStack();
-	
-	public Player getPlaying();
+
 }

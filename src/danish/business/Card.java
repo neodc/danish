@@ -2,10 +2,11 @@ package danish.business;
 
 import java.util.Objects;
 
-public class Card{
+public class Card {
+
 	private final Rank rank;
 	private final Suit suit;
-	
+
 	/**
 	 * Card constructor with two parameters.
 	 *
@@ -16,11 +17,16 @@ public class Card{
 		this.rank = rank;
 		this.suit = suit;
 	}
-	
-	public Card( Card c ){
+
+	/**
+	 * Card copy constructor.
+	 *
+	 * @param c The card to copy.
+	 */
+	public Card(Card c) {
 		this(c.rank, c.suit);
 	}
-	
+
 	/**
 	 * Getter of the rank.
 	 *
@@ -40,11 +46,12 @@ public class Card{
 	}
 
 	/**
-	 * Compares this card object with another card object.
-	 * Two cards are identical if they have the same rank and the same suit.
+	 * Compares this card object with another card object. Two cards are
+	 * identical if they have the same rank and the same suit.
 	 *
 	 * @param obj An other CardDanish, to compare with.
-	 * @return true if the objects are identical, false if they are not or if the object is not a card.
+	 * @return true if the objects are identical, false if they are not or if
+	 * the object is not a card.
 	 */
 	@Override
 	public boolean equals(Object obj) {

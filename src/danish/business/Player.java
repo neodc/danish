@@ -134,9 +134,9 @@ public class Player {
 	}
 
 	/**
-	 * Makes the player fill his hand with his visible or hidden cards.
-	 * He will take all the visible cards if his hand is empty.
-	 * He will take one hidden card if he has no card in hand and no visible card.
+	 * Makes the player fill his hand with his visible or hidden cards. He will
+	 * take all the visible cards if his hand is empty. He will take one hidden
+	 * card if he has no card in hand and no visible card.
 	 *
 	 * @return If he has no card left.
 	 */

@@ -4,8 +4,8 @@ import java.util.ArrayList;
 import java.util.List;
 
 /**
- * The class representing a non-human Player.
- * The player is controlled by an artificial intelligence.
+ * The class representing a non-human Player. The player is controlled by an
+ * artificial intelligence.
  *
  * @author Noé, Julien, Loup.
  */
@@ -24,8 +24,7 @@ public class PlayerAI extends Player {
 	}
 
 	/**
-	 * plays a turn of the AI.
-	 * It will play the least powerful cards he can.
+	 * plays a turn of the AI. It will play the least powerful cards he can.
 	 */
 	public void play() {
 		List<CardDanish> cards = new ArrayList<>();
@@ -49,11 +48,11 @@ public class PlayerAI extends Player {
 
 			for (i = 0; i < danish.getPlayers().size(); ++i) {
 				oPlayer = danish.getPlayers().get(i);
-				
-				if( oPlayer == this ){
+
+				if (oPlayer == this) {
 					continue;
 				}
-				
+
 				if (player == null) {
 					player = oPlayer;
 					iPlayer = i;
