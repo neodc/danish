@@ -45,12 +45,21 @@ public class CardBean extends JPanel{
 		
 		Image i;
 		
+		int w = getWidth();
+		int h = getHeight();
+		
+		if( (1.0 * getHeight() / getWidth()) > ( 1.0 * Images.getHeight() / Images.getWidth() ) ){
+			h = ( Images.getHeight()* getWidth())/Images.getWidth();
+		}else{
+			w = ( Images.getWidth() * getHeight() )/Images.getHeight();
+		}
+		
 		if( this.hidden ){
 			i = Images.getBack();
 		}else{
 			i = Images.get( card );
 		}
-		g2.drawImage( i, 0, 0, getWidth(), getHeight(), this);
+		g2.drawImage( i, 0, 0, w, h, this);
 	}
 	
 	
