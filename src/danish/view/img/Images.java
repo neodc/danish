@@ -15,15 +15,25 @@ import javax.swing.ImageIcon;
  */
 public class Images{
 
-	private static final Map<Card, Image> images = new HashMap<>();
-	private static final Image back = (new ImageIcon(Images.class.getResource( "Back.png") )).getImage();
+	private static final Map<Card, Image> IMAGES = new HashMap<>();
+	private static final Image BACK = (new ImageIcon(Images.class.getResource( "Back.png") )).getImage();
+	private static final int HEIGHT = BACK.getHeight( null );
+	private static final int WIDTH = BACK.getWidth( null );
 	
 	public static Image get( Card c ){
-		return images.get(c);
+		return IMAGES.get(c);
 	}
 	
 	public static Image getBack(){
-		return back;
+		return BACK;
+	}
+
+	public static int getHeight(){
+		return HEIGHT;
+	}
+
+	public static int getWidth(){
+		return WIDTH;
 	}
 
 	static{
@@ -31,7 +41,7 @@ public class Images{
 		for( Suit s : Suit.values() ){
 			for( Rank r : Rank.values() ){
 				
-				images.put(
+				IMAGES.put(
 						new Card(r, s),
 						(new ImageIcon(Images.class.getResource( s.getDisplay()+r.getValue()+".png") )).getImage()
 				);
