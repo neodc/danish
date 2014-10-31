@@ -8,6 +8,7 @@ import java.awt.Graphics;
 import java.awt.Graphics2D;
 import java.awt.Image;
 import danish.view.img.Images;
+import java.awt.Dimension;
 
 /**
  *
@@ -45,22 +46,32 @@ public class CardBean extends JPanel{
 		
 		Image i;
 		
-		int w = getWidth();
-		int h = getHeight();
-		
-		if( (1.0 * getHeight() / getWidth()) > ( 1.0 * Images.getHeight() / Images.getWidth() ) ){
-			h = ( Images.getHeight()* getWidth())/Images.getWidth();
-		}else{
-			w = ( Images.getWidth() * getHeight() )/Images.getHeight();
-		}
-		
 		if( this.hidden ){
 			i = Images.getBack();
 		}else{
 			i = Images.get( card );
 		}
-		g2.drawImage( i, 0, 0, w, h, this);
+		g2.drawImage( i, 0, 0, getWidth(), getHeight(), this);
 	}
-	
-	
+
+	@Override
+	public Dimension getPreferredSize(){
+		return new Dimension(Images.getWidth(), Images.getHeight());
+	}
+
+	@Override
+	public void setSize( Dimension d ){
+		this.setSize( d.width, d.height );
+	}
+
+	@Override
+	public void setSize( int w, int h ){
+		if( (1.0 * h / w) > ( 1.0 * Images.getHeight() / Images.getWidth() ) ){
+			h = ( Images.getHeight()* w)/Images.getWidth();
+		}else{
+			w = ( Images.getWidth() * h )/Images.getHeight();
+		}
+		
+		super.setSize(w, h);
+	}
 }
