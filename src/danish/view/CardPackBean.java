@@ -16,7 +16,7 @@ public class CardPackBean extends JPanel{
 	private CardPack pack;
 	private boolean hidden;
 	private int nbCard;
-	private OverlapLayout layout;
+	private final OverlapLayout layout;
 
 	public CardPackBean(){
 		pack = new CardPack();
