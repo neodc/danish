@@ -3,10 +3,9 @@ package danish.view;
 import javax.swing.JPanel;
 import danish.model.CardPack;
 import danish.model.Card;
-import java.awt.Graphics;
-import java.awt.Graphics2D;
-import java.awt.Insets;
 import java.awt.Point;
+import javax.swing.JLabel;
+import javax.swing.SwingConstants;
 
 /**
  *
@@ -15,16 +14,41 @@ import java.awt.Point;
 public class CardPackBean extends JPanel{
 	private CardPack pack;
 	private boolean hidden;
+	private boolean showSize;
 	private int nbCard;
 	private final OverlapLayout layout;
+	private final OverlapLayout layoutCard;
+	private final JPanel jPanelCard;
+	private final JLabel jLabelSize;
 
 	public CardPackBean(){
 		pack = new CardPack();
 		hidden = false;
+		showSize = false;
 		nbCard = 1;
-		layout = new OverlapLayout( new Point(25, 0) );
-		layout.setPopupInsets(new Insets(20, 0, 0, 0));
+		jLabelSize = new JLabel();
+		
+		jLabelSize.setHorizontalAlignment( SwingConstants.CENTER );
+		jLabelSize.setFont( jLabelSize.getFont().deriveFont( 96f ) );
+		
+		layout = new OverlapLayout();
 		setLayout( layout );
+		
+		layoutCard = new OverlapLayout( new Point(25, 0) );
+		/*layoutCard.setPopupInsets(new Insets(20, 0, 0, 0));*/
+		jPanelCard = new JPanel(layoutCard);
+		
+		add(jPanelCard);
+		add(jLabelSize);
+	}
+
+	public boolean isShowSize(){
+		return showSize;
+	}
+
+	public void setShowSize( boolean showSize ){
+		this.showSize = showSize;
+		this.refresh();
 	}
 
 	public CardPack getPack(){
@@ -57,7 +81,7 @@ public class CardPackBean extends JPanel{
 	}
 	
 	public void refresh(){
-		removeAll();
+		jPanelCard.removeAll();
 		
 		int i = nbCard;
 		
@@ -69,15 +93,12 @@ public class CardPackBean extends JPanel{
 			CardBean cardBean = new CardBean();
 			cardBean.setCard(c);
 			cardBean.setHidden( hidden );
-			add(cardBean);
+			jPanelCard.add(cardBean);
 		}
-	}
-	
-	@Override
-	protected void paintComponent( Graphics g ){
-		super.paintComponent(g);
-		Graphics2D g2 = (Graphics2D) g ;
-		
-		/*add( new JLabel( "test" ));*/
+		if( showSize ){
+			jLabelSize.setText( ""+pack.size() );
+		}else{
+			jLabelSize.setText( "" );
+		}
 	}
 }

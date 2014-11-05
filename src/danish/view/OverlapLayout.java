@@ -307,41 +307,38 @@ public class OverlapLayout implements LayoutManager2, java.io.Serializable{
 		if( visibleComponents == 0 ){
 			return new Dimension( 0, 0 );
 		}
-/*
-		if( visibleComponents == 0 ){
-			return new Dimension( 0, 0 );
-		}
-
-		//  Keep maximum dimension for easy access when laying out components
-		if( type == PREFERRED ){
-			maximumSize.width = width;
-			maximumSize.height = height;
-		}
 		
-		//  Adjust size for each overlapping component
-		visibleComponents--;
-		width += visibleComponents * Math.abs( overlapPosition.x );
-		height += visibleComponents * Math.abs( overlapPosition.y );
-
-		//  Adjust for parent Container and popup insets
-		Insets parentInsets = parent.getInsets();
-		width += parentInsets.left + parentInsets.right;
-		height += parentInsets.top + parentInsets.bottom;
-
-		width += popupInsets.left + popupInsets.right;
-		height += popupInsets.top + popupInsets.bottom;
-
-		return new Dimension( width, height );*/
+		if( overlapPosition.x == 0 && overlapPosition.y == 0 ){
+			return new Dimension(parent.getWidth(), parent.getHeight());
+		}
 		
 		visibleComponents--;
 		Insets parentInsets = parent.getInsets();
 		
-		System.out.println( width + " - " + height + " - " + overlapPosition );
+		Dimension sizeWithOverlap = new Dimension(
+				(int) (width*(1 + visibleComponents*Math.abs( overlapPosition.x/100.0 ))),
+				(int) (height*(1 + visibleComponents*Math.abs( overlapPosition.y/100.0 )))
+		);
 		
-		maximumSize.width = parent.getWidth()  - (visibleComponents * Math.abs( overlapPosition.x*width/100 ))  - parentInsets.left - parentInsets.right - popupInsets.left - popupInsets.right;
-		maximumSize.height = parent.getHeight()- (visibleComponents * Math.abs( overlapPosition.y*height/100 )) - parentInsets.top  - parentInsets.bottom- popupInsets.top  - popupInsets.bottom;
+		Dimension sizeAvailable = new Dimension(
+				(int) (parent.getWidth()  - parentInsets.left - parentInsets.right - popupInsets.left - popupInsets.right),
+				(int) (parent.getHeight() - parentInsets.top  - parentInsets.bottom- popupInsets.top  - popupInsets.bottom)
+		);
 		
-		return new Dimension(parent.getWidth(), parent.getHeight());
+		if( ( 1.0 * sizeAvailable.height / sizeAvailable.width ) > (1.0 * sizeWithOverlap.height / sizeWithOverlap.width) ){
+			sizeWithOverlap.height = (sizeWithOverlap.height*sizeAvailable.width)/sizeWithOverlap.width;
+			sizeWithOverlap.width = sizeAvailable.width;
+		}else{
+			sizeWithOverlap.width = sizeWithOverlap.width*sizeAvailable.height/sizeWithOverlap.height;
+			sizeWithOverlap.height = sizeAvailable.height;
+		}
+		
+		maximumSize.setSize(
+				(int) (sizeWithOverlap.width /(1 + visibleComponents*Math.abs( overlapPosition.x/100.0 ))),
+				(int) (sizeWithOverlap.height/(1 + visibleComponents*Math.abs( overlapPosition.y/100.0 )))
+		);
+		
+		return new Dimension(sizeWithOverlap);
 	}
 
 	private Dimension getDimension( Component component, int type ){
@@ -363,7 +360,7 @@ public class OverlapLayout implements LayoutManager2, java.io.Serializable{
 	@Override
 	public void layoutContainer( Container parent ){
 		synchronized( parent.getTreeLock() ){
-			this.getLayoutSize( parent, PREFERRED );
+			Dimension layoutSize = this.getLayoutSize( parent, PREFERRED );
 			
 			int size = components.size();
 
@@ -377,16 +374,16 @@ public class OverlapLayout implements LayoutManager2, java.io.Serializable{
 
 		//  Layout right-to-left, else left-to-right
 			if( overlapPosition.x < 0 ){
-				location.x = parent.getWidth() - maximumSize.width - parentInsets.right - popupInsets.right;
+				location.x = parent.getWidth() - maximumSize.width - parentInsets.right - popupInsets.right - (parent.getWidth()-layoutSize.width)/2;
 			}else{
-				location.x = parentInsets.left + popupInsets.left;
+				location.x = parentInsets.left + popupInsets.left + (parent.getWidth()-layoutSize.width)/2;
 			}
 
 		//  Layout bottom-to-top, else top-to-bottom
 			if( overlapPosition.y < 0 ){
-				location.y = parent.getHeight() - maximumSize.height - parentInsets.bottom - popupInsets.bottom;
+				location.y = parent.getHeight() - maximumSize.height - parentInsets.bottom - popupInsets.bottom - (parent.getHeight()-layoutSize.height)/2;
 			}else{
-				location.y = parentInsets.top + popupInsets.top;
+				location.y = parentInsets.top + popupInsets.top + (parent.getHeight()-layoutSize.height)/2;
 			}
 
 		//  Set the size and location for each component
