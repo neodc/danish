@@ -3,7 +3,9 @@ package danish.view;
 import javax.swing.JPanel;
 import danish.model.CardPack;
 import danish.model.Card;
+import danish.model.CardDanish;
 import java.awt.Point;
+import java.util.Collection;
 import javax.swing.JLabel;
 import javax.swing.SwingConstants;
 
@@ -11,17 +13,16 @@ import javax.swing.SwingConstants;
  *
  * @author Noé, Julien, Loup.
  */
-public class CardPackBean extends JPanel{
-	private CardPack pack;
+public class CardCollectionBean extends JPanel{
+	private Collection<CardDanish> pack;
 	private boolean hidden;
 	private boolean showSize;
 	private int nbCard;
-	private final OverlapLayout layout;
 	private final OverlapLayout layoutCard;
 	private final JPanel jPanelCard;
 	private final JLabel jLabelSize;
 
-	public CardPackBean(){
+	public CardCollectionBean(){
 		pack = new CardPack();
 		hidden = false;
 		showSize = false;
@@ -31,8 +32,7 @@ public class CardPackBean extends JPanel{
 		jLabelSize.setHorizontalAlignment( SwingConstants.CENTER );
 		jLabelSize.setFont( jLabelSize.getFont().deriveFont( 96f ) );
 		
-		layout = new OverlapLayout();
-		setLayout( layout );
+		setLayout( new OverlapLayout() );
 		
 		layoutCard = new OverlapLayout( new Point(25, 0) );
 		/*layoutCard.setPopupInsets(new Insets(20, 0, 0, 0));*/
@@ -51,11 +51,14 @@ public class CardPackBean extends JPanel{
 		this.refresh();
 	}
 
-	public CardPack getPack(){
+	public Collection<CardDanish> getPack(){
 		return pack;
 	}
 
-	public void setPack( CardPack pack ){
+	public void setPack( Collection<CardDanish> pack ){
+		if( pack == null ){
+			throw new NullPointerException();
+		}
 		this.pack = pack;
 		this.refresh();
 	}
