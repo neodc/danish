@@ -325,11 +325,11 @@ public class OverlapLayout implements LayoutManager2, java.io.Serializable{
 				(int) (parent.getHeight() - parentInsets.top  - parentInsets.bottom- popupInsets.top  - popupInsets.bottom)
 		);
 		
-		if( ( 1.0 * sizeAvailable.height / sizeAvailable.width ) > (1.0 * sizeWithOverlap.height / sizeWithOverlap.width) ){
+		if( ( (double)sizeAvailable.height / (double)sizeAvailable.width ) > ((double)sizeWithOverlap.height / (double)sizeWithOverlap.width) ){
 			sizeWithOverlap.height = (sizeWithOverlap.height*sizeAvailable.width)/sizeWithOverlap.width;
 			sizeWithOverlap.width = sizeAvailable.width;
 		}else{
-			sizeWithOverlap.width = sizeWithOverlap.width*sizeAvailable.height/sizeWithOverlap.height;
+			sizeWithOverlap.width = (sizeWithOverlap.width*sizeAvailable.height)/sizeWithOverlap.height;
 			sizeWithOverlap.height = sizeAvailable.height;
 		}
 		
