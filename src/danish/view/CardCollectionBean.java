@@ -91,6 +91,14 @@ public class CardCollectionBean extends JPanel{
 		this.layoutCard.setOverlapPosition(p);
 	}
 	
+	public void setLayoutAlignmentY(float f){
+		layoutCard.setLayoutAlignmentY(f);
+	}
+	
+	public void setLayoutAlignmentX(float f){
+		layoutCard.setLayoutAlignmentX(f);
+	}
+	
 	public void refresh(){
 		jPanelCard.removeAll();
 		

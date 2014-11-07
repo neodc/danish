@@ -65,6 +65,9 @@ public class OverlapLayout implements LayoutManager2, java.io.Serializable{
 
 	//  Track maximum dimension of any component for easier layout
 	private Dimension maximumSize = new Dimension();
+	
+	private float layoutAlignmentY = 0.5f;
+	private float layoutAlignmentX = 0.5f;
 
 	/**
 	 * Convenience constructor to provide for "stacking" of components. Each
@@ -374,16 +377,16 @@ public class OverlapLayout implements LayoutManager2, java.io.Serializable{
 
 		//  Layout right-to-left, else left-to-right
 			if( overlapPosition.x < 0 ){
-				location.x = parent.getWidth() - maximumSize.width - parentInsets.right - popupInsets.right - (parent.getWidth()-layoutSize.width)/2;
+				location.x = (int) ( parent.getWidth() - maximumSize.width - parentInsets.right - popupInsets.right - (parent.getWidth()-layoutSize.width)*layoutAlignmentX );
 			}else{
-				location.x = parentInsets.left + popupInsets.left + (parent.getWidth()-layoutSize.width)/2;
+				location.x = (int) ( parentInsets.left + popupInsets.left + (parent.getWidth()-layoutSize.width)*layoutAlignmentX );
 			}
 
 		//  Layout bottom-to-top, else top-to-bottom
 			if( overlapPosition.y < 0 ){
-				location.y = parent.getHeight() - maximumSize.height - parentInsets.bottom - popupInsets.bottom - (parent.getHeight()-layoutSize.height)/2;
+				location.y = (int) ( parent.getHeight() - maximumSize.height - parentInsets.bottom - popupInsets.bottom - (parent.getHeight()-layoutSize.height)*layoutAlignmentY );
 			}else{
-				location.y = parentInsets.top + popupInsets.top + (parent.getHeight()-layoutSize.height)/2;
+				location.y = (int) ( parentInsets.top + popupInsets.top + (parent.getHeight()-layoutSize.height)*layoutAlignmentY );
 			}
 
 		//  Set the size and location for each component
@@ -439,7 +442,13 @@ public class OverlapLayout implements LayoutManager2, java.io.Serializable{
 	 */
 	@Override
 	public float getLayoutAlignmentX( Container parent ){
-		return 0.5f;
+		return this.layoutAlignmentX;
+	}
+	
+	public void setLayoutAlignmentX( float f ){
+		if( f >= 0 && f <= 1 ){
+			this.layoutAlignmentX = f;
+		}
 	}
 
 	/**
@@ -447,7 +456,13 @@ public class OverlapLayout implements LayoutManager2, java.io.Serializable{
 	 */
 	@Override
 	public float getLayoutAlignmentY( Container parent ){
-		return 0.5f;
+		return this.layoutAlignmentY;
+	}
+	
+	public void setLayoutAlignmentY( float f ){
+		if( f >= 0 && f <= 1 ){
+			this.layoutAlignmentY = f;
+		}
 	}
 
 	/**

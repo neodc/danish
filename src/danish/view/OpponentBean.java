@@ -32,10 +32,12 @@ public class OpponentBean extends PlayerBean{
 		this.hidden.setNbCard(1);
 		this.hidden.setHidden(true);
 		this.hidden.setShowSize(true);
+		this.hidden.setAlignmentX(0f);
 		
 		this.hand.setNbCard(3);
 		this.hand.setHidden(true);
 		this.hand.setShowSize(true);
+		this.hand.setAlignmentX(1f);
 		
 		this.visible.setNbCard(3);
 		
