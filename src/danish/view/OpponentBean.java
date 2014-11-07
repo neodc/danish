@@ -28,16 +28,23 @@ public class OpponentBean extends PlayerBean{
 		this.attack = new JButton("Attack");
 		
 		this.name.setHorizontalAlignment( JLabel.CENTER );
-		
+		/*
+		this.attack.setBorder( new LineBorder(Color.black));
+		this.hidden.setBorder( new LineBorder(Color.black));
+		this.hand.setBorder( new LineBorder(Color.black));
+		this.visible.setBorder( new LineBorder(Color.black));
+		this.name.setBorder( new LineBorder(Color.black));
+		this.setBorder( new LineBorder(Color.black));
+		*/
 		this.hidden.setNbCard(1);
 		this.hidden.setHidden(true);
 		this.hidden.setShowSize(true);
-		this.hidden.setAlignmentX(0f);
+		this.hidden.setLayoutAlignmentX(0f);
 		
 		this.hand.setNbCard(3);
 		this.hand.setHidden(true);
 		this.hand.setShowSize(true);
-		this.hand.setAlignmentX(1f);
+		this.hand.setLayoutAlignmentX(1f);
 		
 		this.visible.setNbCard(3);
 		

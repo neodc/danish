@@ -61,7 +61,7 @@ public class OverlapLayout implements LayoutManager2, java.io.Serializable{
 	private List<Component> components = new ArrayList<>();
 
 	//  Track a constraint added to a component
-	private HashMap<Component, Boolean> constraints = new HashMap<>();
+	private HashMap<Component, OverlapConstraints> constraints = new HashMap<>();
 
 	//  Track maximum dimension of any component for easier layout
 	private Dimension maximumSize = new Dimension();
@@ -187,7 +187,7 @@ public class OverlapLayout implements LayoutManager2, java.io.Serializable{
 	 * @return the constraint for the specified component, or null
 	 * if component is null or is not present in this layout
 	 */
-	public Boolean getConstraints( Component component ){
+	public OverlapConstraints getConstraints( Component component ){
 		return constraints.get( component );
 	}
 
@@ -206,15 +206,13 @@ public class OverlapLayout implements LayoutManager2, java.io.Serializable{
 	 */
 	@Override
 	public void addLayoutComponent( Component component, Object constraint ){
-		//  Support simple Boolean constraint for painting a Component in
-		//  its "popped up" position
 
 		if( constraint == null ){
 			constraints.remove( component );
-		}else if( constraint instanceof Boolean ){
-			constraints.put( component, (Boolean) constraint );
+		}else if( constraint instanceof OverlapConstraints ){
+			constraints.put( component, (OverlapConstraints) constraint );
 		}else{
-			String message = "Constraint parameter must be of type Boolean";
+			String message = "Constraint parameter must be of type OverlapConstraints";
 			throw new IllegalArgumentException( message );
 		}
 
@@ -304,10 +302,14 @@ public class OverlapLayout implements LayoutManager2, java.io.Serializable{
 				Dimension size = getDimension( component, type );
 				width = Math.max( size.width, width );
 				height = Math.max( size.height, height );
-				visibleComponents++;
+				OverlapConstraints c = getConstraints( component );
+				if( c == null || c.overlap ){
+					visibleComponents++;
+				}
 			}
 		}
-		if( visibleComponents == 0 ){
+		if( visibleComponents == 0 || width == 0 || height == 0 ){
+			maximumSize.setSize( 0, 0 );
 			return new Dimension( 0, 0 );
 		}
 		
@@ -411,19 +413,24 @@ public class OverlapLayout implements LayoutManager2, java.io.Serializable{
 					int y = location.y;
 
 				//  Adjust location when component is "popped up"
-					Boolean constraint = constraints.get( component );
+					OverlapConstraints constraint = constraints.get( component );
 
 					if( constraint != null
-							&& constraint == Boolean.TRUE ){
+							&& constraint.popup ){
 						x += popupInsets.right - popupInsets.left;
 						y += popupInsets.bottom - popupInsets.top;
 					}
 
 					component.setLocation( x, y );
 
-				//  Calculate location of next component using the overlap offsets
-					location.x += overlapPosition.x*component.getWidth()/100;
-					location.y += overlapPosition.y*component.getHeight()/100;
+					//  Calculate location of next component using the overlap offsets
+					if( i+1 < size ){
+						OverlapConstraints c = constraints.get( components.get(i+1) );
+						if( c == null || c.overlap ){
+							location.x += overlapPosition.x*component.getWidth()/100;
+							location.y += overlapPosition.y*component.getHeight()/100;
+						}
+					}
 				}
 			}
 		}

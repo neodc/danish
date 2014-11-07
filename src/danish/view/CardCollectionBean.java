@@ -39,7 +39,6 @@ public class CardCollectionBean extends JPanel{
 		jPanelCard = new JPanel(layoutCard);
 		
 		add(jPanelCard);
-		add(jLabelSize);
 	}
 
 	public boolean isShowSize(){
@@ -114,10 +113,15 @@ public class CardCollectionBean extends JPanel{
 			cardBean.setHidden( hidden );
 			jPanelCard.add(cardBean);
 		}
+		
 		if( showSize && pack.size() > this.nbCard ){
+			jPanelCard.add(jLabelSize);
+
+			OverlapConstraints c = new OverlapConstraints();
+			c.overlap = false;
+			layoutCard.addLayoutComponent(jLabelSize, c);
+			
 			jLabelSize.setText( ""+pack.size() );
-		}else{
-			jLabelSize.setText( "" );
 		}
 	}
 }
