@@ -98,7 +98,7 @@ public class CardCollectionBean extends JPanel{
 			cardBean.setHidden( hidden );
 			jPanelCard.add(cardBean);
 		}
-		if( showSize ){
+		if( showSize && pack.size() > this.nbCard ){
 			jLabelSize.setText( ""+pack.size() );
 		}else{
 			jLabelSize.setText( "" );

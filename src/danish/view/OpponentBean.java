@@ -27,12 +27,7 @@ public class OpponentBean extends PlayerBean{
 		this.visible = new CardCollectionBean();
 		this.attack = new JButton("Attack");
 		
-		this.attack.setBorder( new LineBorder(Color.black));
-		this.hidden.setBorder( new LineBorder(Color.black));
-		this.hand.setBorder( new LineBorder(Color.black));
-		this.visible.setBorder( new LineBorder(Color.black));
-		this.name.setBorder( new LineBorder(Color.black));
-		this.setBorder( new LineBorder(Color.black));
+		this.name.setHorizontalAlignment( JLabel.CENTER );
 		
 		this.hidden.setNbCard(1);
 		this.hidden.setHidden(true);
@@ -60,8 +55,6 @@ public class OpponentBean extends PlayerBean{
 		GridBagLayout gridbag = new GridBagLayout();
 		GridBagConstraints c = new GridBagConstraints();
 		
-		gridbag.layoutContainer(this);
-		
 		setLayout(gridbag);
 		
 		c.insets = new Insets(5, 5, 5, 5);
@@ -80,12 +73,16 @@ public class OpponentBean extends PlayerBean{
 		c.weightx = 0;
 		c.weighty = 0;
 		c.gridy = 3;
+		c.insets.left = 100;
+		c.insets.right = 100;
 		gridbag.setConstraints( this.attack, c);
 		
 		c.weightx = 1;
 		c.weighty = 1;
 		c.gridwidth = 1;
 		c.gridy = 1;
+		c.insets.left = 5;
+		c.insets.right = 5;
 		
 		gridbag.setConstraints( this.hidden, c);
 		
