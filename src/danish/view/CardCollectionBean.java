@@ -83,6 +83,14 @@ public class CardCollectionBean extends JPanel{
 		this.refresh();
 	}
 	
+	public void setOverlap( Point p ){
+		if( p == null ){
+			throw new NullPointerException();
+		}
+		
+		this.layoutCard.setOverlapPosition(p);
+	}
+	
 	public void refresh(){
 		jPanelCard.removeAll();
 		
