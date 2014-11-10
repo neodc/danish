@@ -1,12 +1,11 @@
 package danish.view;
 
-import java.awt.Color;
 import java.awt.GridBagConstraints;
 import java.awt.GridBagLayout;
 import java.awt.Insets;
+import java.awt.Point;
 import javax.swing.JButton;
 import javax.swing.JLabel;
-import javax.swing.border.LineBorder;
 
 /**
  *
@@ -39,14 +38,17 @@ public class OpponentBean extends PlayerBean{
 		this.hidden.setNbCard(1);
 		this.hidden.setHidden(true);
 		this.hidden.setShowSize(true);
-		this.hidden.setLayoutAlignmentX(0f);
+		this.hidden.setLayoutAlignmentX(1f);
 		
 		this.hand.setNbCard(3);
 		this.hand.setHidden(true);
 		this.hand.setShowSize(true);
-		this.hand.setLayoutAlignmentX(1f);
+		this.hand.setLayoutAlignmentX(0f);
 		
 		this.visible.setNbCard(3);
+		this.visible.setOverlap(new Point(110, 0));
+		
+		this.hand.setOverlap(new Point(20, 0));
 		
 		add(this.name);
 		add(this.hidden);
