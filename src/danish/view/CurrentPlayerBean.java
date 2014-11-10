@@ -4,13 +4,11 @@
  */
 package danish.view;
 
-import java.awt.Color;
 import java.awt.GridBagConstraints;
 import java.awt.GridBagLayout;
 import java.awt.Insets;
 import javax.swing.JButton;
 import javax.swing.JLabel;
-import javax.swing.border.LineBorder;
 
 /**
  *
@@ -36,10 +34,8 @@ public class CurrentPlayerBean extends PlayerBean{
 		this.hidden.setNbCard(1);
 		this.hidden.setHidden(true);
 		this.hidden.setShowSize(true);
-		//this.hidden.setLayoutAlignmentX(0f);
 		
 		this.hand.setNbCard(52);
-		//this.hand.setLayoutAlignmentX(1f);
 		
 		this.visible.setNbCard(3);
 		
