@@ -1,7 +1,5 @@
 package danish;
-import danish.model.CardDanish;
-import danish.view.*;
-import java.util.ArrayList;
+import danish.view.DanishUI;
 
 /**
  *
@@ -14,7 +12,6 @@ public class Danish {
 	 */
 	public static void main(String[] args) {
 		danish.model.Danish danish = new danish.model.Danish();
-		/*AbstractControler controler = new CalculetteControler(calc);*/
 		
 		DanishUI danishUI = new DanishUI(danish);
 		//danish.addObserver(danishUI);
