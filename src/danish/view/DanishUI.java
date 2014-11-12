@@ -30,7 +30,7 @@ public class DanishUI extends javax.swing.JFrame /*implements Observer*/{
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setTitle("Danish");
 		this.danish = danish;
-		initComposant();
+		initComponent();
 		
 		
 		this.opponent1.setBorder( new LineBorder(Color.black));
@@ -99,7 +99,7 @@ public class DanishUI extends javax.swing.JFrame /*implements Observer*/{
 		}
 	}*/
 
-	private void initComposant(){
+	private void initComponent(){
 		opponent1 = new OpponentBean();
 		opponent2 = new OpponentBean();
 		opponent3 = new OpponentBean();

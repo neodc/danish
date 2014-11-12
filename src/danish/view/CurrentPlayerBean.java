@@ -7,6 +7,7 @@ package danish.view;
 import java.awt.GridBagConstraints;
 import java.awt.GridBagLayout;
 import java.awt.Insets;
+import java.awt.Point;
 import javax.swing.JButton;
 import javax.swing.JLabel;
 
@@ -31,13 +32,15 @@ public class CurrentPlayerBean extends PlayerBean{
 		
 		this.name.setHorizontalAlignment( JLabel.CENTER );
 		
-		this.hidden.setNbCard(1);
+		this.hidden.setNbCard(3);
 		this.hidden.setHidden(true);
 		this.hidden.setShowSize(true);
+		this.hidden.setOverlap(new Point(110, 0));
 		
 		this.hand.setNbCard(52);
 		
 		this.visible.setNbCard(3);
+		this.visible.setOverlap(new Point(110, 0));
 		
 		add(this.hidden);
 		add(this.name);
