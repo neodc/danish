@@ -7,8 +7,12 @@ import java.util.List;
  *
  * @author Noé, Julien, Loup.
  */
-public interface DanishInterface {
+public interface DanishModel {
 
+	public void addDanishListener(DanishView view);
+	
+	public void removeDanishListener(DanishView view);
+	
 	/**
 	 * Getter of the players.
 	 *

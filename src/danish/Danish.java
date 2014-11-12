@@ -1,5 +1,6 @@
 package danish;
 import danish.view.DanishUI;
+import javax.swing.JFrame;
 
 /**
  *
@@ -14,7 +15,16 @@ public class Danish {
 		danish.model.Danish danish = new danish.model.Danish();
 		
 		DanishUI danishUI = new DanishUI(danish);
-		//danish.addObserver(danishUI);
-		danishUI.setVisible( true );
+		danish.addDanishListener(danishUI);
+		
+		JFrame jFrame = new JFrame();
+		
+		jFrame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+		jFrame.setTitle("Danish");
+		
+		jFrame.add(danishUI);
+		
+		jFrame.setVisible(true);
+		jFrame.pack();
 	}
 }

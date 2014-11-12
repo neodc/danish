@@ -9,9 +9,10 @@ import java.util.List;
  *
  * @author Noé, Julien, Loup.
  */
-public class Danish implements DanishInterface {
+public class Danish implements DanishModel {
 
 	private List<Player> players;
+	private List<DanishView> listeners;
 
 	private CardPack deck;
 	private CardPack stack;
@@ -35,6 +36,7 @@ public class Danish implements DanishInterface {
 	 */
 	public Danish() {
 		this.players = null;
+		this.listeners = new ArrayList<>();
 
 		this.initDeck();
 		this.stack = new CardPack();
@@ -139,6 +141,7 @@ public class Danish implements DanishInterface {
 
 			Collections.shuffle(players);
 		}
+		fireChange();
 	}
 
 	/**
@@ -152,6 +155,7 @@ public class Danish implements DanishInterface {
 		if (players != null && winner == null) {
 			playing = true;
 		}
+		fireChange();
 		return playing;
 	}
 
@@ -166,6 +170,7 @@ public class Danish implements DanishInterface {
 
 		if (cards.isEmpty()) { // The player takes because he doesn't play anything
 			take(getPlaying());
+			fireChange();
 			return;
 		}
 
@@ -199,6 +204,7 @@ public class Danish implements DanishInterface {
 		draw();
 
 		if (doesCut()) {
+			fireChange();
 			return;
 		}
 
@@ -208,6 +214,8 @@ public class Danish implements DanishInterface {
 		}
 
 		currentPlayer = (currentPlayer + i) % players.size();
+		
+		fireChange();
 	}
 
 	/**
@@ -220,7 +228,7 @@ public class Danish implements DanishInterface {
 	public void turn(List<CardDanish> cards, int player) {
 
 		if (cards.isEmpty() || !getPlaying().hand.containsAll(cards)) {	// The player's playing nothing
-			return;															// or cards he doesn't have
+			return;														// or cards he doesn't have
 		}
 
 		Rank rank = null;
@@ -249,10 +257,12 @@ public class Danish implements DanishInterface {
 		draw();
 
 		if (doesCut()) {
+			fireChange();
 			return;
 		}
 
 		currentPlayer = player;
+		fireChange();
 	}
 
 	/**
@@ -281,6 +291,7 @@ public class Danish implements DanishInterface {
 		if (!playing) {
 			player.switchCard(visible, hand);
 		}
+		fireChange();
 	}
 
 	/**
@@ -365,6 +376,24 @@ public class Danish implements DanishInterface {
 		if (getPlaying().draw()) {
 			winner = getPlaying();
 			playing = false;
+		}
+	}
+
+	@Override
+	public void addDanishListener( DanishView view ){
+		listeners.add(view);
+		fireChange();
+	}
+
+	@Override
+	public void removeDanishListener( DanishView view ){
+		listeners.remove(view);
+		fireChange();
+	}
+	
+	private void fireChange(){
+		for (DanishView view : listeners){
+			view.refresh();
 		}
 	}
 }

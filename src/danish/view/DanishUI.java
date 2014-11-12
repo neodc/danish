@@ -1,46 +1,83 @@
 package danish.view;
-import danish.model.Danish;
+import danish.model.DanishModel;
+import danish.model.DanishView;
+import danish.model.Player;
+import danish.model.PlayerAI;
 import java.awt.Color;
 import java.awt.GridBagConstraints;
 import java.awt.GridBagLayout;
 import java.awt.Insets;
-import javax.swing.JFrame;
+import java.util.ArrayList;
+import java.util.Collections;
+import javax.swing.JComponent;
 import javax.swing.border.LineBorder;
 
 /**
  *
- * @author Julien
+ * @author Noé, Julien, Loup.
  */
-public class DanishUI extends javax.swing.JFrame /*implements Observer*/{
+public class DanishUI extends JComponent implements DanishView{
 	
-	private OpponentBean opponent1;
-	private OpponentBean opponent2;
-	private OpponentBean opponent3;
+	private OpponentBean[] opponent;
 	private CurrentPlayerBean current;
 	private CardCollectionBean deck;
 	private CardCollectionBean stack;
 	private CardCollectionBean graveyard;
-	private Danish danish = null;
+	private DanishModel danish;
 	
-	public DanishUI(Danish danish) {
-		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		setTitle("Danish");
+	public DanishUI(DanishModel danish) {
 		this.danish = danish;
+		
 		initComponent();
 		
+		setPlayers( 3, getRandomName());
+	}
+
+	@Override
+	public void refresh(){
 		
-		this.opponent1.setBorder( new LineBorder(Color.black));
-		this.opponent2.setBorder( new LineBorder(Color.black));
-		this.opponent3.setBorder( new LineBorder(Color.black));
+		int i = 0;
+		
+		for( Player p : this.danish.getPlayers() ){
+			if( p instanceof PlayerAI ){
+				this.opponent[i++].setPlayer(p);
+			}else{
+				this.current.setPlayer(p);
+			}
+		}
+		
+	}
+	
+	@Override
+	public void removeNotify() {
+		super.removeNotify();
+		if( this.danish != null ){
+			danish.removeDanishListener(this);
+			this.danish = null;
+		}
+	}
+
+	private void initComponent(){
+		opponent = new OpponentBean[3];
+		opponent[0] = new OpponentBean();
+		opponent[1] = new OpponentBean();
+		opponent[2] = new OpponentBean();
+		current = new CurrentPlayerBean();
+		deck = new CardCollectionBean();
+		stack = new CardCollectionBean();
+		graveyard = new CardCollectionBean();
+		
+		this.opponent[0].setBorder( new LineBorder(Color.black));
+		this.opponent[1].setBorder( new LineBorder(Color.black));
+		this.opponent[2].setBorder( new LineBorder(Color.black));
 		this.current.setBorder( new LineBorder(Color.black));
 		this.deck.setBorder( new LineBorder(Color.black));
 		this.stack.setBorder( new LineBorder(Color.black));
 		this.graveyard.setBorder( new LineBorder(Color.black));
-		//this.setBorder( new LineBorder(Color.black));
 		
-		add(opponent1);
-		add(opponent2);
-		add(opponent3);
+		add(opponent[0]);
+		add(opponent[1]);
+		add(opponent[2]);
 		add(current);
 		add(deck);
 		add(stack);
@@ -57,13 +94,13 @@ public class DanishUI extends javax.swing.JFrame /*implements Observer*/{
 		c.gridy = 0;
 		c.gridx = 0;
 		c.gridwidth = 2;
-		gridbag.setConstraints( this.opponent1, c);
+		gridbag.setConstraints( this.opponent[0], c);
 		
 		c.gridx = 2;
-		gridbag.setConstraints( this.opponent2, c);
+		gridbag.setConstraints( this.opponent[1], c);
 		
 		c.gridx = 4;
-		gridbag.setConstraints( this.opponent3, c);
+		gridbag.setConstraints( this.opponent[2], c);
 		
 		c.gridy = 1;
 		c.gridx = 1;
@@ -82,26 +119,29 @@ public class DanishUI extends javax.swing.JFrame /*implements Observer*/{
 		c.gridy = 2;
 		c.gridwidth = 6;
 		gridbag.setConstraints( this.current, c);
-		
-		/*current.setPlayer(danish.getPlaying());
-		current.refresh();*/
-		
-		pack();
 	}
-
-	/*@Override
-	public void update( Observable o, Object o1 ){
-		if (o == danish){
+	
+	private void setPlayers( int nbIA, String playerName){
+		if( nbIA < 4 && nbIA > 0 ){
+			ArrayList<String> players = new ArrayList<>();
+			
+			players.add(playerName);
+			for( int i = 0; i < nbIA ; ++i ){
+				players.add(null);
+			}
+			
+			this.danish.setPlayers(players);
 		}
-	}*/
-
-	private void initComponent(){
-		opponent1 = new OpponentBean();
-		opponent2 = new OpponentBean();
-		opponent3 = new OpponentBean();
-		current = new CurrentPlayerBean();
-		deck = new CardCollectionBean();
-		stack = new CardCollectionBean();
-		graveyard = new CardCollectionBean();
+	}
+	
+	private String getRandomName(){
+		ArrayList<String> names = new ArrayList<>();
+		
+		names.add( "Player");
+		names.add( "Default");
+		
+		Collections.shuffle( names );
+		
+		return names.get(0);
 	}
 }
