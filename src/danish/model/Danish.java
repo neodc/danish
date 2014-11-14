@@ -154,6 +154,12 @@ public class Danish implements DanishModel {
 	public boolean begin() {
 		if (players != null && winner == null) {
 			playing = true;
+			
+			for( Player p : this.players ){
+				if( p instanceof PlayerAI ){
+					((PlayerAI)p).chooseVisibleCards();
+				}
+			}
 		}
 		fireChange();
 		return playing;

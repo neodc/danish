@@ -1,11 +1,14 @@
 package danish.view;
 
+import java.awt.Color;
 import java.awt.GridBagConstraints;
 import java.awt.GridBagLayout;
 import java.awt.Insets;
 import java.awt.Point;
+import java.awt.event.ActionListener;
 import javax.swing.JButton;
 import javax.swing.JLabel;
+import javax.swing.border.LineBorder;
 
 /**
  *
@@ -38,17 +41,20 @@ public class OpponentBean extends PlayerBean{
 		this.hidden.setNbCard(1);
 		this.hidden.setHidden(true);
 		this.hidden.setShowSize(true);
-		this.hidden.setLayoutAlignmentX(1f);
+		//this.hidden.setLayoutAlignmentX(1f);
 		
 		this.hand.setNbCard(3);
 		this.hand.setHidden(true);
 		this.hand.setShowSize(true);
-		this.hand.setLayoutAlignmentX(0f);
+		//this.hand.setLayoutAlignmentX(0f);
 		
 		this.visible.setNbCard(3);
 		this.visible.setOverlap(new Point(110, 0));
 		
 		this.hand.setOverlap(new Point(20, 0));
+		
+		this.hidden.setNbCard(3);
+		this.hidden.setOverlap(new Point(110, 0));
 		
 		add(this.name);
 		add(this.hidden);
@@ -113,4 +119,11 @@ public class OpponentBean extends PlayerBean{
 		this.visible.setPack( this.player.getVisible());
 	}
 	
+	void DisableButton(boolean b){
+		this.attack.setEnabled(!b);
+	}
+	
+	void addActionListener( ActionListener a ){
+		this.attack.addActionListener(a);
+	}
 }

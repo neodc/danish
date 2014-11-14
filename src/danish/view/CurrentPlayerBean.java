@@ -8,6 +8,7 @@ import java.awt.GridBagConstraints;
 import java.awt.GridBagLayout;
 import java.awt.Insets;
 import java.awt.Point;
+import java.awt.event.ActionListener;
 import javax.swing.JButton;
 import javax.swing.JLabel;
 
@@ -37,7 +38,8 @@ public class CurrentPlayerBean extends PlayerBean{
 		this.hidden.setShowSize(true);
 		this.hidden.setOverlap(new Point(110, 0));
 		
-		this.hand.setNbCard(52);
+		this.hand.setNbCard(Integer.MAX_VALUE);
+		this.hand.setPopup( new Insets(20, 0, 0, 0));
 		
 		this.visible.setNbCard(3);
 		this.visible.setOverlap(new Point(110, 0));
@@ -56,11 +58,11 @@ public class CurrentPlayerBean extends PlayerBean{
 		c.insets = new Insets(5, 5, 5, 5);
 		c.fill = GridBagConstraints.BOTH;
 		
-		c.gridy = 0;
+		c.gridy = 1;
 		c.gridx = 0;
 		c.weightx = 1;
 		c.weighty = 1;
-		c.gridheight = 2;
+		c.gridheight = 1;
 		
 		gridbag.setConstraints(this.hidden, c);
 		
@@ -104,5 +106,28 @@ public class CurrentPlayerBean extends PlayerBean{
 		this.hand.setPack( this.player.getHand());
 		this.visible.setPack( this.player.getVisible());
 	}
+
+	CardCollectionBean getHidden(){
+		return hidden;
+	}
+
+	CardCollectionBean getHand(){
+		return hand;
+	}
+
+	CardCollectionBean getVisible(){
+		return visible;
+	}
 	
+	void setButtonText(String s){
+		this.play.setText(s);
+	}
+	
+	void DisableButton(boolean b){
+		this.play.setEnabled(!b);
+	}
+	
+	void addActionListener( ActionListener a ){
+		this.play.addActionListener(a);
+	}
 }

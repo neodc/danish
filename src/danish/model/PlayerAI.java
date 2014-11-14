@@ -12,6 +12,7 @@ import java.util.List;
 public class PlayerAI extends Player {
 
 	private final Danish danish;
+	private boolean hasChosenVisible;
 
 	/**
 	 * PlayerAI constructor with one parameter.
@@ -21,16 +22,22 @@ public class PlayerAI extends Player {
 	public PlayerAI(Danish danish) {
 		super("AI");
 		this.danish = danish;
+		this.hasChosenVisible = false;
 	}
 	
 	/**
 	 * Makes the AI choose the visible cards. It'll choose the most powerful ones.
 	 */
 	public void chooseVisibleCards(){
-		for (CardDanish cv : visible){
-			for (CardDanish ch : hand){
-				if (ch.compareTo(cv) > 0){
-					switchCard(cv, ch);
+		if( !this.hasChosenVisible ){
+			this.hasChosenVisible = true;
+			
+			for( int i = 0; i < visible.size(); ++i ){
+				for(int j = 0; j < hand.size(); ++j){
+					if (hand.get(j).compareTo(visible.get(i)) > 0){
+						System.out.println( this.toString() + " > " + visible.get(i) + " <=> " + hand.get(j) );
+						switchCard(visible.get(i), hand.get(j));
+					}
 				}
 			}
 		}

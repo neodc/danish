@@ -4,7 +4,13 @@ import javax.swing.JPanel;
 import danish.model.CardPack;
 import danish.model.Card;
 import danish.model.CardDanish;
+import java.awt.Component;
+import java.awt.Insets;
 import java.awt.Point;
+import java.awt.event.MouseAdapter;
+import java.awt.event.MouseEvent;
+import java.awt.event.MouseListener;
+import java.util.Arrays;
 import java.util.Collection;
 import javax.swing.JLabel;
 import javax.swing.SwingConstants;
@@ -21,6 +27,7 @@ public class CardCollectionBean extends JPanel{
 	private final OverlapLayout layoutCard;
 	private final JPanel jPanelCard;
 	private final JLabel jLabelSize;
+	private final MouseAdapter listener;
 
 	public CardCollectionBean(){
 		pack = new CardPack();
@@ -28,6 +35,13 @@ public class CardCollectionBean extends JPanel{
 		showSize = false;
 		nbCard = 1;
 		jLabelSize = new JLabel();
+		
+		this.listener = new MouseAdapter() {
+			@Override
+			public void mouseClicked( MouseEvent me ){
+				dispatch( me );
+			}
+		};
 		
 		jLabelSize.setHorizontalAlignment( SwingConstants.CENTER );
 		jLabelSize.setFont( jLabelSize.getFont().deriveFont( 96f ) );
@@ -90,6 +104,14 @@ public class CardCollectionBean extends JPanel{
 		this.layoutCard.setOverlapPosition(p);
 	}
 	
+	public void setPopup( Insets i ){
+		if( i == null ){
+			throw new NullPointerException();
+		}
+		
+		this.layoutCard.setPopupInsets(i);
+	}
+	
 	public void setLayoutAlignmentY(float f){
 		layoutCard.setLayoutAlignmentY(f);
 	}
@@ -112,6 +134,8 @@ public class CardCollectionBean extends JPanel{
 			cardBean.setCard(c);
 			cardBean.setHidden( hidden );
 			jPanelCard.add(cardBean);
+			
+			cardBean.addMouseListener(this.listener);
 		}
 		
 		if( showSize && pack.size() > this.nbCard ){
@@ -122,6 +146,33 @@ public class CardCollectionBean extends JPanel{
 			layoutCard.addLayoutComponent(jLabelSize, c);
 			
 			jLabelSize.setText( ""+pack.size() );
+		}
+	}
+	
+	public void popup(CardBean card, boolean pop){
+		OverlapConstraints constraints = layoutCard.getConstraints( card );
+		if( constraints == null ){
+			constraints = new OverlapConstraints();
+		}
+		constraints.popup = pop;
+		layoutCard.addLayoutComponent( card, constraints );
+		card.revalidate();
+	}
+	
+	public boolean togglePopup(CardBean card){
+		OverlapConstraints constraints = layoutCard.getConstraints( card );
+		if( constraints == null ){
+			constraints = new OverlapConstraints();
+		}
+		
+		this.popup( card, !constraints.popup);
+		
+		return !constraints.popup;
+	}
+	
+	private void dispatch(MouseEvent me){
+		for( MouseListener m : this.getMouseListeners() ){
+			m.mouseClicked( me );
 		}
 	}
 }

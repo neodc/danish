@@ -124,7 +124,7 @@ public class Player {
 		if ((iHand = this.hand.indexOf(hand)) == -1 || (iVisible = this.visible.indexOf(visible)) == -1) {
 			return;
 		}
-
+		
 		this.hand.remove(iHand);
 		this.visible.remove(iVisible);
 
