@@ -22,9 +22,22 @@ public class PlayerAI extends Player {
 		super("AI");
 		this.danish = danish;
 	}
+	
+	/**
+	 * Makes the AI choose the visible cards. It'll choose the most powerful ones.
+	 */
+	public void chooseVisibleCards(){
+		for (CardDanish cv : visible){
+			for (CardDanish ch : hand){
+				if (ch.compareTo(cv) > 0){
+					switchCard(cv, ch);
+				}
+			}
+		}
+	}
 
 	/**
-	 * plays a turn of the AI. It will play the least powerful cards he can.
+	 * Plays a turn of the AI. It will play the least powerful cards he can.
 	 */
 	public void play() {
 		List<CardDanish> cards = new ArrayList<>();
