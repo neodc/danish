@@ -158,7 +158,7 @@ public class DanishUI extends JComponent implements DanishView{
 		this.graveyard.setShowSize(true);
 		
 		/*
-		this.opponent[0].setBorder( new LineBorder(Color.black, 5));
+		this.opponent[0].setBorder( new LineBorder(Color.black, 5)); 
 		this.opponent[1].setBorder( new LineBorder(Color.black, 5));
 		this.opponent[2].setBorder( new LineBorder(Color.black, 5));
 		this.current.setBorder( new LineBorder(Color.black, 5));

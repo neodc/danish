@@ -12,7 +12,6 @@ import java.awt.Point;
 import java.awt.event.ActionListener;
 import javax.swing.JButton;
 import javax.swing.JLabel;
-import sun.awt.X11.XConstants;
 
 /**
  *
