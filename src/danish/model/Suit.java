@@ -12,7 +12,7 @@ public enum Suit {
 	CLUB("Club"),
 	SPADE("Spade");
 
-	public final String display;
+	private final String display;
 
 	/**
 	 * Suit constructor with one parameter.

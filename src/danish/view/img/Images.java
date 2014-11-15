@@ -13,42 +13,42 @@ import javax.swing.ImageIcon;
  *
  * @author Noé, Julien, Loup.
  */
-public class Images{
+public class Images {
 
 	private static final Map<Card, Image> IMAGES = new HashMap<>();
-	private static final Image BACK = (new ImageIcon(Images.class.getResource( "Back.png") )).getImage();
-	private static final Image BLANK = (new ImageIcon(Images.class.getResource( "Blank.png") )).getImage();
-	private static final int HEIGHT = BACK.getHeight( null );
-	private static final int WIDTH = BACK.getWidth( null );
-	
-	public static Image get( Card c ){
+	private static final Image BACK = (new ImageIcon(Images.class.getResource("Back.png"))).getImage();
+	private static final Image BLANK = (new ImageIcon(Images.class.getResource("Blank.png"))).getImage();
+	private static final int HEIGHT = BACK.getHeight(null);
+	private static final int WIDTH = BACK.getWidth(null);
+
+	public static Image get(Card c) {
 		return IMAGES.get(c);
 	}
-	
-	public static Image getBack(){
+
+	public static Image getBack() {
 		return BACK;
 	}
-	
-	public static Image getBlank(){
+
+	public static Image getBlank() {
 		return BLANK;
 	}
 
-	public static int getHeight(){
+	public static int getHeight() {
 		return HEIGHT;
 	}
 
-	public static int getWidth(){
+	public static int getWidth() {
 		return WIDTH;
 	}
 
-	static{
-		
-		for( Suit s : Suit.values() ){
-			for( Rank r : Rank.values() ){
-				
+	static {
+
+		for (Suit s : Suit.values()) {
+			for (Rank r : Rank.values()) {
+
 				IMAGES.put(
 						new Card(r, s),
-						(new ImageIcon(Images.class.getResource( s.getDisplay()+r.getValue()+".png") )).getImage()
+						(new ImageIcon(Images.class.getResource(s.getDisplay() + r.getValue() + ".png"))).getImage()
 				);
 			}
 		}

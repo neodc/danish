@@ -12,8 +12,19 @@ public class Player {
 
 	private final String name;
 
+	/**
+	 * The hand of the player.
+	 */
 	protected final List<CardDanish> hand;
+
+	/**
+	 * The visible cards the player has.
+	 */
 	protected final List<CardDanish> visible;
+
+	/**
+	 * The hidden cards the player has.
+	 */
 	protected final List<CardDanish> hidden;
 
 	/**
@@ -124,7 +135,7 @@ public class Player {
 		if ((iHand = this.hand.indexOf(hand)) == -1 || (iVisible = this.visible.indexOf(visible)) == -1) {
 			return;
 		}
-		
+
 		this.hand.remove(iHand);
 		this.visible.remove(iVisible);
 

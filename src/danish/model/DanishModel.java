@@ -9,10 +9,20 @@ import java.util.List;
  */
 public interface DanishModel {
 
+	/**
+	 * Adds a listener for this Danish.
+	 *
+	 * @param view The listener to add.
+	 */
 	public void addDanishListener(DanishView view);
-	
+
+	/**
+	 * Removes a listener of this Danish.
+	 *
+	 * @param view The listener to remove.
+	 */
 	public void removeDanishListener(DanishView view);
-	
+
 	/**
 	 * Getter of the players.
 	 *
@@ -90,7 +100,7 @@ public interface DanishModel {
 	 * @param player The attacked player's index.
 	 */
 	public void turn(List<CardDanish> cards, int player);
-	
+
 	/**
 	 * Resolves an attack.
 	 *

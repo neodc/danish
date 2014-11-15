@@ -451,7 +451,7 @@ public class CardPackTest {
 		tmp.offer(new CardDanish(Rank.ACE, Suit.SPADE));
 		cardPack.retainAll(tmp);
 	}
-	
+
 	/**
 	 * Test of placeable method, of class CardDanish.
 	 */

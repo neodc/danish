@@ -2,6 +2,11 @@ package danish.model;
 
 import java.util.Objects;
 
+/**
+ * A class representing a classic card.
+ *
+ * @author Noé, Julien, Loup
+ */
 public class Card {
 
 	private final Rank rank;

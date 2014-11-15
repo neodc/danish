@@ -1,10 +1,14 @@
 package danish.model;
 
 /**
- * 
+ *
  *
  * @author Noé, Julien, Loup.
  */
-public interface DanishView{
+public interface DanishView {
+
+	/**
+	 * Refreshes the view.
+	 */
 	public void refresh();
 }

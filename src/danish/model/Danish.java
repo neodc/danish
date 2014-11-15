@@ -3,8 +3,6 @@ package danish.model;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 
 /**
  * The class representing the whole Danish game.
@@ -156,10 +154,10 @@ public class Danish implements DanishModel {
 	public boolean begin() {
 		if (players != null && winner == null) {
 			playing = true;
-			
-			for( Player p : this.players ){
-				if( p instanceof PlayerAI ){
-					((PlayerAI)p).chooseVisibleCards();
+
+			for (Player p : this.players) {
+				if (p instanceof PlayerAI) {
+					((PlayerAI) p).chooseVisibleCards();
 				}
 			}
 		}
@@ -222,7 +220,7 @@ public class Danish implements DanishModel {
 		}
 
 		currentPlayer = (currentPlayer + i) % players.size();
-		
+
 		fireChange();
 	}
 
@@ -272,12 +270,12 @@ public class Danish implements DanishModel {
 		currentPlayer = player;
 		fireChange();
 	}
-	
+
 	@Override
 	public void turn(List<CardDanish> cards, Player player) {
-		for( int i = 0; i < players.size(); ++i ){
-			if( player.equals( players.get(i) ) ){
-				this.turn( cards, i );
+		for (int i = 0; i < players.size(); ++i) {
+			if (player.equals(players.get(i))) {
+				this.turn(cards, i);
 				break;
 			}
 		}
@@ -397,20 +395,30 @@ public class Danish implements DanishModel {
 		}
 	}
 
+	/**
+	 * Adds a listener for this Danish.
+	 *
+	 * @param view The listener to add.
+	 */
 	@Override
-	public void addDanishListener( DanishView view ){
+	public void addDanishListener(DanishView view) {
 		listeners.add(view);
 		fireChange();
 	}
 
+	/**
+	 * Removes a listener of this Danish.
+	 *
+	 * @param view The listener to remove.
+	 */
 	@Override
-	public void removeDanishListener( DanishView view ){
+	public void removeDanishListener(DanishView view) {
 		listeners.remove(view);
 		fireChange();
 	}
-	
-	private void fireChange(){
-		for (DanishView view : listeners){
+
+	private void fireChange() {
+		for (DanishView view : listeners) {
 			view.refresh();
 		}
 	}

@@ -96,7 +96,7 @@ public class CardPack implements Queue<CardDanish> {
 
 		return ret;
 	}
-	
+
 	/**
 	 * Checks if a card is placeable on this card.
 	 *
@@ -104,7 +104,7 @@ public class CardPack implements Queue<CardDanish> {
 	 * @return true if the card is placeable, false otherwise.
 	 */
 	public boolean placeable(CardDanish c) {
-		if (c == null){
+		if (c == null) {
 			throw new NullPointerException();
 		}
 		return this.isEmpty() || c.isJoker() || (this.peek().getRank() == Rank.SEVEN && c.getRank().getValue() <= this.peek().getRank().getValue()) || (this.peek().getRank() != Rank.SEVEN && c.getRealRank().getValue() >= this.peek().getRealRank().getValue());
@@ -336,7 +336,7 @@ public class CardPack implements Queue<CardDanish> {
 		Iterator<?> e = c.iterator();
 
 		while (e.hasNext()) {
-			if (!this.contains(e.next())) {
+			if (!this.contains((CardDanish) e.next())) {
 				return false;
 			}
 		}

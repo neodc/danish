@@ -24,17 +24,18 @@ public class PlayerAI extends Player {
 		this.danish = danish;
 		this.hasChosenVisible = false;
 	}
-	
+
 	/**
-	 * Makes the AI choose the visible cards. It'll choose the most powerful ones.
+	 * Makes the AI choose the visible cards. It'll choose the most powerful
+	 * ones.
 	 */
-	public void chooseVisibleCards(){
-		if( !this.hasChosenVisible ){
+	public void chooseVisibleCards() {
+		if (!this.hasChosenVisible) {
 			this.hasChosenVisible = true;
-			
-			for( int i = 0; i < visible.size(); ++i ){
-				for(int j = 0; j < hand.size(); ++j){
-					if (hand.get(j).compareTo(visible.get(i)) > 0){
+
+			for (int i = 0; i < visible.size(); ++i) {
+				for (int j = 0; j < hand.size(); ++j) {
+					if (hand.get(j).compareTo(visible.get(i)) > 0) {
 						switchCard(visible.get(i), hand.get(j));
 					}
 				}
