@@ -35,6 +35,8 @@ import java.util.ArrayList;
  * paint themselves on the top of others. This seems to happen with components
  * like JButton as rollover effects are painted when a mouse moves over the
  * components.
+ * 
+ * Base on http://tips4java.wordpress.com/2009/07/26/overlap-layout/
  */
 public class OverlapLayout implements LayoutManager2, java.io.Serializable {
 
