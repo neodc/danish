@@ -21,6 +21,7 @@ import java.util.Collections;
 import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import javax.swing.JButton;
 import javax.swing.JComponent;
 import javax.swing.SwingUtilities;
 import javax.swing.border.LineBorder;
@@ -91,6 +92,14 @@ public class DanishUI extends JComponent implements DanishView{
 				clickPlay();
 			}
 		});
+		for( OpponentBean o : this.opponent ){
+			o.addActionListener( new ActionListener() {
+				@Override
+				public void actionPerformed( ActionEvent ae ){
+					clickAttack(((OpponentBean)((JButton)ae.getSource()).getParent()).getPlayer());
+				}
+			});
+		}
 	}
 
 	@Override
@@ -99,15 +108,24 @@ public class DanishUI extends JComponent implements DanishView{
 		
 		this.current.getHand().setEnabled( !this.danish.isPlaying() || !(this.danish.getPlaying() instanceof PlayerAI) );
 		
-		int i = 0;
+		int p = 0;
 		
-		for( Player p : this.danish.getPlayers() ){
-			if( p instanceof PlayerAI ){ // TODO opti
-				this.opponent[i].setPlayer(p);
-				this.opponent[i++].setCurrent( this.danish.getPlaying().equals(p) );
-			}else{
-				this.current.setPlayer(p);
-				this.current.setCurrent( this.danish.getPlaying().equals(p) );
+		while( this.danish.getPlayers().get(p) instanceof PlayerAI ){
+			++p;
+		}
+		
+		this.current.setPlayer( this.danish.getPlayers().get(p) );
+		this.current.setCurrent( this.danish.getPlaying().equals( this.danish.getPlayers().get(p) ) );
+		
+		int size = this.danish.getPlayers().size();
+		
+		for( int i = 0; i < size; ++i ){
+			if( i != p ){
+				int index = ((i-p+size)%(size))-1; // calcule la position de l'IA par rapport au player
+				Player player = this.danish.getPlayers().get(i);
+				
+				this.opponent[index].setPlayer( player );
+				this.opponent[index].setCurrent( this.danish.getPlaying().equals( player ) );
 			}
 		}
 		
@@ -151,14 +169,17 @@ public class DanishUI extends JComponent implements DanishView{
 		
 		this.deck.setHidden(true);
 		this.deck.setShowSize(true);
+		this.deck.setNbCardMin(1);
 		
 		this.stack.setOverlap(new Point(20, 0));
 		this.stack.setNbCard(4);
+		this.stack.setNbCardMin(1);
 		
 		this.graveyard.setShowSize(true);
+		this.graveyard.setNbCardMin(1);
 		
 		/*
-		this.opponent[0].setBorder( new LineBorder(Color.black, 5)); 
+		this.opponent[0].setBorder( new LineBorder(Color.black, 5));
 		this.opponent[1].setBorder( new LineBorder(Color.black, 5));
 		this.opponent[2].setBorder( new LineBorder(Color.black, 5));
 		this.current.setBorder( new LineBorder(Color.black, 5));
@@ -274,13 +295,13 @@ public class DanishUI extends JComponent implements DanishView{
 		if( this.danish.isPlaying() ){
 			this.current.setButtonText("Play");
 			
-			this.current.DisableButton( this.selectedCards.isEmpty() || this.selectedCards.get(0).getCard().getRank() == Rank.ACE );
+			this.current.DisableButton( this.selectedCards.isEmpty() || this.selectedCards.get(0).getCard().getRank() == Rank.ACE || ( this.selectedCards.get(0).getCard().getRank() == Rank.THREE && this.danish.getRankStack() == Rank.ACE ) );
 		}else{
 			this.current.setButtonText("Lock");
 		}
 		
 		for( OpponentBean o : this.opponent ){
-			o.DisableButton( !this.danish.isPlaying() || this.selectedCards.isEmpty() || this.selectedCards.get(0).getCard().getRank() != Rank.ACE );
+			o.DisableButton( !this.danish.isPlaying() || this.selectedCards.isEmpty() || (this.selectedCards.get(0).getCard().getRank() != Rank.ACE && !( this.selectedCards.get(0).getCard().getRank() == Rank.THREE && this.danish.getRankStack() == Rank.ACE )) );
 		}
 	}
 	
@@ -306,6 +327,19 @@ public class DanishUI extends JComponent implements DanishView{
 		}else{
 			this.danish.begin();
 		}
+		
+		unselectCards();
+	}
+	
+	private void clickAttack( Player p ){
+		
+		ArrayList<CardDanish> tmp = new ArrayList<>();
+			
+		for( CardBean c : this.selectedCards ){
+			tmp.add( (CardDanish)(c.getCard()) );
+		}
+
+		this.danish.turn( tmp, p );
 		
 		unselectCards();
 	}

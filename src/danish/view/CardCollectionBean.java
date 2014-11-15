@@ -4,14 +4,12 @@ import javax.swing.JPanel;
 import danish.model.CardPack;
 import danish.model.Card;
 import danish.model.CardDanish;
-import java.awt.Component;
 import java.awt.Insets;
 import java.awt.Point;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.Collection;
 import javax.swing.JLabel;
 import javax.swing.SwingConstants;
@@ -25,6 +23,7 @@ public class CardCollectionBean extends JPanel{
 	private boolean hidden;
 	private boolean showSize;
 	private int nbCard;
+	private int nbCardMin;
 	private final OverlapLayout layoutCard;
 	private final JPanel jPanelCard;
 	private final JLabel jLabelSize;
@@ -35,6 +34,7 @@ public class CardCollectionBean extends JPanel{
 		hidden = false;
 		showSize = false;
 		nbCard = 1;
+		nbCardMin = 0;
 		jLabelSize = new JLabel();
 		
 		this.listener = new MouseAdapter() {
@@ -89,10 +89,21 @@ public class CardCollectionBean extends JPanel{
 	public int getNbCard(){
 		return nbCard;
 	}
+	
+	public int getNbCardMin(){
+		return nbCardMin;
+	}
 
 	public void setNbCard( int nbCard ){
 		if( nbCard > 0 ){
 			this.nbCard = nbCard;
+		}
+		this.refresh();
+	}
+	
+	public void setNbCardMin( int nbCardMin ){
+		if( nbCardMin >= 0 ){
+			this.nbCardMin = nbCardMin;
 		}
 		this.refresh();
 	}
@@ -138,6 +149,14 @@ public class CardCollectionBean extends JPanel{
 			cardBean.setHidden( hidden );
 			cardBean.addMouseListener(this.listener);
 			
+			tmp.add(0, cardBean);
+		}
+		
+		int nbBlank = this.nbCardMin - Math.min( pack.size(), this.nbCard );
+		
+		for( i = 0; i < nbBlank; ++i ){
+			CardBean cardBean = new CardBean();
+			cardBean.addMouseListener(this.listener);
 			tmp.add(0, cardBean);
 		}
 		

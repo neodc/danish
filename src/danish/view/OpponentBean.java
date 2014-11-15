@@ -39,23 +39,23 @@ public class OpponentBean extends PlayerBean{
 		this.name.setBorder( new LineBorder(Color.black));
 		this.setBorder( new LineBorder(Color.black));
 		*/
-		this.hidden.setNbCard(1);
+		this.hidden.setNbCard(3);
+		this.hidden.setOverlap(new Point(110, 0));
 		this.hidden.setHidden(true);
 		this.hidden.setShowSize(true);
+		this.hidden.setNbCardMin(3);
 		//this.hidden.setLayoutAlignmentX(1f);
 		
 		this.hand.setNbCard(3);
 		this.hand.setHidden(true);
 		this.hand.setShowSize(true);
+		this.hand.setOverlap(new Point(20, 0));
+		this.hand.setNbCardMin(1);
 		//this.hand.setLayoutAlignmentX(0f);
 		
 		this.visible.setNbCard(3);
 		this.visible.setOverlap(new Point(110, 0));
-		
-		this.hand.setOverlap(new Point(20, 0));
-		
-		this.hidden.setNbCard(3);
-		this.hidden.setOverlap(new Point(110, 0));
+		this.visible.setNbCardMin(3);
 		
 		add(this.name);
 		add(this.hidden);

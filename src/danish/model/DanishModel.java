@@ -87,9 +87,17 @@ public interface DanishModel {
 	 * Resolves an attack.
 	 *
 	 * @param cards The cards to be played (normally, only aces and threes).
-	 * @param player The attacked player.
+	 * @param player The attacked player's index.
 	 */
 	public void turn(List<CardDanish> cards, int player);
+	
+	/**
+	 * Resolves an attack.
+	 *
+	 * @param cards The cards to be played (normally, only aces and threes).
+	 * @param player The attacked player.
+	 */
+	public void turn(List<CardDanish> cards, Player player);
 
 	/**
 	 * Switches a card in the hand with a visible one.

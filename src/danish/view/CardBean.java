@@ -19,7 +19,8 @@ public class CardBean extends JPanel{
 	private boolean hidden;
 
 	public CardBean(){
-		this.card = new Card(Rank.TWO, Suit.CLUB );
+//		this.card = new Card(Rank.TWO, Suit.CLUB );
+		this.card = null;
 		this.hidden = false;
 	}
 
@@ -46,7 +47,9 @@ public class CardBean extends JPanel{
 		
 		Image i;
 		
-		if( this.hidden ){
+		if( this.card == null ){
+			i = Images.getBlank();
+		}else if( this.hidden ){
 			i = Images.getBack();
 		}else{
 			i = Images.get( card );

@@ -35,14 +35,17 @@ public class CurrentPlayerBean extends PlayerBean{
 		this.name.setHorizontalAlignment( JLabel.CENTER );
 		
 		this.hidden.setNbCard(3);
+		this.hidden.setNbCardMin(3);
 		this.hidden.setHidden(true);
 		this.hidden.setShowSize(true);
 		this.hidden.setOverlap(new Point(110, 0));
 		
 		this.hand.setNbCard(Integer.MAX_VALUE);
+		this.hand.setNbCardMin(1);
 		this.hand.setPopup( new Insets(20, 0, 0, 0));
 		
 		this.visible.setNbCard(3);
+		this.visible.setNbCardMin(3);
 		this.visible.setOverlap(new Point(110, 0));
 		
 		add(this.hidden);

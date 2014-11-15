@@ -17,6 +17,7 @@ public class Images{
 
 	private static final Map<Card, Image> IMAGES = new HashMap<>();
 	private static final Image BACK = (new ImageIcon(Images.class.getResource( "Back.png") )).getImage();
+	private static final Image BLANK = (new ImageIcon(Images.class.getResource( "Blank.png") )).getImage();
 	private static final int HEIGHT = BACK.getHeight( null );
 	private static final int WIDTH = BACK.getWidth( null );
 	
@@ -26,6 +27,10 @@ public class Images{
 	
 	public static Image getBack(){
 		return BACK;
+	}
+	
+	public static Image getBlank(){
+		return BLANK;
 	}
 
 	public static int getHeight(){

@@ -272,6 +272,16 @@ public class Danish implements DanishModel {
 		currentPlayer = player;
 		fireChange();
 	}
+	
+	@Override
+	public void turn(List<CardDanish> cards, Player player) {
+		for( int i = 0; i < players.size(); ++i ){
+			if( player.equals( players.get(i) ) ){
+				this.turn( cards, i );
+				break;
+			}
+		}
+	}
 
 	/**
 	 * Switches a card in the hand with a visible one.
