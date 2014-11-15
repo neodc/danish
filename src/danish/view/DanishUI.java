@@ -19,7 +19,10 @@ import java.awt.event.MouseEvent;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.swing.JComponent;
+import javax.swing.SwingUtilities;
 import javax.swing.border.LineBorder;
 
 /**
@@ -45,6 +48,17 @@ public class DanishUI extends JComponent implements DanishView{
 		initComponent();
 		
 		setPlayers( 3, getRandomName());
+		
+		this.stack.addMouseListener( new MouseAdapter() {
+
+			@Override
+			public void mouseClicked( MouseEvent me ){
+				if( me.getComponent() instanceof CardBean ){
+					take();
+				}
+			}
+			
+		});
 		
 		this.current.getHand().addMouseListener( new MouseAdapter() {
 
@@ -83,13 +97,17 @@ public class DanishUI extends JComponent implements DanishView{
 	public void refresh(){
 		refreshButtons();
 		
+		this.current.getHand().setEnabled( !this.danish.isPlaying() || !(this.danish.getPlaying() instanceof PlayerAI) );
+		
 		int i = 0;
 		
 		for( Player p : this.danish.getPlayers() ){
-			if( p instanceof PlayerAI ){
-				this.opponent[i++].setPlayer(p);
+			if( p instanceof PlayerAI ){ // TODO opti
+				this.opponent[i].setPlayer(p);
+				this.opponent[i++].setCurrent( this.danish.getPlaying().equals(p) );
 			}else{
 				this.current.setPlayer(p);
+				this.current.setCurrent( this.danish.getPlaying().equals(p) );
 			}
 		}
 		
@@ -98,6 +116,18 @@ public class DanishUI extends JComponent implements DanishView{
 		this.stack.setPack( this.danish.getStack());
 		
 		this.revalidate();
+		
+		SwingUtilities.invokeLater( new Runnable() {
+			@Override
+			public void run(){
+				if( danish.isPlaying() && (danish.getPlaying() instanceof PlayerAI) ){
+					try{
+						Thread.sleep(2000);
+					}catch( InterruptedException ex ){}
+					((PlayerAI)danish.getPlaying()).play();
+				}
+			}
+		});
 	}
 	
 	@Override
@@ -171,7 +201,7 @@ public class DanishUI extends JComponent implements DanishView{
 		gridbag.setConstraints( this.deck, c);
 		
 		c.gridx = 1;
-		c.gridwidth = 2;
+		c.gridwidth = 1;
 		gridbag.setConstraints( this.stack, c);
 		
 		c.gridx = 2;
@@ -262,14 +292,27 @@ public class DanishUI extends JComponent implements DanishView{
 	}
 	
 	private void clickPlay(){
-		unselectCards();
 		
 		if( this.danish.isPlaying() ){
 			
-		}else{
+			ArrayList<CardDanish> tmp = new ArrayList<>();
 			
+			for( CardBean c : this.selectedCards ){
+				tmp.add( (CardDanish)(c.getCard()) );
+			}
+			
+			this.danish.turn( tmp );
+			
+		}else{
 			this.danish.begin();
 		}
 		
+		unselectCards();
+	}
+	
+	private void take(){
+		if( this.danish.isPlaying() && !(this.danish.getPlaying() instanceof PlayerAI) ){
+			this.danish.turn( new ArrayList<CardDanish>() );
+		}
 	}
 }

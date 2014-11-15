@@ -35,7 +35,6 @@ public class PlayerAI extends Player {
 			for( int i = 0; i < visible.size(); ++i ){
 				for(int j = 0; j < hand.size(); ++j){
 					if (hand.get(j).compareTo(visible.get(i)) > 0){
-						System.out.println( this.toString() + " > " + visible.get(i) + " <=> " + hand.get(j) );
 						switchCard(visible.get(i), hand.get(j));
 					}
 				}

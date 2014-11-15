@@ -107,7 +107,7 @@ public class CardPack implements Queue<CardDanish> {
 		if (c == null){
 			throw new NullPointerException();
 		}
-		return this.isEmpty() || c.isJoker() || (this.peek().getRank() == Rank.SEVEN && c.getRank().getValue() <= this.peek().getRank().getValue()) || (this.peek().getRank() != Rank.SEVEN && c.getRank().getValue() >= this.peek().getRank().getValue());
+		return this.isEmpty() || c.isJoker() || (this.peek().getRank() == Rank.SEVEN && c.getRank().getValue() <= this.peek().getRank().getValue()) || (this.peek().getRank() != Rank.SEVEN && c.getRealRank().getValue() >= this.peek().getRealRank().getValue());
 	}
 
 	/**

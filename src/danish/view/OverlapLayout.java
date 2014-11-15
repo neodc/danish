@@ -223,7 +223,11 @@ public class OverlapLayout implements LayoutManager2, java.io.Serializable{
 		//  Z-Order also changes the order in the Container
 		if( !components.contains( component ) ){
 			Container parent = component.getParent();
-			int size = parent.getComponentCount();
+			
+			int size = 0;
+			if( parent != null ){
+				size = parent.getComponentCount();
+			}
 
 			for( int i = 0; i < size; i++ ){
 				Component c = parent.getComponent( i );

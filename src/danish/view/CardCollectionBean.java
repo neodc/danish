@@ -10,6 +10,7 @@ import java.awt.Point;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
+import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collection;
 import javax.swing.JLabel;
@@ -125,6 +126,8 @@ public class CardCollectionBean extends JPanel{
 		
 		int i = nbCard;
 		
+		ArrayList<CardBean> tmp = new ArrayList<>();
+		
 		for( Card c : pack ){
 			if( i-- <= 0 ){
 				break;
@@ -133,9 +136,13 @@ public class CardCollectionBean extends JPanel{
 			CardBean cardBean = new CardBean();
 			cardBean.setCard(c);
 			cardBean.setHidden( hidden );
-			jPanelCard.add(cardBean);
-			
 			cardBean.addMouseListener(this.listener);
+			
+			tmp.add(0, cardBean);
+		}
+		
+		for( CardBean c : tmp ){
+			jPanelCard.add(c);
 		}
 		
 		if( showSize && pack.size() > this.nbCard ){
@@ -147,6 +154,9 @@ public class CardCollectionBean extends JPanel{
 			
 			jLabelSize.setText( ""+pack.size() );
 		}
+		
+		revalidate();
+		repaint();
 	}
 	
 	public void popup(CardBean card, boolean pop){
@@ -171,8 +181,10 @@ public class CardCollectionBean extends JPanel{
 	}
 	
 	private void dispatch(MouseEvent me){
-		for( MouseListener m : this.getMouseListeners() ){
-			m.mouseClicked( me );
+		if(this.isEnabled()){
+			for( MouseListener m : this.getMouseListeners() ){
+				m.mouseClicked( me );
+			}
 		}
 	}
 }

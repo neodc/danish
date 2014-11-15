@@ -4,6 +4,7 @@
  */
 package danish.view;
 
+import java.awt.Font;
 import java.awt.GridBagConstraints;
 import java.awt.GridBagLayout;
 import java.awt.Insets;
@@ -11,6 +12,7 @@ import java.awt.Point;
 import java.awt.event.ActionListener;
 import javax.swing.JButton;
 import javax.swing.JLabel;
+import sun.awt.X11.XConstants;
 
 /**
  *
@@ -105,6 +107,14 @@ public class CurrentPlayerBean extends PlayerBean{
 		this.hidden.setPack( this.player.getHidden() );
 		this.hand.setPack( this.player.getHand());
 		this.visible.setPack( this.player.getVisible());
+	}
+	
+	public void setCurrent(boolean current){
+		if( current ){
+			this.name.setFont( this.name.getFont().deriveFont( Font.BOLD ));
+		}else{
+			this.name.setFont( this.name.getFont().deriveFont( Font.PLAIN ));
+		}
 	}
 
 	CardCollectionBean getHidden(){
