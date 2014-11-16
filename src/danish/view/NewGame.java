@@ -10,6 +10,8 @@ import javax.swing.JFrame;
 import javax.swing.JPanel;
 import javax.swing.JRadioButton;
 import javax.swing.ButtonGroup;
+import javax.swing.JLabel;
+import javax.swing.JTextField;
 
 /**
  *
@@ -17,6 +19,7 @@ import javax.swing.ButtonGroup;
  */
 public class NewGame extends JDialog {
 	private JRadioButton nbIA1, nbIA2, nbIA3;
+	private JTextField nameField;
 	private boolean sendInfo;
 	private int numberIA;
 	
@@ -24,7 +27,7 @@ public class NewGame extends JDialog {
 		super(parent, title, modal);
 		this.setLocationRelativeTo(null);
 		this.setResizable(false);
-		this.setDefaultCloseOperation(JDialog.DO_NOTHING_ON_CLOSE);
+		this.setDefaultCloseOperation(JDialog.HIDE_ON_CLOSE);
 		this.initComponent();
 		
 		sendInfo = false;
@@ -68,9 +71,13 @@ public class NewGame extends JDialog {
 				numberIA = 3;
 			}
 		});
-		JPanel control = new JPanel();
-		
 		JButton okBouton = new JButton("OK");
+		JButton cancelBouton = new JButton("Cancel");
+		
+		JPanel control = new JPanel();
+		control.add(okBouton);
+		control.add(cancelBouton);
+		
 		okBouton.addActionListener(new ActionListener(){
 			@Override
 			public void actionPerformed(ActionEvent arg0) {
@@ -79,7 +86,6 @@ public class NewGame extends JDialog {
 			}      
 		});
 		
-		JButton cancelBouton = new JButton("Cancel");
 		cancelBouton.addActionListener(new ActionListener(){
 			@Override
 			public void actionPerformed(ActionEvent arg0) {
@@ -87,13 +93,18 @@ public class NewGame extends JDialog {
 				setVisible(false);
 			}      
 		});
+		
+		JPanel name = new JPanel();
+		this.nameField = new JTextField("Player", 10);
+		
+		name.add(new JLabel("Name : "));
+		name.add(this.nameField);
 
 		JPanel content = new JPanel();
 		content.add(nbIA);
-		control.add(okBouton);
-		control.add(cancelBouton);
 		
-		add(content, BorderLayout.CENTER);
+		add(content, BorderLayout.NORTH);
+		add(name, BorderLayout.CENTER);
 		add(control, BorderLayout.SOUTH);
 		
 	}
@@ -106,4 +117,7 @@ public class NewGame extends JDialog {
 		return numberIA;
 	}
 	
+	public String getPlayerName(){
+		return this.nameField.getText();
+	}
 }

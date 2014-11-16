@@ -32,6 +32,7 @@ public class DanishUI extends JComponent implements DanishView {
 
 	private int nbOpponent;
 	private boolean warningWinner;
+	private String playerName;
 	private OpponentBean[] opponent;
 	private CurrentPlayerBean current;
 	private CardCollectionBean deck;
@@ -39,18 +40,21 @@ public class DanishUI extends JComponent implements DanishView {
 	private CardCollectionBean graveyard;
 	private DanishModel danish;
 
-	GridBagLayout gridbag;
-	GridBagConstraints c;
+	private GridBagLayout gridbag;
 
 	private List<CardBean> selectedCards;
 
 	public DanishUI(DanishModel danish) {
 		this.danish = danish;
 		selectedCards = new ArrayList<>();
+		
+		this.nbOpponent = 3;
+		this.warningWinner = true;
+		this.playerName = "Player";
 
 		initComponent();
 
-		setPlayers(nbOpponent, getRandomName());
+		setPlayers();
 
 		this.stack.addMouseListener(new MouseAdapter() {
 
@@ -111,7 +115,7 @@ public class DanishUI extends JComponent implements DanishView {
 			warningWinner = true;
 		}
 		if (danish.getPlayers() == null){
-			this.setPlayers( nbOpponent, getRandomName());
+			this.setPlayers();
 		}
 		
 		this.current.getHand().setEnabled(!this.danish.isPlaying() || !(this.danish.getPlaying() instanceof PlayerAI));
@@ -191,9 +195,6 @@ public class DanishUI extends JComponent implements DanishView {
 
 		this.graveyard.setShowSize(true);
 		this.graveyard.setNbCardMin(1);
-		
-		nbOpponent = 3;
-		warningWinner = true;
 
 		/*
 		 this.opponent[0].setBorder( new LineBorder(Color.black, 5));
@@ -213,7 +214,7 @@ public class DanishUI extends JComponent implements DanishView {
 		add(graveyard);
 
 		gridbag = new GridBagLayout();
-		c = new GridBagConstraints();
+		GridBagConstraints c = new GridBagConstraints();
 
 		setLayout(gridbag);
 
@@ -251,28 +252,90 @@ public class DanishUI extends JComponent implements DanishView {
 		gridbag.setConstraints(this.current, c);
 	}
 
-	private void setPlayers(int nbIA, String playerName) {
-		if (nbIA < 4 && nbIA > 0) {
-			ArrayList<String> players = new ArrayList<>();
+	private void setPlayers() {
+		ArrayList<String> players = new ArrayList<>();
 
-			players.add(playerName);
-			for (int i = 0; i < nbIA; ++i) {
-				players.add(null);
+		players.add(this.playerName);
+		for (int i = 0; i < this.nbOpponent; ++i) {
+			players.add(null);
+		}
+
+		this.danish.setPlayers(players);
+		
+		List<String> names = getRandomNames();
+		
+		for( Player p : this.danish.getPlayers() ){
+			if( p instanceof PlayerAI ){
+				p.setName( names.remove(0) );
 			}
-
-			this.danish.setPlayers(players);
 		}
 	}
 
-	private String getRandomName() {
+	private List<String> getRandomNames() {
 		ArrayList<String> names = new ArrayList<>();
 
-		names.add("Player");
-		names.add("Default");
+		names.add("Twilight Sparkle");
+		names.add("Applejack");
+		names.add("Fluttershy");
+		names.add("Rarity");
+		names.add("Pinkie Pie");
+		names.add("Rainbow Dash");
+		names.add("Spike");
+		names.add("Apple Bloom");
+		names.add("Scootaloo");
+		names.add("Sweetie Belle");
+		names.add("Babs Seed");
+		names.add("Princess Celestia");
+		names.add("Princess Luna");
+		names.add("Princess Cadance");
+		names.add("Shining Armor");
+		names.add("Prince Blueblood");
+		names.add("Granny Smith");
+		names.add("Big McIntosh");
+		names.add("Braeburn");
+		names.add("Diamond Tiara");
+		names.add("Silver Spoon");
+		names.add("Snips");
+		names.add("Snails");
+		names.add("Pipsqueak");
+		names.add("Featherweight");
+		names.add("Nightmare Moon");
+		names.add("Discord");
+		names.add("Queen Chrysalis");
+		names.add("King Sombra");
+		names.add("Sunset Shimmer");
+		names.add("Lord Tirek");
+		names.add("Adagio Dazzle");
+		names.add("Aria Blaze");
+		names.add("Sonata Dusk");
+		names.add("Trixie");
+		names.add("Daring Do");
+		names.add("Spitfire");
+		names.add("Soarin");
+		names.add("Cheerilee");
+		names.add("Lightning Dust");
+		names.add("Flash Sentry");
+		names.add("Coco Pommel");
+		names.add("Maud Pie");
+		names.add("Tom");
+		names.add("Berry Punch");
+		names.add("Caramel");
+		names.add("Dr. Hooves");
+		names.add("Carrot Top");
+		names.add("Octavia Melody");
+		names.add("Roseluck");
+		names.add("Bon Bon");
+		names.add("Derpy");
+		names.add("Amethyst Star");
+		names.add("Vinyl Scratch");
+		names.add("Lyra Heartstrings");
+		names.add("Colgate");
+		names.add("Button Mash");
+		names.add("Snowflake");
 
 		Collections.shuffle(names);
 
-		return names.get(0);
+		return names;
 	}
 
 	private void toggleCardSelection(CardBean card) {
@@ -312,7 +375,10 @@ public class DanishUI extends JComponent implements DanishView {
 			this.current.setButtonText("Play");
 
 			this.current.DisableButton(this.selectedCards.isEmpty() || this.selectedCards.get(0).getCard().getRank() == Rank.ACE || (this.selectedCards.get(0).getCard().getRank() == Rank.THREE && this.danish.getRankStack() == Rank.ACE));
-		} else {
+		} else if (this.danish.getWinner() != null ) {
+			this.current.setButtonText("Play");
+			this.current.DisableButton(true);
+		}else {
 			this.current.setButtonText("Lock");
 			this.current.DisableButton(false);
 		}
@@ -375,9 +441,11 @@ public class DanishUI extends JComponent implements DanishView {
 			remove( this.opponent[0] );
 			remove( this.opponent[1] );
 			remove( this.opponent[2] );
+			
 			for( int i = 0; i < nbOpponent; i++ ){
 				add( this.opponent[i] );
 			}
+			
 			GridBagConstraints c = new GridBagConstraints();
 
 			c.insets = new Insets(5, 5, 5, 5);
@@ -389,7 +457,6 @@ public class DanishUI extends JComponent implements DanishView {
 				c.weightx = 1;
 				c.weighty = 1;
 				c.gridwidth = 1;
-
 				gridbag.setConstraints(this.opponent[0], c);
 			}else if (nbOpponent == 2){
 				c.gridy = 0;
@@ -398,10 +465,9 @@ public class DanishUI extends JComponent implements DanishView {
 				c.weighty = 1;
 				c.gridwidth = 1;
 				gridbag.setConstraints(this.opponent[0], c);
+				
 				c.gridx = 2;
 				gridbag.setConstraints(this.opponent[1], c);
-
-
 			}else if (nbOpponent == 3){
 				c.gridy = 0;
 				c.gridx = 0;
@@ -419,6 +485,12 @@ public class DanishUI extends JComponent implements DanishView {
 
 			this.repaint();
 			this.revalidate();
+		}
+	}
+	
+	public void setPlayerName(String playerName){
+		if( playerName != null ){
+			this.playerName = playerName;
 		}
 	}
 }

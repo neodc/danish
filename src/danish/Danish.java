@@ -57,6 +57,7 @@ public class Danish {
 				NewGame ng = new NewGame(null, "NewGame", true);
 				ng.show();
 				if (ng.isSendInfo()){
+					danishUI.setPlayerName(ng.getPlayerName());
 					danishUI.setNbOpponent(ng.getNumberIA());
 					danish.newGame();
 				}
