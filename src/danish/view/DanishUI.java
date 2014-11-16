@@ -127,7 +127,7 @@ public class DanishUI extends JComponent implements DanishView {
 		}
 
 		this.current.setPlayer(this.danish.getPlayers().get(p));
-		this.current.setCurrent(this.danish.getPlaying().equals(this.danish.getPlayers().get(p)));
+		this.current.setCurrent(this.danish.getWinner() == null && this.danish.getPlaying().equals(this.danish.getPlayers().get(p)));
 
 		int size = this.danish.getPlayers().size();
 
@@ -137,7 +137,7 @@ public class DanishUI extends JComponent implements DanishView {
 				Player player = this.danish.getPlayers().get(i);
 
 				this.opponent[index].setPlayer(player);
-				this.opponent[index].setCurrent(this.danish.getPlaying().equals(player));
+				this.opponent[index].setCurrent(this.danish.getWinner() == null && this.danish.getPlaying().equals(player));
 			}
 		}
 		
