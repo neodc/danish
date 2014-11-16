@@ -344,6 +344,7 @@ public class DanishUI extends JComponent implements DanishView {
 	private void take() {
 		if (this.danish.isPlaying() && !(this.danish.getPlaying() instanceof PlayerAI)) {
 			this.danish.turn(new ArrayList<CardDanish>());
+			unselectCards();
 		}
 	}
 }
