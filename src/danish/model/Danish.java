@@ -46,7 +46,22 @@ public class Danish implements DanishModel {
 		this.currentPlayer = 0;
 		this.winner = null;
 	}
+	
+	/**
+	 * Begin a new game.
+	 */
+	public void newGame(){
+		this.players = null;
 
+		this.initDeck();
+		this.stack = new CardPack();
+		this.graveyard = new CardPack();
+
+		this.playing = false;
+		this.currentPlayer = 0;
+		this.winner = null;
+		fireChange();
+	}
 	/**
 	 * Getter of the players.
 	 *
@@ -422,4 +437,5 @@ public class Danish implements DanishModel {
 			view.refresh();
 		}
 	}
+	
 }

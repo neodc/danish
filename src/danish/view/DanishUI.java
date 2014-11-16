@@ -21,6 +21,7 @@ import java.util.Collections;
 import java.util.List;
 import javax.swing.JButton;
 import javax.swing.JComponent;
+import javax.swing.JOptionPane;
 import javax.swing.SwingUtilities;
 
 /**
@@ -29,6 +30,8 @@ import javax.swing.SwingUtilities;
  */
 public class DanishUI extends JComponent implements DanishView {
 
+	private int nbOpponent = 3;
+	private boolean warningWinner = true;
 	private OpponentBean[] opponent;
 	private CurrentPlayerBean current;
 	private CardCollectionBean deck;
@@ -36,16 +39,18 @@ public class DanishUI extends JComponent implements DanishView {
 	private CardCollectionBean graveyard;
 	private DanishModel danish;
 
+	GridBagLayout gridbag = new GridBagLayout();
+	GridBagConstraints c = new GridBagConstraints();
+
 	private List<CardBean> selectedCards;
 
 	public DanishUI(DanishModel danish) {
 		this.danish = danish;
-
 		selectedCards = new ArrayList<>();
 
 		initComponent();
 
-		setPlayers(3, getRandomName());
+		setPlayers(nbOpponent, getRandomName());
 
 		this.stack.addMouseListener(new MouseAdapter() {
 
@@ -102,7 +107,13 @@ public class DanishUI extends JComponent implements DanishView {
 	@Override
 	public void refresh() {
 		refreshButtons();
-
+		if (danish.getWinner() == null){
+			warningWinner = true;
+		}
+		if (danish.getPlayers() == null){
+			this.setPlayers( nbOpponent, getRandomName());
+		}
+		
 		this.current.getHand().setEnabled(!this.danish.isPlaying() || !(this.danish.getPlaying() instanceof PlayerAI));
 
 		int p = 0;
@@ -125,7 +136,11 @@ public class DanishUI extends JComponent implements DanishView {
 				this.opponent[index].setCurrent(this.danish.getPlaying().equals(player));
 			}
 		}
-
+		for (int i = size-1; i < 3; ++i) {
+			this.opponent[i].setPlayer(new PlayerAI(null));
+			this.opponent[i].setCurrent(false);
+		}
+		
 		this.deck.setPack(this.danish.getDeck());
 		this.graveyard.setPack(this.danish.getGraveyard());
 		this.stack.setPack(this.danish.getStack());
@@ -144,6 +159,11 @@ public class DanishUI extends JComponent implements DanishView {
 				}
 			}
 		});
+		
+		if (!danish.isPlaying() && danish.getWinner() != null && warningWinner){
+			JOptionPane.showMessageDialog(this, "The Winner is ... " + danish.getWinner().getName(),"Winner" , JOptionPane.INFORMATION_MESSAGE);
+			warningWinner = false;
+		}
 	}
 
 	@Override
@@ -193,8 +213,8 @@ public class DanishUI extends JComponent implements DanishView {
 		add(stack);
 		add(graveyard);
 
-		GridBagLayout gridbag = new GridBagLayout();
-		GridBagConstraints c = new GridBagConstraints();
+		/*GridBagLayout gridbag = new GridBagLayout();
+		GridBagConstraints c = new GridBagConstraints();*/
 
 		setLayout(gridbag);
 
@@ -295,6 +315,7 @@ public class DanishUI extends JComponent implements DanishView {
 			this.current.DisableButton(this.selectedCards.isEmpty() || this.selectedCards.get(0).getCard().getRank() == Rank.ACE || (this.selectedCards.get(0).getCard().getRank() == Rank.THREE && this.danish.getRankStack() == Rank.ACE));
 		} else {
 			this.current.setButtonText("Lock");
+			this.current.DisableButton(false);
 		}
 
 		for (OpponentBean o : this.opponent) {
@@ -346,5 +367,57 @@ public class DanishUI extends JComponent implements DanishView {
 			this.danish.turn(new ArrayList<CardDanish>());
 			unselectCards();
 		}
+	}
+
+	public void setNbOpponent( int nbOpponent ){
+		this.nbOpponent = nbOpponent;
+		
+		remove( this.opponent[0] );
+		remove( this.opponent[1] );
+		remove( this.opponent[2] );
+		for( int i = 0; i < nbOpponent; i++ ){
+			add( this.opponent[i] );
+		}
+		GridBagConstraints c = new GridBagConstraints();
+		
+		c.insets = new Insets(5, 5, 5, 5);
+		c.fill = GridBagConstraints.BOTH;
+		
+		if (nbOpponent == 1){
+			c.gridy = 0;
+			c.gridx = 1;
+			c.weightx = 1;
+			c.weighty = 1;
+			c.gridwidth = 1;
+			
+			gridbag.setConstraints(this.opponent[0], c);
+		}else if (nbOpponent == 2){
+			c.gridy = 0;
+			c.gridx = 0;
+			c.weightx = 1;
+			c.weighty = 1;
+			c.gridwidth = 1;
+			gridbag.setConstraints(this.opponent[0], c);
+			c.gridx = 2;
+			gridbag.setConstraints(this.opponent[1], c);
+			
+			
+		}else if (nbOpponent == 3){
+			c.gridy = 0;
+			c.gridx = 0;
+			c.weightx = 1;
+			c.weighty = 1;
+			c.gridwidth = 1;
+			gridbag.setConstraints(this.opponent[0], c);
+
+			c.gridx = 1;
+			gridbag.setConstraints(this.opponent[1], c);
+
+			c.gridx = 2;
+			gridbag.setConstraints(this.opponent[2], c);
+		}
+		
+		this.repaint();
+		this.revalidate();
 	}
 }

@@ -52,9 +52,9 @@ public interface DanishModel {
 	public CardPack getGraveyard();
 
 	/**
-	 * Tells if the game has begun.
+	 * Returns the currently playing player.
 	 *
-	 * @return true if the game has begun, false otherwise.
+	 * @return The currently playing player.
 	 */
 	public Player getPlaying();
 
@@ -133,5 +133,6 @@ public interface DanishModel {
 	 * @return The rank of the stack.
 	 */
 	public Rank getRankStack();
+	public Player getWinner();
 
 }
