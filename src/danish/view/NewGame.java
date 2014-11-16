@@ -1,8 +1,3 @@
-
-/*
- * To change this template, choose Tools | Templates
- * and open the template in the editor.
- */
 package danish.view;
 import java.awt.BorderLayout;
 import java.awt.Dimension;
@@ -16,15 +11,14 @@ import javax.swing.JPanel;
 import javax.swing.JRadioButton;
 import javax.swing.ButtonGroup;
 
-
 /**
  *
- * @author Julien
+ * @author Noé, Julien, Loup.
  */
 public class NewGame extends JDialog {
 	private JRadioButton nbIA1, nbIA2, nbIA3;
-	private boolean sendInfo = false;
-	private int numberIA = 3;
+	private boolean sendInfo;
+	private int numberIA;
 	
 	public NewGame(JFrame parent, String title, boolean modal){
 		super(parent, title, modal);
@@ -33,10 +27,15 @@ public class NewGame extends JDialog {
 		this.setResizable(false);
 		this.setDefaultCloseOperation(JDialog.DO_NOTHING_ON_CLOSE);
 		this.initComponent();
+		
+		sendInfo = false;
+		numberIA = 3;
+		pack();
 	}
+	
 	private void initComponent(){
 		JPanel nbIA = new JPanel();    
-		nbIA.setBorder(BorderFactory.createTitledBorder("Number of opponent"));
+		nbIA.setBorder(BorderFactory.createTitledBorder("Number of opponents"));
 		nbIA.setPreferredSize(new Dimension(440, 60));
 		
 		nbIA1 = new JRadioButton("1");
@@ -95,8 +94,8 @@ public class NewGame extends JDialog {
 		control.add(okBouton);
 		control.add(cancelBouton);
 		
-		this.getContentPane().add(content, BorderLayout.CENTER);
-		this.getContentPane().add(control, BorderLayout.SOUTH);
+		add(content, BorderLayout.CENTER);
+		add(control, BorderLayout.SOUTH);
 		
 	}
 

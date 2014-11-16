@@ -369,54 +369,56 @@ public class DanishUI extends JComponent implements DanishView {
 	}
 
 	public void setNbOpponent( int nbOpponent ){
-		this.nbOpponent = nbOpponent;
-		
-		remove( this.opponent[0] );
-		remove( this.opponent[1] );
-		remove( this.opponent[2] );
-		for( int i = 0; i < nbOpponent; i++ ){
-			add( this.opponent[i] );
-		}
-		GridBagConstraints c = new GridBagConstraints();
-		
-		c.insets = new Insets(5, 5, 5, 5);
-		c.fill = GridBagConstraints.BOTH;
-		
-		if (nbOpponent == 1){
-			c.gridy = 0;
-			c.gridx = 1;
-			c.weightx = 1;
-			c.weighty = 1;
-			c.gridwidth = 1;
-			
-			gridbag.setConstraints(this.opponent[0], c);
-		}else if (nbOpponent == 2){
-			c.gridy = 0;
-			c.gridx = 0;
-			c.weightx = 1;
-			c.weighty = 1;
-			c.gridwidth = 1;
-			gridbag.setConstraints(this.opponent[0], c);
-			c.gridx = 2;
-			gridbag.setConstraints(this.opponent[1], c);
-			
-			
-		}else if (nbOpponent == 3){
-			c.gridy = 0;
-			c.gridx = 0;
-			c.weightx = 1;
-			c.weighty = 1;
-			c.gridwidth = 1;
-			gridbag.setConstraints(this.opponent[0], c);
+		if (nbOpponent < 4 && nbOpponent > 0) {
+			this.nbOpponent = nbOpponent;
 
-			c.gridx = 1;
-			gridbag.setConstraints(this.opponent[1], c);
+			remove( this.opponent[0] );
+			remove( this.opponent[1] );
+			remove( this.opponent[2] );
+			for( int i = 0; i < nbOpponent; i++ ){
+				add( this.opponent[i] );
+			}
+			GridBagConstraints c = new GridBagConstraints();
 
-			c.gridx = 2;
-			gridbag.setConstraints(this.opponent[2], c);
+			c.insets = new Insets(5, 5, 5, 5);
+			c.fill = GridBagConstraints.BOTH;
+
+			if (nbOpponent == 1){
+				c.gridy = 0;
+				c.gridx = 1;
+				c.weightx = 1;
+				c.weighty = 1;
+				c.gridwidth = 1;
+
+				gridbag.setConstraints(this.opponent[0], c);
+			}else if (nbOpponent == 2){
+				c.gridy = 0;
+				c.gridx = 0;
+				c.weightx = 1;
+				c.weighty = 1;
+				c.gridwidth = 1;
+				gridbag.setConstraints(this.opponent[0], c);
+				c.gridx = 2;
+				gridbag.setConstraints(this.opponent[1], c);
+
+
+			}else if (nbOpponent == 3){
+				c.gridy = 0;
+				c.gridx = 0;
+				c.weightx = 1;
+				c.weighty = 1;
+				c.gridwidth = 1;
+				gridbag.setConstraints(this.opponent[0], c);
+
+				c.gridx = 1;
+				gridbag.setConstraints(this.opponent[1], c);
+
+				c.gridx = 2;
+				gridbag.setConstraints(this.opponent[2], c);
+			}
+
+			this.repaint();
+			this.revalidate();
 		}
-		
-		this.repaint();
-		this.revalidate();
 	}
 }
