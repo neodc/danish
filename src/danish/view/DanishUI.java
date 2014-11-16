@@ -30,8 +30,8 @@ import javax.swing.SwingUtilities;
  */
 public class DanishUI extends JComponent implements DanishView {
 
-	private int nbOpponent = 3;
-	private boolean warningWinner = true;
+	private int nbOpponent;
+	private boolean warningWinner;
 	private OpponentBean[] opponent;
 	private CurrentPlayerBean current;
 	private CardCollectionBean deck;
@@ -39,8 +39,8 @@ public class DanishUI extends JComponent implements DanishView {
 	private CardCollectionBean graveyard;
 	private DanishModel danish;
 
-	GridBagLayout gridbag = new GridBagLayout();
-	GridBagConstraints c = new GridBagConstraints();
+	GridBagLayout gridbag;
+	GridBagConstraints c;
 
 	private List<CardBean> selectedCards;
 
@@ -136,10 +136,6 @@ public class DanishUI extends JComponent implements DanishView {
 				this.opponent[index].setCurrent(this.danish.getPlaying().equals(player));
 			}
 		}
-		for (int i = size-1; i < 3; ++i) {
-			this.opponent[i].setPlayer(new PlayerAI(null));
-			this.opponent[i].setCurrent(false);
-		}
 		
 		this.deck.setPack(this.danish.getDeck());
 		this.graveyard.setPack(this.danish.getGraveyard());
@@ -195,6 +191,9 @@ public class DanishUI extends JComponent implements DanishView {
 
 		this.graveyard.setShowSize(true);
 		this.graveyard.setNbCardMin(1);
+		
+		nbOpponent = 3;
+		warningWinner = true;
 
 		/*
 		 this.opponent[0].setBorder( new LineBorder(Color.black, 5));
@@ -213,8 +212,8 @@ public class DanishUI extends JComponent implements DanishView {
 		add(stack);
 		add(graveyard);
 
-		/*GridBagLayout gridbag = new GridBagLayout();
-		GridBagConstraints c = new GridBagConstraints();*/
+		gridbag = new GridBagLayout();
+		c = new GridBagConstraints();
 
 		setLayout(gridbag);
 
