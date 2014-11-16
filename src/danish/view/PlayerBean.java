@@ -1,7 +1,10 @@
 package danish.view;
 
+import danish.model.CardDanish;
 import javax.swing.JPanel;
 import danish.model.Player;
+import java.util.Collections;
+import java.util.List;
 import javax.swing.JLabel;
 
 /**
@@ -54,7 +57,11 @@ public abstract class PlayerBean extends JPanel {
 
 		this.name.setText(this.player.getName());
 		this.hidden.setPack(this.player.getHidden());
-		this.hand.setPack(this.player.getHand());
+		
+		List<CardDanish> h = this.player.getHand();
+		Collections.sort(h);
+		this.hand.setPack(h);
+		
 		this.visible.setPack(this.player.getVisible());
 	}
 }
