@@ -4,6 +4,7 @@ import javax.swing.JPanel;
 import danish.model.CardPack;
 import danish.model.Card;
 import danish.model.CardDanish;
+import java.awt.Font;
 import java.awt.Insets;
 import java.awt.Point;
 import java.awt.event.MouseAdapter;
@@ -13,6 +14,7 @@ import java.util.ArrayList;
 import java.util.Collection;
 import javax.swing.JLabel;
 import javax.swing.SwingConstants;
+import javax.swing.SwingUtilities;
 
 /**
  * A bean containing a list of CardBean and allowing them to be displayed
@@ -51,7 +53,7 @@ public class CardCollectionBean extends JPanel {
 		};
 
 		jLabelSize.setHorizontalAlignment(SwingConstants.CENTER);
-		jLabelSize.setFont(jLabelSize.getFont().deriveFont(96f));
+		//jLabelSize.setFont(jLabelSize.getFont().deriveFont(96f));
 
 		setLayout(new OverlapLayout());
 
@@ -245,16 +247,39 @@ public class CardCollectionBean extends JPanel {
 			jPanelCard.add(c);
 		}
 
+		jLabelSize.setText("" + pack.size());
+
+		Font labelFont = jLabelSize.getFont();
+		String labelText = "00";
+
+		int stringWidth = jLabelSize.getFontMetrics(labelFont).stringWidth(labelText);
+		int componentWidth = (int)(jLabelSize.getWidth()*0.9);
+
+		// Find out how much the font can grow in width.
+		double widthRatio = (double)componentWidth / (double)stringWidth;
+
+		int newFontSize = (int)(labelFont.getSize() * widthRatio);
+		int componentHeight = (int)(jLabelSize.getHeight()*0.9);
+
+		// Pick a new font size so it will not be larger than the height of label.
+		int fontSizeToUse = Math.min(newFontSize, componentHeight);
+		fontSizeToUse = Math.max(60, fontSizeToUse);
+		
+		if( fontSizeToUse == 6 ){
+			System.out.println( stringWidth + " " + componentWidth + " " + widthRatio + " " + newFontSize + " " + componentHeight );
+		}
+
+		// Set the label's font size to the newly determined size.
+		jLabelSize.setFont(jLabelSize.getFont().deriveFont((float)fontSizeToUse));
+
 		if (showSize && pack.size() > this.nbCard) {
 			jPanelCard.add(jLabelSize);
 
 			OverlapConstraints c = new OverlapConstraints();
 			c.overlap = false;
 			layoutCard.addLayoutComponent(jLabelSize, c);
-
-			jLabelSize.setText("" + pack.size());
 		}
-
+		
 		revalidate();
 		repaint();
 	}
