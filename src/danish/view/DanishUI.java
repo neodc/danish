@@ -23,6 +23,7 @@ import javax.swing.JButton;
 import javax.swing.JComponent;
 import javax.swing.JOptionPane;
 import javax.swing.SwingUtilities;
+import javax.swing.Timer;
 
 /**
  *
@@ -147,18 +148,19 @@ public class DanishUI extends JComponent implements DanishView {
 
 		this.revalidate();
 
-		SwingUtilities.invokeLater(new Runnable() {
+		Timer timer = new Timer(0, new ActionListener() {
+			
 			@Override
-			public void run() {
+			public void actionPerformed( ActionEvent ae ){
 				if (danish.isPlaying() && (danish.getPlaying() instanceof PlayerAI)) {
-					try {
-						Thread.sleep(2000);
-					} catch (InterruptedException ex) {
-					}
 					((PlayerAI) danish.getPlaying()).play();
 				}
 			}
 		});
+		
+		timer.setInitialDelay(2000);
+		timer.setRepeats(false);
+		timer.start();
 		
 		if (!danish.isPlaying() && danish.getWinner() != null && warningWinner){
 			JOptionPane.showMessageDialog(this, "The Winner is ... " + danish.getWinner().getName(),"Winner" , JOptionPane.INFORMATION_MESSAGE);
