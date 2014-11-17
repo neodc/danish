@@ -46,7 +46,7 @@ public class Danish {
 		jFrame.setJMenuBar(menuBar);
 		
 		JMenuItem newGame = new JMenuItem("New game");
-		JCheckBoxMenuItem  sensTri = new JCheckBoxMenuItem ("Tri inversé");
+		JCheckBoxMenuItem  sensTri = new JCheckBoxMenuItem ("Reverse sort");
 		JMenuItem quit = new JMenuItem("Quit");
 		play.add(newGame);
 		play.add(sensTri);
