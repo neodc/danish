@@ -493,4 +493,8 @@ public class DanishUI extends JComponent implements DanishView {
 			this.playerName = playerName;
 		}
 	}
+	public void invertReverse(){
+		this.current.invertReverse();
+		this.refresh();
+	}
 }

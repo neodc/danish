@@ -3,6 +3,7 @@ package danish.view;
 import danish.model.CardDanish;
 import javax.swing.JPanel;
 import danish.model.Player;
+import java.util.Collection;
 import java.util.Collections;
 import java.util.List;
 import javax.swing.JLabel;
@@ -18,12 +19,14 @@ public abstract class PlayerBean extends JPanel {
 	protected CardCollectionBean hidden;
 	protected CardCollectionBean hand;
 	protected CardCollectionBean visible;
+	private boolean reverse;
 
 	public PlayerBean() {
 		this.name = new JLabel();
 		this.hidden = new CardCollectionBean();
 		this.hand = new CardCollectionBean();
 		this.visible = new CardCollectionBean();
+		this.reverse = false;
 	}
 
 	public Player getPlayer() {
@@ -60,8 +63,16 @@ public abstract class PlayerBean extends JPanel {
 		
 		List<CardDanish> h = this.player.getHand();
 		Collections.sort(h);
+		if(!reverse){
+			Collections.reverse(h);
+		}
 		this.hand.setPack(h);
 		
 		this.visible.setPack(this.player.getVisible());
 	}
+
+	public void invertReverse(){
+		this.reverse = !reverse;
+	}
+	
 }

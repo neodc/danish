@@ -7,6 +7,7 @@ import java.awt.GridBagConstraints;
 import java.awt.GridBagLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import javax.swing.JCheckBox;
 import javax.swing.JFrame;
 import javax.swing.JMenu;
 import javax.swing.JMenuBar;
@@ -44,10 +45,10 @@ public class Danish {
 		jFrame.setJMenuBar(menuBar);
 		
 		JMenuItem newGame = new JMenuItem("New game");
-		//JMenuItem option = new JMenuItem("Option");
+		JCheckBox sensTri = new JCheckBox("Tri inversé");
 		JMenuItem quit = new JMenuItem("Quit");
 		play.add(newGame);
-		//play.add(option);
+		play.add(sensTri);
 		play.add(quit);
 		
 		newGame.addActionListener(new ActionListener() {
@@ -61,6 +62,14 @@ public class Danish {
 					danishUI.setNbOpponent(ng.getNumberIA());
 					danish.newGame();
 				}
+			}
+		});
+		
+		sensTri.addActionListener(new ActionListener() {
+
+			@Override
+			public void actionPerformed( ActionEvent ae ){
+				danishUI.invertReverse();
 			}
 		});
 		
