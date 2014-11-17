@@ -77,6 +77,7 @@ public class NewGame extends JDialog {
 		JPanel control = new JPanel();
 		control.add(okBouton);
 		control.add(cancelBouton);
+		getRootPane().setDefaultButton(okBouton);
 		
 		okBouton.addActionListener(new ActionListener(){
 			@Override
