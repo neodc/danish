@@ -22,12 +22,14 @@ public class Danish {
 
 	private static JFrame jFrame;
 	private static DanishUI danishUI;
+	private static NewGame ng;
 
 	/**
 	 * @param args the command line arguments.
 	 */
 	public static void main(String[] args) {
 		final danish.model.Danish danish = new danish.model.Danish();
+		ng = new NewGame(null, "NewGame", true);
 
 		danishUI = new DanishUI(danish);
 		danish.addDanishListener(danishUI);
@@ -56,12 +58,12 @@ public class Danish {
 
 			@Override
 			public void actionPerformed( ActionEvent ae ){
-				NewGame ng = new NewGame(null, "NewGame", true);
-				ng.show();
+				ng.setVisible(true);
 				if (ng.isSendInfo()){
 					danishUI.setPlayerName(ng.getPlayerName());
 					danishUI.setNbOpponent(ng.getNumberIA());
 					danish.newGame();
+					
 				}
 			}
 		});
