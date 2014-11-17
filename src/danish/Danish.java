@@ -46,10 +46,10 @@ public class Danish {
 		jFrame.setJMenuBar(menuBar);
 		
 		JMenuItem newGame = new JMenuItem("New game");
-		JCheckBoxMenuItem  sensTri = new JCheckBoxMenuItem ("Reverse sort");
+		JCheckBoxMenuItem  reverseSort = new JCheckBoxMenuItem ("Reverse sort");
 		JMenuItem quit = new JMenuItem("Quit");
 		play.add(newGame);
-		play.add(sensTri);
+		play.add(reverseSort);
 		play.add(quit);
 		
 		newGame.addActionListener(new ActionListener() {
@@ -66,7 +66,7 @@ public class Danish {
 			}
 		});
 		
-		sensTri.addActionListener(new ActionListener() {
+		reverseSort.addActionListener(new ActionListener() {
 
 			@Override
 			public void actionPerformed( ActionEvent ae ){
