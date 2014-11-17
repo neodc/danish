@@ -44,6 +44,8 @@ public class DanishUI extends JComponent implements DanishView {
 	private GridBagLayout gridbag;
 
 	private List<CardBean> selectedCards;
+	
+	private Timer timerAI;
 
 	public DanishUI(DanishModel danish) {
 		this.danish = danish;
@@ -148,19 +150,7 @@ public class DanishUI extends JComponent implements DanishView {
 
 		this.revalidate();
 
-		Timer timer = new Timer(0, new ActionListener() {
-			
-			@Override
-			public void actionPerformed( ActionEvent ae ){
-				if (danish.isPlaying() && (danish.getPlaying() instanceof PlayerAI)) {
-					((PlayerAI) danish.getPlaying()).play();
-				}
-			}
-		});
-		
-		timer.setInitialDelay(2000);
-		timer.setRepeats(false);
-		timer.start();
+		timerAI.restart();
 		
 		if (!danish.isPlaying() && danish.getWinner() != null && warningWinner){
 			JOptionPane.showMessageDialog(this, "The Winner is ... " + danish.getWinner().getName(),"Winner" , JOptionPane.INFORMATION_MESSAGE);
@@ -252,6 +242,19 @@ public class DanishUI extends JComponent implements DanishView {
 		c.gridy = 2;
 		c.gridwidth = 3;
 		gridbag.setConstraints(this.current, c);
+		
+		timerAI = new Timer(0, new ActionListener() {
+			
+			@Override
+			public void actionPerformed( ActionEvent ae ){
+				if (danish.isPlaying() && (danish.getPlaying() instanceof PlayerAI)) {
+					((PlayerAI) danish.getPlaying()).play();
+				}
+			}
+		});
+		
+		timerAI.setInitialDelay(2000);
+		timerAI.setRepeats(false);
 	}
 
 	private void setPlayers() {
