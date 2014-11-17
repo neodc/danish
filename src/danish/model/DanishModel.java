@@ -133,7 +133,12 @@ public interface DanishModel {
 	 * @return The rank of the stack.
 	 */
 	public Rank getRankStack();
-	
+
+	/**
+	 * Returns the winner of the game.
+	 *
+	 * @return The winner of the game.
+	 */
 	public Player getWinner();
 
 }

@@ -12,7 +12,7 @@ import java.util.List;
 public class Danish implements DanishModel {
 
 	private List<Player> players;
-	private List<DanishView> listeners;
+	private final List<DanishView> listeners;
 
 	private CardPack deck;
 	private CardPack stack;
@@ -23,10 +23,11 @@ public class Danish implements DanishModel {
 	private Player winner;
 
 	/**
-	 * Getter of the winner.
+	 * Returns the winner of the game.
 	 *
-	 * @return The winner, null if not over.
+	 * @return The winner of the game.
 	 */
+	@Override
 	public Player getWinner() {
 		return winner;
 	}
@@ -46,11 +47,11 @@ public class Danish implements DanishModel {
 		this.currentPlayer = 0;
 		this.winner = null;
 	}
-	
+
 	/**
 	 * Begin a new game.
 	 */
-	public void newGame(){
+	public void newGame() {
 		this.players = null;
 
 		this.initDeck();
@@ -62,6 +63,7 @@ public class Danish implements DanishModel {
 		this.winner = null;
 		fireChange();
 	}
+
 	/**
 	 * Getter of the players.
 	 *
@@ -209,7 +211,7 @@ public class Danish implements DanishModel {
 			}
 		}
 
-		if (rank == Rank.ACE) { // He should declare who he's attacking
+		if (rank == Rank.ACE || (getRankStack() == Rank.ACE && rank == Rank.THREE)) { // He should declare who he's attacking
 			return;
 		}
 
@@ -217,7 +219,7 @@ public class Danish implements DanishModel {
 			return;
 		}
 
-		// End of tests => The turn is now resolved
+		// End of tests => The turn is now being resolved
 		getPlaying().hand.removeAll(cards);
 
 		stack.addAll(cards);
@@ -230,7 +232,7 @@ public class Danish implements DanishModel {
 		}
 
 		int i = 1;
-		if (rank == Rank.EIGHT) {
+		if (getRankStack() == Rank.EIGHT) {
 			i += cards.size();
 		}
 
@@ -243,7 +245,7 @@ public class Danish implements DanishModel {
 	 * Resolves an attack.
 	 *
 	 * @param cards The cards to be played (normally, only aces and threes).
-	 * @param player The attacked player.
+	 * @param player The attacked player's index.
 	 */
 	@Override
 	public void turn(List<CardDanish> cards, int player) {
@@ -286,6 +288,12 @@ public class Danish implements DanishModel {
 		fireChange();
 	}
 
+	/**
+	 * Resolves an attack.
+	 *
+	 * @param cards The cards to be played (normally, only aces and threes).
+	 * @param player The attacked player.
+	 */
 	@Override
 	public void turn(List<CardDanish> cards, Player player) {
 		for (int i = 0; i < players.size(); ++i) {
@@ -437,5 +445,5 @@ public class Danish implements DanishModel {
 			view.refresh();
 		}
 	}
-	
+
 }

@@ -1,5 +1,6 @@
 package danish.model;
 
+import java.io.Serializable;
 import java.util.Objects;
 
 /**
@@ -7,7 +8,7 @@ import java.util.Objects;
  *
  * @author Noé, Julien, Loup
  */
-public class Card {
+public class Card implements Serializable {
 
 	private final Rank rank;
 	private final Suit suit;

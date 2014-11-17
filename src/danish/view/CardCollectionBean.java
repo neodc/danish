@@ -21,7 +21,7 @@ import javax.swing.SwingConstants;
  *
  * @author Noé, Julien, Loup.
  */
-public class CardCollectionBean extends JPanel {
+public class CardCollectionBean extends JPanel{
 
 	private Collection<CardDanish> pack;
 	private boolean hidden;
@@ -252,24 +252,24 @@ public class CardCollectionBean extends JPanel {
 		String labelText = "00";
 
 		int stringWidth = jLabelSize.getFontMetrics(labelFont).stringWidth(labelText);
-		int componentWidth = (int)(jLabelSize.getWidth()*0.9);
+		int componentWidth = (int) (jLabelSize.getWidth() * 0.9);
 
 		// Find out how much the font can grow in width.
-		double widthRatio = (double)componentWidth / (double)stringWidth;
+		double widthRatio = (double) componentWidth / (double) stringWidth;
 
-		int newFontSize = (int)(labelFont.getSize() * widthRatio);
-		int componentHeight = (int)(jLabelSize.getHeight()*0.9);
+		int newFontSize = (int) (labelFont.getSize() * widthRatio);
+		int componentHeight = (int) (jLabelSize.getHeight() * 0.9);
 
 		// Pick a new font size so it will not be larger than the height of label.
 		int fontSizeToUse = Math.min(newFontSize, componentHeight);
 		fontSizeToUse = Math.max(60, fontSizeToUse);
-		
-		if( fontSizeToUse == 6 ){
-			System.out.println( stringWidth + " " + componentWidth + " " + widthRatio + " " + newFontSize + " " + componentHeight );
+
+		if (fontSizeToUse == 6) {
+			System.out.println(stringWidth + " " + componentWidth + " " + widthRatio + " " + newFontSize + " " + componentHeight);
 		}
 
 		// Set the label's font size to the newly determined size.
-		jLabelSize.setFont(jLabelSize.getFont().deriveFont((float)fontSizeToUse));
+		jLabelSize.setFont(jLabelSize.getFont().deriveFont((float) fontSizeToUse));
 
 		if (showSize && pack.size() > this.nbCard) {
 			jPanelCard.add(jLabelSize);
@@ -278,7 +278,7 @@ public class CardCollectionBean extends JPanel {
 			c.overlap = false;
 			layoutCard.addLayoutComponent(jLabelSize, c);
 		}
-		
+
 		revalidate();
 		repaint();
 	}

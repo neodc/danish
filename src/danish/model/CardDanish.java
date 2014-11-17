@@ -81,7 +81,7 @@ public class CardDanish extends Card implements Comparable {
 	}
 
 	private int getPower() {
-		int power = this.getRank().getValue();
+		int power;
 
 		switch (this.getRank()) {
 			case TWO:
@@ -93,6 +93,8 @@ public class CardDanish extends Card implements Comparable {
 			case TEN:
 				power = 17;
 				break;
+			default:
+				power = this.getRank().getValue();
 		}
 
 		return power;

@@ -35,13 +35,13 @@ import java.util.ArrayList;
  * paint themselves on the top of others. This seems to happen with components
  * like JButton as rollover effects are painted when a mouse moves over the
  * components.
- * 
+ *
  * Base on http://tips4java.wordpress.com/2009/07/26/overlap-layout/
  */
 public class OverlapLayout implements LayoutManager2, java.io.Serializable {
 
-	public static Boolean POP_UP = Boolean.TRUE;
-	public static Boolean POP_DOWN = Boolean.FALSE;
+	public static final Boolean POP_UP = Boolean.TRUE;
+	public static final Boolean POP_DOWN = Boolean.FALSE;
 
 	private static final int PREFERRED = 0;
 	private static final int MINIMUM = 1;
@@ -456,6 +456,11 @@ public class OverlapLayout implements LayoutManager2, java.io.Serializable {
 		return this.layoutAlignmentX;
 	}
 
+	/**
+	 * Sets the horizontal alignement with a number between 0 and 1.
+	 *
+	 * @param f The alignement. 0 for left, 1 for right.
+	 */
 	public void setLayoutAlignmentX(float f) {
 		if (f >= 0 && f <= 1) {
 			this.layoutAlignmentX = f;
@@ -470,6 +475,11 @@ public class OverlapLayout implements LayoutManager2, java.io.Serializable {
 		return this.layoutAlignmentY;
 	}
 
+	/**
+	 * Sets the vertical alignement with a number between 0 and 1.
+	 *
+	 * @param f The alignement. 0 for up, 1 for down.
+	 */
 	public void setLayoutAlignmentY(float f) {
 		if (f >= 0 && f <= 1) {
 			this.layoutAlignmentY = f;

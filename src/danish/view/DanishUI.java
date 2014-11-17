@@ -22,7 +22,6 @@ import java.util.List;
 import javax.swing.JButton;
 import javax.swing.JComponent;
 import javax.swing.JOptionPane;
-import javax.swing.SwingUtilities;
 import javax.swing.Timer;
 
 /**
@@ -35,7 +34,7 @@ public class DanishUI extends JComponent implements DanishView {
 	private boolean warningWinner;
 	private String playerName;
 	private OpponentBean[] opponent;
-	private CurrentPlayerBean current;
+	private HumanPlayerBean humanPlayer;
 	private CardCollectionBean deck;
 	private CardCollectionBean stack;
 	private CardCollectionBean graveyard;
@@ -43,14 +42,19 @@ public class DanishUI extends JComponent implements DanishView {
 
 	private GridBagLayout gridbag;
 
-	private List<CardBean> selectedCards;
-	
+	private final List<CardBean> selectedCards;
+
 	private Timer timerAI;
 
+	/**
+	 * DanishUI constructor with one parameter.
+	 *
+	 * @param danish The danish game the UI will display.
+	 */
 	public DanishUI(DanishModel danish) {
 		this.danish = danish;
 		selectedCards = new ArrayList<>();
-		
+
 		this.nbOpponent = 3;
 		this.warningWinner = true;
 		this.playerName = "Player";
@@ -70,7 +74,7 @@ public class DanishUI extends JComponent implements DanishView {
 
 		});
 
-		this.current.getHand().addMouseListener(new MouseAdapter() {
+		this.humanPlayer.getHand().addMouseListener(new MouseAdapter() {
 
 			@Override
 			public void mouseClicked(MouseEvent me) {
@@ -82,7 +86,7 @@ public class DanishUI extends JComponent implements DanishView {
 
 		});
 
-		this.current.getVisible().addMouseListener(new MouseAdapter() {
+		this.humanPlayer.getVisible().addMouseListener(new MouseAdapter() {
 
 			@Override
 			public void mouseClicked(MouseEvent me) {
@@ -94,7 +98,7 @@ public class DanishUI extends JComponent implements DanishView {
 
 		});
 
-		this.current.addActionListener(new ActionListener() {
+		this.humanPlayer.addActionListener(new ActionListener() {
 
 			@Override
 			public void actionPerformed(ActionEvent ae) {
@@ -114,14 +118,14 @@ public class DanishUI extends JComponent implements DanishView {
 	@Override
 	public void refresh() {
 		refreshButtons();
-		if (danish.getWinner() == null){
+		if (danish.getWinner() == null) {
 			warningWinner = true;
 		}
-		if (danish.getPlayers() == null){
+		if (danish.getPlayers() == null) {
 			this.setPlayers();
 		}
-		
-		this.current.getHand().setEnabled(!this.danish.isPlaying() || !(this.danish.getPlaying() instanceof PlayerAI));
+
+		this.humanPlayer.getHand().setEnabled(!this.danish.isPlaying() || !(this.danish.getPlaying() instanceof PlayerAI));
 
 		int p = 0;
 
@@ -129,8 +133,8 @@ public class DanishUI extends JComponent implements DanishView {
 			++p;
 		}
 
-		this.current.setPlayer(this.danish.getPlayers().get(p));
-		this.current.setCurrent(this.danish.getWinner() == null && this.danish.getPlaying().equals(this.danish.getPlayers().get(p)));
+		this.humanPlayer.setPlayer(this.danish.getPlayers().get(p));
+		this.humanPlayer.setCurrent(this.danish.getWinner() == null && this.danish.getPlaying().equals(this.danish.getPlayers().get(p)));
 
 		int size = this.danish.getPlayers().size();
 
@@ -143,7 +147,7 @@ public class DanishUI extends JComponent implements DanishView {
 				this.opponent[index].setCurrent(this.danish.getWinner() == null && this.danish.getPlaying().equals(player));
 			}
 		}
-		
+
 		this.deck.setPack(this.danish.getDeck());
 		this.graveyard.setPack(this.danish.getGraveyard());
 		this.stack.setPack(this.danish.getStack());
@@ -151,9 +155,9 @@ public class DanishUI extends JComponent implements DanishView {
 		this.revalidate();
 
 		timerAI.restart();
-		
-		if (!danish.isPlaying() && danish.getWinner() != null && warningWinner){
-			JOptionPane.showMessageDialog(this, "The Winner is ... " + danish.getWinner().getName(),"Winner" , JOptionPane.INFORMATION_MESSAGE);
+
+		if (!danish.isPlaying() && danish.getWinner() != null && warningWinner) {
+			JOptionPane.showMessageDialog(this, "The Winner is ... " + danish.getWinner().getName(), "Winner", JOptionPane.INFORMATION_MESSAGE);
 			warningWinner = false;
 		}
 	}
@@ -172,7 +176,7 @@ public class DanishUI extends JComponent implements DanishView {
 		this.opponent[0] = new OpponentBean();
 		this.opponent[1] = new OpponentBean();
 		this.opponent[2] = new OpponentBean();
-		this.current = new CurrentPlayerBean();
+		this.humanPlayer = new HumanPlayerBean();
 		this.deck = new CardCollectionBean();
 		this.stack = new CardCollectionBean();
 		this.graveyard = new CardCollectionBean();
@@ -192,7 +196,7 @@ public class DanishUI extends JComponent implements DanishView {
 		 this.opponent[0].setBorder( new LineBorder(Color.black, 5));
 		 this.opponent[1].setBorder( new LineBorder(Color.black, 5));
 		 this.opponent[2].setBorder( new LineBorder(Color.black, 5));
-		 this.current.setBorder( new LineBorder(Color.black, 5));
+		 this.humanPlayer.setBorder( new LineBorder(Color.black, 5));
 		 this.deck.setBorder( new LineBorder(Color.black, 5));
 		 this.stack.setBorder( new LineBorder(Color.black, 5));
 		 this.graveyard.setBorder( new LineBorder(Color.black, 5));
@@ -200,7 +204,7 @@ public class DanishUI extends JComponent implements DanishView {
 		add(opponent[0]);
 		add(opponent[1]);
 		add(opponent[2]);
-		add(current);
+		add(humanPlayer);
 		add(deck);
 		add(stack);
 		add(graveyard);
@@ -241,18 +245,18 @@ public class DanishUI extends JComponent implements DanishView {
 		c.gridx = 0;
 		c.gridy = 2;
 		c.gridwidth = 3;
-		gridbag.setConstraints(this.current, c);
-		
+		gridbag.setConstraints(this.humanPlayer, c);
+
 		timerAI = new Timer(0, new ActionListener() {
-			
+
 			@Override
-			public void actionPerformed( ActionEvent ae ){
+			public void actionPerformed(ActionEvent ae) {
 				if (danish.isPlaying() && (danish.getPlaying() instanceof PlayerAI)) {
 					((PlayerAI) danish.getPlaying()).play();
 				}
 			}
 		});
-		
+
 		timerAI.setInitialDelay(2000);
 		timerAI.setRepeats(false);
 	}
@@ -266,12 +270,12 @@ public class DanishUI extends JComponent implements DanishView {
 		}
 
 		this.danish.setPlayers(players);
-		
+
 		List<String> names = getRandomNames();
-		
-		for( Player p : this.danish.getPlayers() ){
-			if( p instanceof PlayerAI ){
-				p.setName( names.remove(0) );
+
+		for (Player p : this.danish.getPlayers()) {
+			if (p instanceof PlayerAI) {
+				p.setName(names.remove(0));
 			}
 		}
 	}
@@ -360,12 +364,12 @@ public class DanishUI extends JComponent implements DanishView {
 
 		refreshButtons();
 
-		this.current.getHand().togglePopup(card);
+		this.humanPlayer.getHand().togglePopup(card);
 	}
 
 	private void unselectCards() {
 		for (CardBean c : this.selectedCards) {
-			this.current.getHand().popup(c, false);
+			this.humanPlayer.getHand().popup(c, false);
 		}
 		this.selectedCards.clear();
 		refreshButtons();
@@ -377,25 +381,25 @@ public class DanishUI extends JComponent implements DanishView {
 
 	private void refreshButtons() {
 		if (this.danish.isPlaying()) {
-			this.current.setButtonText("Play");
+			this.humanPlayer.setButtonText("Play");
 
-			this.current.DisableButton(this.selectedCards.isEmpty() || this.selectedCards.get(0).getCard().getRank() == Rank.ACE || (this.selectedCards.get(0).getCard().getRank() == Rank.THREE && this.danish.getRankStack() == Rank.ACE));
-		} else if (this.danish.getWinner() != null ) {
-			this.current.setButtonText("Play");
-			this.current.DisableButton(true);
-		}else {
-			this.current.setButtonText("Lock");
-			this.current.DisableButton(false);
+			this.humanPlayer.disableButton(this.selectedCards.isEmpty() || this.selectedCards.get(0).getCard().getRank() == Rank.ACE || (this.selectedCards.get(0).getCard().getRank() == Rank.THREE && this.danish.getRankStack() == Rank.ACE));
+		} else if (this.danish.getWinner() != null) {
+			this.humanPlayer.setButtonText("Play");
+			this.humanPlayer.disableButton(true);
+		} else {
+			this.humanPlayer.setButtonText("Lock");
+			this.humanPlayer.disableButton(false);
 		}
 
 		for (OpponentBean o : this.opponent) {
-			o.DisableButton(!this.danish.isPlaying() || this.selectedCards.isEmpty() || (this.selectedCards.get(0).getCard().getRank() != Rank.ACE && !(this.selectedCards.get(0).getCard().getRank() == Rank.THREE && this.danish.getRankStack() == Rank.ACE)));
+			o.disableButton(!this.danish.isPlaying() || this.selectedCards.isEmpty() || (this.selectedCards.get(0).getCard().getRank() != Rank.ACE && !(this.selectedCards.get(0).getCard().getRank() == Rank.THREE && this.danish.getRankStack() == Rank.ACE)));
 		}
 	}
 
 	private void switchCard(CardBean card) {
 		if (this.selectedCards.size() == 1) {
-			this.danish.switchCard(this.current.getPlayer(), (CardDanish) card.getCard(), (CardDanish) this.selectedCards.get(0).getCard());
+			this.danish.switchCard(this.humanPlayer.getPlayer(), (CardDanish) card.getCard(), (CardDanish) this.selectedCards.get(0).getCard());
 			this.selectedCards.clear();
 		}
 	}
@@ -439,41 +443,46 @@ public class DanishUI extends JComponent implements DanishView {
 		}
 	}
 
-	public void setNbOpponent( int nbOpponent ){
+	/**
+	 * Sets the number of opponents the player will play with.
+	 *
+	 * @param nbOpponent The number of opponent.
+	 */
+	public void setNbOpponent(int nbOpponent) {
 		if (nbOpponent < 4 && nbOpponent > 0) {
 			this.nbOpponent = nbOpponent;
 
-			remove( this.opponent[0] );
-			remove( this.opponent[1] );
-			remove( this.opponent[2] );
-			
-			for( int i = 0; i < nbOpponent; i++ ){
-				add( this.opponent[i] );
+			remove(this.opponent[0]);
+			remove(this.opponent[1]);
+			remove(this.opponent[2]);
+
+			for (int i = 0; i < nbOpponent; i++) {
+				add(this.opponent[i]);
 			}
-			
+
 			GridBagConstraints c = new GridBagConstraints();
 
 			c.insets = new Insets(5, 5, 5, 5);
 			c.fill = GridBagConstraints.BOTH;
 
-			if (nbOpponent == 1){
+			if (nbOpponent == 1) {
 				c.gridy = 0;
 				c.gridx = 1;
 				c.weightx = 1;
 				c.weighty = 1;
 				c.gridwidth = 1;
 				gridbag.setConstraints(this.opponent[0], c);
-			}else if (nbOpponent == 2){
+			} else if (nbOpponent == 2) {
 				c.gridy = 0;
 				c.gridx = 0;
 				c.weightx = 1;
 				c.weighty = 1;
 				c.gridwidth = 1;
 				gridbag.setConstraints(this.opponent[0], c);
-				
+
 				c.gridx = 2;
 				gridbag.setConstraints(this.opponent[1], c);
-			}else if (nbOpponent == 3){
+			} else if (nbOpponent == 3) {
 				c.gridy = 0;
 				c.gridx = 0;
 				c.weightx = 1;
@@ -492,14 +501,23 @@ public class DanishUI extends JComponent implements DanishView {
 			this.revalidate();
 		}
 	}
-	
-	public void setPlayerName(String playerName){
-		if( playerName != null ){
+
+	/**
+	 * Sets the player's name.
+	 *
+	 * @param playerName The player's name.
+	 */
+	public void setPlayerName(String playerName) {
+		if (playerName != null) {
 			this.playerName = playerName;
 		}
 	}
-	public void invertReverse(){
-		this.current.invertReverse();
+
+	/**
+	 * Reverses the sort the player's hand.
+	 */
+	public void toggleReverse() {
+		this.humanPlayer.toggleReverse();
 		this.refresh();
 	}
 }

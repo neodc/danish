@@ -17,11 +17,14 @@ import javax.swing.JLabel;
  *
  * @author Noé, Julien, Loup.
  */
-public class CurrentPlayerBean extends PlayerBean {
+public class HumanPlayerBean extends PlayerBean {
 
-	private JButton play;
+	private final JButton play;
 
-	public CurrentPlayerBean() {
+	/**
+	 * CurrentPlayerBean constructor without parameter.
+	 */
+	public HumanPlayerBean() {
 		super();
 		this.play = new JButton("Play");
 
@@ -93,19 +96,11 @@ public class CurrentPlayerBean extends PlayerBean {
 		gridbag.setConstraints(this.hand, c);
 	}
 
-	public void setCurrent(boolean current) {
-		if (current) {
-			this.name.setFont(this.name.getFont().deriveFont(Font.BOLD));
-		} else {
-			this.name.setFont(this.name.getFont().deriveFont(Font.PLAIN));
-		}
-	}
-
 	void setButtonText(String s) {
 		this.play.setText(s);
 	}
 
-	void DisableButton(boolean b) {
+	void disableButton(boolean b) {
 		this.play.setEnabled(!b);
 	}
 

@@ -75,7 +75,12 @@ public class Player {
 	public String getName() {
 		return name;
 	}
-	
+
+	/**
+	 * Setter of the player's name.
+	 *
+	 * @param name The player's name.
+	 */
 	public void setName(String name) {
 		this.name = name;
 	}

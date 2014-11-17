@@ -15,8 +15,11 @@ import javax.swing.JLabel;
  */
 public class OpponentBean extends PlayerBean {
 
-	private JButton attack;
+	private final JButton attack;
 
+	/**
+	 * OpponentBean constructor without parameter.
+	 */
 	public OpponentBean() {
 		super();
 		this.attack = new JButton("Attack");
@@ -98,15 +101,7 @@ public class OpponentBean extends PlayerBean {
 		gridbag.setConstraints(this.hand, c);
 	}
 
-	public void setCurrent(boolean current) {
-		if (current) {
-			this.name.setFont(this.name.getFont().deriveFont(Font.BOLD));
-		} else {
-			this.name.setFont(this.name.getFont().deriveFont(Font.PLAIN));
-		}
-	}
-
-	void DisableButton(boolean b) {
+	void disableButton(boolean b) {
 		this.attack.setEnabled(!b);
 	}
 
