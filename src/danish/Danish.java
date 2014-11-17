@@ -8,6 +8,7 @@ import java.awt.GridBagLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import javax.swing.JCheckBox;
+import javax.swing.JCheckBoxMenuItem;
 import javax.swing.JFrame;
 import javax.swing.JMenu;
 import javax.swing.JMenuBar;
@@ -45,7 +46,7 @@ public class Danish {
 		jFrame.setJMenuBar(menuBar);
 		
 		JMenuItem newGame = new JMenuItem("New game");
-		JCheckBox sensTri = new JCheckBox("Tri inversé");
+		JCheckBoxMenuItem  sensTri = new JCheckBoxMenuItem ("Tri inversé");
 		JMenuItem quit = new JMenuItem("Quit");
 		play.add(newGame);
 		play.add(sensTri);

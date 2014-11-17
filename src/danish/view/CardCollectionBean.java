@@ -14,7 +14,6 @@ import java.util.ArrayList;
 import java.util.Collection;
 import javax.swing.JLabel;
 import javax.swing.SwingConstants;
-import javax.swing.SwingUtilities;
 
 /**
  * A bean containing a list of CardBean and allowing them to be displayed
