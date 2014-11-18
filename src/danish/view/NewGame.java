@@ -48,9 +48,9 @@ public class NewGame extends JDialog {
 	}
 
 	private void initComponent() {
-		JPanel nbIA = new JPanel();
-		nbIA.setBorder(BorderFactory.createTitledBorder("Number of opponents"));
-		nbIA.setPreferredSize(new Dimension(440, 60));
+		JPanel nbAI = new JPanel();
+		nbAI.setBorder(BorderFactory.createTitledBorder("Number of opponents"));
+		nbAI.setPreferredSize(new Dimension(440, 60));
 
 		nbAI1 = new JRadioButton("1");
 		nbAI2 = new JRadioButton("2");
@@ -61,9 +61,9 @@ public class NewGame extends JDialog {
 		bg.add(nbAI1);
 		bg.add(nbAI2);
 		bg.add(nbAI3);
-		nbIA.add(nbAI1);
-		nbIA.add(nbAI2);
-		nbIA.add(nbAI3);
+		nbAI.add(nbAI1);
+		nbAI.add(nbAI2);
+		nbAI.add(nbAI3);
 
 		nbAI1.addActionListener(new ActionListener() {
 			@Override
@@ -114,7 +114,7 @@ public class NewGame extends JDialog {
 		name.add(this.nameField);
 
 		JPanel content = new JPanel();
-		content.add(nbIA);
+		content.add(nbAI);
 
 		add(content, BorderLayout.NORTH);
 		add(name, BorderLayout.CENTER);
