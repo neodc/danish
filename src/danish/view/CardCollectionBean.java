@@ -28,8 +28,7 @@ public class CardCollectionBean extends JPanel{
 	private boolean showSize;
 	private int nbCard;
 	private int nbCardMin;
-	private final OverlapLayout layoutCard;
-	private final JPanel jPanelCard;
+	private final OverlapLayout layout;
 	private final JLabel jLabelSize;
 	private final MouseAdapter listener;
 
@@ -52,15 +51,10 @@ public class CardCollectionBean extends JPanel{
 		};
 
 		jLabelSize.setHorizontalAlignment(SwingConstants.CENTER);
-		//jLabelSize.setFont(jLabelSize.getFont().deriveFont(96f));
 
-		setLayout(new OverlapLayout());
+		layout = new OverlapLayout(new Point(25, 0));
 
-		layoutCard = new OverlapLayout(new Point(25, 0));
-		/*layoutCard.setPopupInsets(new Insets(20, 0, 0, 0));*/
-		jPanelCard = new JPanel(layoutCard);
-
-		add(jPanelCard);
+		setLayout(layout);
 	}
 
 	/**
@@ -177,7 +171,7 @@ public class CardCollectionBean extends JPanel{
 			throw new NullPointerException();
 		}
 
-		this.layoutCard.setOverlapPosition(p);
+		this.layout.setOverlapPosition(p);
 	}
 
 	/**
@@ -190,7 +184,7 @@ public class CardCollectionBean extends JPanel{
 			throw new NullPointerException();
 		}
 
-		this.layoutCard.setPopupInsets(i);
+		this.layout.setPopupInsets(i);
 	}
 
 	/**
@@ -199,7 +193,7 @@ public class CardCollectionBean extends JPanel{
 	 * @param f 0 for up, 1 for down.
 	 */
 	public void setLayoutAlignmentY(float f) {
-		layoutCard.setLayoutAlignmentY(f);
+		layout.setLayoutAlignmentY(f);
 	}
 
 	/**
@@ -208,14 +202,14 @@ public class CardCollectionBean extends JPanel{
 	 * @param f 0 for up, 1 for down.
 	 */
 	public void setLayoutAlignmentX(float f) {
-		layoutCard.setLayoutAlignmentX(f);
+		layout.setLayoutAlignmentX(f);
 	}
 
 	/**
 	 * Refreshes the card collection.
 	 */
 	public void refresh() {
-		jPanelCard.removeAll();
+		removeAll();
 
 		int i = nbCard;
 
@@ -243,7 +237,7 @@ public class CardCollectionBean extends JPanel{
 		}
 
 		for (CardBean c : tmp) {
-			jPanelCard.add(c);
+			add(c);
 		}
 
 		jLabelSize.setText("" + pack.size());
@@ -262,21 +256,20 @@ public class CardCollectionBean extends JPanel{
 
 		// Pick a new font size so it will not be larger than the height of label.
 		int fontSizeToUse = Math.min(newFontSize, componentHeight);
-		fontSizeToUse = Math.max(60, fontSizeToUse);
-
-		if (fontSizeToUse == 6) {
-			System.out.println(stringWidth + " " + componentWidth + " " + widthRatio + " " + newFontSize + " " + componentHeight);
+		
+		if( fontSizeToUse == 0 ){
+			fontSizeToUse = 60;
 		}
 
 		// Set the label's font size to the newly determined size.
 		jLabelSize.setFont(jLabelSize.getFont().deriveFont((float) fontSizeToUse));
 
 		if (showSize && pack.size() > this.nbCard) {
-			jPanelCard.add(jLabelSize);
+			add(jLabelSize);
 
 			OverlapConstraints c = new OverlapConstraints();
 			c.overlap = false;
-			layoutCard.addLayoutComponent(jLabelSize, c);
+			layout.addLayoutComponent(jLabelSize, c);
 		}
 
 		revalidate();
@@ -290,12 +283,12 @@ public class CardCollectionBean extends JPanel{
 	 * @param pop If the card must be popped.
 	 */
 	public void popup(CardBean card, boolean pop) {
-		OverlapConstraints constraints = layoutCard.getConstraints(card);
+		OverlapConstraints constraints = layout.getConstraints(card);
 		if (constraints == null) {
 			constraints = new OverlapConstraints();
 		}
 		constraints.popup = pop;
-		layoutCard.addLayoutComponent(card, constraints);
+		layout.addLayoutComponent(card, constraints);
 		card.revalidate();
 	}
 
@@ -306,7 +299,7 @@ public class CardCollectionBean extends JPanel{
 	 * @return The new pop status.
 	 */
 	public boolean togglePopup(CardBean card) {
-		OverlapConstraints constraints = layoutCard.getConstraints(card);
+		OverlapConstraints constraints = layout.getConstraints(card);
 		if (constraints == null) {
 			constraints = new OverlapConstraints();
 		}
