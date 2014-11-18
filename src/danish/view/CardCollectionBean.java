@@ -277,7 +277,7 @@ public class CardCollectionBean extends JPanel{
 	}
 
 	/**
-	 * Makes a card of the collection pop or unpop.
+	 * Makes a card of the collection pop or depop.
 	 *
 	 * @param card The card to pop.
 	 * @param pop If the card must be popped.

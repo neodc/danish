@@ -67,7 +67,7 @@ public class DanishUI extends JComponent implements DanishView {
 
 			@Override
 			public void mouseClicked(MouseEvent me) {
-				if (me.getComponent() instanceof CardBean) {
+				if (me.getComponent() instanceof CardBean && ((CardBean) me.getComponent()).getCard() != null) {
 					take();
 				}
 			}
