@@ -301,13 +301,12 @@ public class OverlapLayout implements LayoutManager2, java.io.Serializable {
 
 		//  All components will be resized to the maximum dimension
 		for (Component component : components) {
-			if (component.isVisible()
-					|| includeInvisible) {
-				Dimension size = getDimension(component, type);
-				width = Math.max(size.width, width);
-				height = Math.max(size.height, height);
+			if (component.isVisible() || includeInvisible) {
 				OverlapConstraints c = getConstraints(component);
 				if (c == null || c.overlap) {
+					Dimension size = getDimension(component, type);
+					width = Math.max(size.width, width);
+					height = Math.max(size.height, height);
 					visibleComponents++;
 				}
 			}

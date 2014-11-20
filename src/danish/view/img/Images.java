@@ -15,11 +15,48 @@ import javax.swing.ImageIcon;
  */
 public class Images {
 
-	private static final Map<Card, Image> IMAGES = new HashMap<>();
-	private static final Image BACK = (new ImageIcon(Images.class.getResource("Back.png"))).getImage();
-	private static final Image BLANK = (new ImageIcon(Images.class.getResource("Blank.png"))).getImage();
-	private static final int HEIGHT = BACK.getHeight(null);
-	private static final int WIDTH = BACK.getWidth(null);
+	public enum Style {
+		
+		PONY("pony"),
+		OLD("old");
+
+		private final String name;
+
+		/**
+		 * Suit constructor with one parameter.
+		 *
+		 * @param display A string representing the suit of the card.
+		 */
+		private Style(String name) {
+			this.name = name;
+		}
+
+		/**
+		 * Getter of the display.
+		 *
+		 * @return The display.
+		 */
+		public String getName() {
+			return name;
+		}
+
+		/**
+		 * A textual representation of the suit.
+		 *
+		 * @return The textual representation of the suit.
+		 */
+		@Override
+		public String toString() {
+			return name;
+		}
+	}
+	
+	private final static Map<Card, Image> images = new HashMap<>();
+	private static Image back;
+	private static Image blank;
+	private static int height;
+	private static int width;
+	private static Style actual;
 
 	/**
 	 * Returns the image of a card.
@@ -28,7 +65,7 @@ public class Images {
 	 * @return The image of the card.
 	 */
 	public static Image get(Card c) {
-		return IMAGES.get(c);
+		return images.get(c);
 	}
 
 	/**
@@ -37,7 +74,7 @@ public class Images {
 	 * @return The image of the back of a card.
 	 */
 	public static Image getBack() {
-		return BACK;
+		return back;
 	}
 
 	/**
@@ -46,7 +83,7 @@ public class Images {
 	 * @return The image of a neutral/blank card.
 	 */
 	public static Image getBlank() {
-		return BLANK;
+		return blank;
 	}
 
 	/**
@@ -55,7 +92,7 @@ public class Images {
 	 * @return The height of the images.
 	 */
 	public static int getHeight() {
-		return HEIGHT;
+		return height;
 	}
 
 	/**
@@ -64,20 +101,38 @@ public class Images {
 	 * @return The width of the images.
 	 */
 	public static int getWidth() {
-		return WIDTH;
+		return width;
+	}
+	
+	public static void load( Style style ){
+		if( actual != style ){
+			actual = style;
+
+			images.clear();
+
+			for (Suit s : Suit.values()) {
+				for (Rank r : Rank.values()) {
+					images.put(
+						new Card(r, s),
+						(new ImageIcon(Images.class.getResource(style.getName() + "/" + s.getDisplay() + r.getValue() + ".png"))).getImage()
+					);
+				}
+			}
+
+			back = (new ImageIcon(Images.class.getResource(style.getName() + "/Back.png"))).getImage();
+			blank = (new ImageIcon(Images.class.getResource(style.getName() + "/Blank.png"))).getImage();
+
+			height = back.getHeight(null);
+			width = back.getWidth(null);
+		}
+	}
+	
+	public static Style getActual(){
+		return actual;
 	}
 
 	static {
-
-		for (Suit s : Suit.values()) {
-			for (Rank r : Rank.values()) {
-
-				IMAGES.put(
-						new Card(r, s),
-						(new ImageIcon(Images.class.getResource(s.getDisplay() + r.getValue() + ".png"))).getImage()
-				);
-			}
-		}
+		load(Style.OLD);
 	}
 
 }

@@ -4,6 +4,8 @@ import javax.swing.JPanel;
 import danish.model.CardPack;
 import danish.model.Card;
 import danish.model.CardDanish;
+import danish.view.img.Images;
+import java.awt.Color;
 import java.awt.Font;
 import java.awt.Insets;
 import java.awt.Point;
@@ -14,6 +16,7 @@ import java.util.ArrayList;
 import java.util.Collection;
 import javax.swing.JLabel;
 import javax.swing.SwingConstants;
+import javax.swing.border.LineBorder;
 
 /**
  * A bean containing a list of CardBean and allowing them to be displayed

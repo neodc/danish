@@ -2,16 +2,19 @@ package danish;
 
 import danish.view.DanishUI;
 import danish.view.NewGame;
+import danish.view.img.Images;
 import java.awt.Dimension;
 import java.awt.GridBagConstraints;
 import java.awt.GridBagLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import javax.swing.ButtonGroup;
 import javax.swing.JCheckBoxMenuItem;
 import javax.swing.JFrame;
 import javax.swing.JMenu;
 import javax.swing.JMenuBar;
 import javax.swing.JMenuItem;
+import javax.swing.JRadioButtonMenuItem;
 
 /**
  *
@@ -51,6 +54,36 @@ public class Danish {
 		play.add(newGame);
 		play.add(reverseSort);
 		play.add(quit);
+		
+		
+		JMenu style = new JMenu("Style");
+		menuBar.add(style);
+		
+		ButtonGroup styleGroup = new ButtonGroup();
+		
+		for( Images.Style s : Images.Style.values() ){
+			JRadioButtonMenuItem rb = new JRadioButtonMenuItem(s.getName());
+			
+			rb.setActionCommand( s.name() );
+			
+			if( s.equals( Images.getActual() ) ){
+				rb.setSelected(true);
+			}
+			
+			styleGroup.add(rb);
+			style.add(rb);
+			
+			rb.addActionListener( new ActionListener() {
+
+				@Override
+				public void actionPerformed( ActionEvent e ){
+					Images.Style style = Images.Style.valueOf(e.getActionCommand());
+					
+					Images.load( style );
+					danishUI.refresh();
+				}
+			});
+		}
 		
 		newGame.addActionListener(new ActionListener() {
 			
