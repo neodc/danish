@@ -52,12 +52,10 @@ public class CardCollectionBean extends JPanel{
 		};
 
 		jLabelSize.setHorizontalAlignment(SwingConstants.CENTER);
-		//jLabelSize.setFont(jLabelSize.getFont().deriveFont(96f));
 
 		setLayout(new OverlapLayout());
 
 		layoutCard = new OverlapLayout(new Point(25, 0));
-		/*layoutCard.setPopupInsets(new Insets(20, 0, 0, 0));*/
 		jPanelCard = new JPanel(layoutCard);
 
 		add(jPanelCard);
@@ -262,10 +260,9 @@ public class CardCollectionBean extends JPanel{
 
 		// Pick a new font size so it will not be larger than the height of label.
 		int fontSizeToUse = Math.min(newFontSize, componentHeight);
-		fontSizeToUse = Math.max(60, fontSizeToUse);
 
-		if (fontSizeToUse == 6) {
-			System.out.println(stringWidth + " " + componentWidth + " " + widthRatio + " " + newFontSize + " " + componentHeight);
+		if (fontSizeToUse == 0) {
+			fontSizeToUse = 60;
 		}
 
 		// Set the label's font size to the newly determined size.
