@@ -17,27 +17,24 @@ public class Images {
 
 	public enum Style {
 		
-		PONY("pony"),
-		OLD("old");
+		PONY("Pony V2", "ponyV2"),
+		PONYOLD("Pony", "pony"),
+		OLD("Classic", "old");
 
 		private final String name;
+		private final String directory;
 
-		/**
-		 * Suit constructor with one parameter.
-		 *
-		 * @param display A string representing the suit of the card.
-		 */
-		private Style(String name) {
+		private Style(String name, String directory) {
 			this.name = name;
+			this.directory = directory;
 		}
 
-		/**
-		 * Getter of the display.
-		 *
-		 * @return The display.
-		 */
 		public String getName() {
 			return name;
+		}
+		
+		public String getDirectory() {
+			return directory;
 		}
 
 		/**
@@ -114,13 +111,13 @@ public class Images {
 				for (Rank r : Rank.values()) {
 					images.put(
 						new Card(r, s),
-						(new ImageIcon(Images.class.getResource(style.getName() + "/" + s.getDisplay() + r.getValue() + ".png"))).getImage()
+						(new ImageIcon(Images.class.getResource(style.getDirectory()+ "/" + s.getDisplay() + r.getValue() + ".png"))).getImage()
 					);
 				}
 			}
 
-			back = (new ImageIcon(Images.class.getResource(style.getName() + "/Back.png"))).getImage();
-			blank = (new ImageIcon(Images.class.getResource(style.getName() + "/Blank.png"))).getImage();
+			back = (new ImageIcon(Images.class.getResource(style.getDirectory() + "/Back.png"))).getImage();
+			blank = (new ImageIcon(Images.class.getResource(style.getDirectory() + "/Blank.png"))).getImage();
 
 			height = back.getHeight(null);
 			width = back.getWidth(null);
@@ -132,7 +129,7 @@ public class Images {
 	}
 
 	static {
-		load(Style.OLD);
+		load(Style.PONY);
 	}
 
 }
