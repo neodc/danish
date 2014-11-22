@@ -22,7 +22,7 @@ import javax.swing.JTextField;
  *
  * @author Noé, Julien, Loup.
  */
-public class NewGame extends JDialog {
+public class Settings extends JDialog {
 
 	private JRadioButton nbAI1, nbAI2, nbAI3;
 	private JTextField nameField;
@@ -36,7 +36,7 @@ public class NewGame extends JDialog {
 	 * @param title The title of the Dialog.
 	 * @param modal If the Dialog is modal.
 	 */
-	public NewGame(JFrame parent, String title, boolean modal) {
+	public Settings(JFrame parent, String title, boolean modal) {
 		super(parent, title, modal);
 		this.setLocationRelativeTo(null);
 		this.setResizable(false);

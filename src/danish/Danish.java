@@ -1,7 +1,7 @@
 package danish;
 
 import danish.view.DanishUI;
-import danish.view.NewGame;
+import danish.view.Settings;
 import danish.view.img.Images;
 import java.awt.Dimension;
 import java.awt.GridBagConstraints;
@@ -24,14 +24,15 @@ public class Danish {
 	
 	private static JFrame jFrame;
 	private static DanishUI danishUI;
-	private static NewGame ng;
+	private static Settings settingsUI;
+	private static danish.model.Danish danish;
 
 	/**
 	 * @param args the command line arguments.
 	 */
 	public static void main(String[] args) {
-		final danish.model.Danish danish = new danish.model.Danish();
-		ng = new NewGame(null, "NewGame", true);
+		danish = new danish.model.Danish();
+		settingsUI = new Settings(null, "NewGame", true);
 		
 		danishUI = new DanishUI(danish);
 		danish.addDanishListener(danishUI);
@@ -48,10 +49,12 @@ public class Danish {
 		menuBar.add(play);
 		jFrame.setJMenuBar(menuBar);
 		
-		JMenuItem newGame = new JMenuItem("New game");
+		JMenuItem newGame = new JMenuItem("NewGame");
+		JMenuItem settings = new JMenuItem("Settings");
 		JCheckBoxMenuItem reverseSort = new JCheckBoxMenuItem("Reverse sort");
 		JMenuItem quit = new JMenuItem("Quit");
 		play.add(newGame);
+		play.add(settings);
 		play.add(reverseSort);
 		play.add(quit);
 		
@@ -85,16 +88,20 @@ public class Danish {
 			});
 		}
 		
-		newGame.addActionListener(new ActionListener() {
+		newGame.addActionListener( new ActionListener() {
+			@Override
+			public void actionPerformed( ActionEvent e ){
+				newGame();
+			}
+		});
+		
+		settings.addActionListener(new ActionListener() {
 			
 			@Override
 			public void actionPerformed(ActionEvent ae) {
-				ng.setVisible(true);
-				if (ng.isSendInfo()) {
-					danishUI.setPlayerName(ng.getPlayerName());
-					danishUI.setNbOpponent(ng.getNumberAI());
-					danish.newGame();
-					
+				settingsUI.setVisible(true);
+				if (settingsUI.isSendInfo()) {
+					newGame();
 				}
 			}
 		});
@@ -130,5 +137,11 @@ public class Danish {
 		
 		jFrame.pack();
 		danishUI.refresh();
+	}
+	
+	private static void newGame(){
+		danishUI.setPlayerName(settingsUI.getPlayerName());
+		danishUI.setNbOpponent(settingsUI.getNumberAI());
+		danish.newGame();
 	}
 }
