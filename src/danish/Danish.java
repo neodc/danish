@@ -49,7 +49,7 @@ public class Danish {
 		menuBar.add(play);
 		jFrame.setJMenuBar(menuBar);
 		
-		JMenuItem newGame = new JMenuItem("NewGame");
+		JMenuItem newGame = new JMenuItem("New game");
 		JMenuItem settings = new JMenuItem("Settings");
 		JCheckBoxMenuItem reverseSort = new JCheckBoxMenuItem("Reverse sort");
 		JMenuItem quit = new JMenuItem("Quit");
