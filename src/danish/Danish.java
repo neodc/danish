@@ -15,6 +15,7 @@ import javax.swing.JMenu;
 import javax.swing.JMenuBar;
 import javax.swing.JMenuItem;
 import javax.swing.JRadioButtonMenuItem;
+import javax.swing.KeyStroke;
 
 /**
  *
@@ -53,6 +54,12 @@ public class Danish {
 		JMenuItem settings = new JMenuItem("Settings");
 		JCheckBoxMenuItem reverseSort = new JCheckBoxMenuItem("Reverse sort");
 		JMenuItem quit = new JMenuItem("Quit");
+		
+		newGame.setAccelerator(		KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_N, java.awt.Event.CTRL_MASK) );
+		quit.setAccelerator(		KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_Q, java.awt.Event.CTRL_MASK) );
+		reverseSort.setAccelerator(	KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_R, java.awt.Event.CTRL_MASK) );
+		settings.setAccelerator(	KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_S, java.awt.Event.CTRL_MASK) );
+		
 		play.add(newGame);
 		play.add(settings);
 		play.add(reverseSort);
