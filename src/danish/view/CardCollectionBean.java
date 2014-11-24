@@ -212,6 +212,10 @@ public class CardCollectionBean extends JPanel{
 		layoutCard.setLayoutAlignmentX(f);
 	}
 
+	public void setInset( Insets inset ){
+		layoutCard.setInset( inset );
+	}
+
 	/**
 	 * Refreshes the card collection.
 	 */

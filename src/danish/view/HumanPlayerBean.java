@@ -38,6 +38,7 @@ public class HumanPlayerBean extends PlayerBean {
 		this.hand.setNbCard(Integer.MAX_VALUE);
 		this.hand.setNbCardMin(1);
 		this.hand.setPopup(new Insets(20, 0, 0, 0));
+		this.hand.setInset(new Insets(0, 0, 15, 0));
 
 		this.visible.setNbCard(3);
 		this.visible.setNbCardMin(3);

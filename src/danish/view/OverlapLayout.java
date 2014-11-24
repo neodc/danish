@@ -65,6 +65,7 @@ public class OverlapLayout implements LayoutManager2, java.io.Serializable {
 
 	private float layoutAlignmentY = 0.5f;
 	private float layoutAlignmentX = 0.5f;
+	private Insets inset = new Insets(0, 0, 0, 0);
 
 	/**
 	 * Convenience constructor to provide for "stacking" of components. Each
@@ -175,6 +176,12 @@ public class OverlapLayout implements LayoutManager2, java.io.Serializable {
 	 */
 	public void setPopupInsets(Insets popupInsets) {
 		this.popupInsets = popupInsets;
+	}
+
+	public void setInset( Insets inset ){
+		if( inset != null ){
+			this.inset = inset;
+		}
 	}
 
 	/**
@@ -326,8 +333,8 @@ public class OverlapLayout implements LayoutManager2, java.io.Serializable {
 		);
 
 		Dimension sizeAvailable = new Dimension(
-				(int) (parent.getWidth() - parentInsets.left - parentInsets.right - popupInsets.left - popupInsets.right),
-				(int) (parent.getHeight() - parentInsets.top - parentInsets.bottom - popupInsets.top - popupInsets.bottom)
+				(int) (parent.getWidth() - parentInsets.left - parentInsets.right - popupInsets.left - popupInsets.right - inset.left - inset.right),
+				(int) (parent.getHeight() - parentInsets.top - parentInsets.bottom - popupInsets.top - popupInsets.bottom - inset.bottom - inset.top)
 		);
 
 		if (((double) sizeAvailable.height / (double) sizeAvailable.width) > ((double) sizeWithOverlap.height / (double) sizeWithOverlap.width)) {
@@ -379,16 +386,16 @@ public class OverlapLayout implements LayoutManager2, java.io.Serializable {
 
 			//  Layout right-to-left, else left-to-right
 			if (overlapPosition.x < 0) {
-				location.x = (int) (parent.getWidth() - maximumSize.width - parentInsets.right - popupInsets.right - (parent.getWidth() - layoutSize.width) * layoutAlignmentX);
+				location.x = (int) (parent.getWidth() - maximumSize.width - parentInsets.right - popupInsets.right - inset.right - (parent.getWidth() - layoutSize.width) * layoutAlignmentX);
 			} else {
-				location.x = (int) (parentInsets.left + popupInsets.left + (parent.getWidth() - layoutSize.width) * layoutAlignmentX);
+				location.x = (int) (parentInsets.left + popupInsets.left + inset.left + (parent.getWidth() - layoutSize.width) * layoutAlignmentX);
 			}
 
 			//  Layout bottom-to-top, else top-to-bottom
 			if (overlapPosition.y < 0) {
-				location.y = (int) (parent.getHeight() - maximumSize.height - parentInsets.bottom - popupInsets.bottom - (parent.getHeight() - layoutSize.height) * layoutAlignmentY);
+				location.y = (int) (parent.getHeight() - maximumSize.height - parentInsets.bottom - popupInsets.bottom - inset.bottom - (parent.getHeight() - layoutSize.height) * layoutAlignmentY);
 			} else {
-				location.y = (int) (parentInsets.top + popupInsets.top + (parent.getHeight() - layoutSize.height) * layoutAlignmentY);
+				location.y = (int) (parentInsets.top + popupInsets.top + inset.top + (parent.getHeight() - layoutSize.height) * layoutAlignmentY);
 			}
 
 			//  Set the size and location for each component
