@@ -69,7 +69,7 @@ public class Danish {
 			
 			rb.setActionCommand( s.name() );
 			
-			if( s.equals( Images.getActual() ) ){
+			if( s.equals( Images.getCurrent() ) ){
 				rb.setSelected(true);
 			}
 			

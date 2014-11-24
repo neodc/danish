@@ -53,7 +53,7 @@ public class Images {
 	private static Image blank;
 	private static int height;
 	private static int width;
-	private static Style actual;
+	private static Style current;
 
 	/**
 	 * Returns the image of a card.
@@ -102,8 +102,8 @@ public class Images {
 	}
 	
 	public static void load( Style style ){
-		if( actual != style ){
-			actual = style;
+		if( current != style ){
+			current = style;
 
 			images.clear();
 
@@ -124,8 +124,8 @@ public class Images {
 		}
 	}
 	
-	public static Style getActual(){
-		return actual;
+	public static Style getCurrent(){
+		return current;
 	}
 
 	static {
