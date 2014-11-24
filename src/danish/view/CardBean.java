@@ -22,9 +22,10 @@ public class CardBean extends JPanel {
 	 * CardBean constructor without parameter.
 	 */
 	public CardBean() {
-//		this.card = new Card(Rank.TWO, Suit.CLUB );
 		this.card = null;
 		this.hidden = false;
+		
+		this.setOpaque(false);
 	}
 
 	/**

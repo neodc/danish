@@ -39,10 +39,7 @@ import java.util.ArrayList;
  * Base on http://tips4java.wordpress.com/2009/07/26/overlap-layout/
  */
 public class OverlapLayout implements LayoutManager2, java.io.Serializable {
-
-	public static final Boolean POP_UP = Boolean.TRUE;
-	public static final Boolean POP_DOWN = Boolean.FALSE;
-
+	
 	private static final int PREFERRED = 0;
 	private static final int MINIMUM = 1;
 
