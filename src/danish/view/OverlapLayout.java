@@ -39,7 +39,7 @@ import java.util.ArrayList;
  * Base on http://tips4java.wordpress.com/2009/07/26/overlap-layout/
  */
 public class OverlapLayout implements LayoutManager2, java.io.Serializable {
-	
+
 	private static final int PREFERRED = 0;
 	private static final int MINIMUM = 1;
 
@@ -178,8 +178,8 @@ public class OverlapLayout implements LayoutManager2, java.io.Serializable {
 		this.popupInsets = popupInsets;
 	}
 
-	public void setInset( Insets inset ){
-		if( inset != null ){
+	public void setInset(Insets inset) {
+		if (inset != null) {
 			this.inset = inset;
 		}
 	}

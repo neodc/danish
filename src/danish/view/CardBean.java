@@ -24,7 +24,7 @@ public class CardBean extends JPanel {
 	public CardBean() {
 		this.card = null;
 		this.hidden = false;
-		
+
 		this.setOpaque(false);
 	}
 

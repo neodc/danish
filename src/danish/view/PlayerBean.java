@@ -111,6 +111,7 @@ public abstract class PlayerBean extends JPanel {
 			this.name.setFont(this.name.getFont().deriveFont(Font.PLAIN));
 		}
 	}
+
 	/**
 	 * Refreshes the bean.
 	 */

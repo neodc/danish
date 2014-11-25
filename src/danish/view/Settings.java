@@ -41,7 +41,7 @@ public class Settings extends JDialog {
 		this.setLocationRelativeTo(null);
 		this.setResizable(false);
 		this.setDefaultCloseOperation(JDialog.HIDE_ON_CLOSE);
-		
+
 		this.initComponent();
 
 		sendInfo = false;
@@ -122,19 +122,18 @@ public class Settings extends JDialog {
 		add(name, BorderLayout.CENTER);
 		add(control, BorderLayout.SOUTH);
 
-		addWindowListener( new WindowAdapter() {
+		addWindowListener(new WindowAdapter() {
 			@Override
-			public void windowActivated( WindowEvent e ){
+			public void windowActivated(WindowEvent e) {
 				sendInfo = false;
 			}
 
 		});
-		
-		
-		this.nameField.addKeyListener( new KeyAdapter() {
+
+		this.nameField.addKeyListener(new KeyAdapter() {
 			@Override
-			public void keyReleased( KeyEvent e ){
-				nameField.setText( nameField.getText().substring(0, 30) );
+			public void keyReleased(KeyEvent e) {
+				nameField.setText(nameField.getText().substring(0, 30));
 			}
 		});
 	}

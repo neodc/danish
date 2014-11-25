@@ -24,7 +24,7 @@ import javax.swing.border.LineBorder;
  *
  * @author Noé, Julien, Loup.
  */
-public class CardCollectionBean extends JPanel{
+public class CardCollectionBean extends JPanel {
 
 	private Collection<CardDanish> pack;
 	private boolean hidden;
@@ -212,8 +212,8 @@ public class CardCollectionBean extends JPanel{
 		layoutCard.setLayoutAlignmentX(f);
 	}
 
-	public void setInset( Insets inset ){
-		layoutCard.setInset( inset );
+	public void setInset(Insets inset) {
+		layoutCard.setInset(inset);
 	}
 
 	/**

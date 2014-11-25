@@ -16,7 +16,7 @@ import javax.swing.ImageIcon;
 public class Images {
 
 	public enum Style {
-		
+
 		PONY("Pony V2", "ponyV2"),
 		PONYOLD("Pony", "pony"),
 		OLD("Classic", "old");
@@ -32,7 +32,7 @@ public class Images {
 		public String getName() {
 			return name;
 		}
-		
+
 		public String getDirectory() {
 			return directory;
 		}
@@ -47,7 +47,7 @@ public class Images {
 			return name;
 		}
 	}
-	
+
 	private final static Map<Card, Image> images = new HashMap<>();
 	private static Image back;
 	private static Image blank;
@@ -100,9 +100,9 @@ public class Images {
 	public static int getWidth() {
 		return width;
 	}
-	
-	public static void load( Style style ){
-		if( current != style ){
+
+	public static void load(Style style) {
+		if (current != style) {
 			current = style;
 
 			images.clear();
@@ -110,8 +110,8 @@ public class Images {
 			for (Suit s : Suit.values()) {
 				for (Rank r : Rank.values()) {
 					images.put(
-						new Card(r, s),
-						(new ImageIcon(Images.class.getResource(style.getDirectory()+ "/" + s.getDisplay() + r.getValue() + ".png"))).getImage()
+							new Card(r, s),
+							(new ImageIcon(Images.class.getResource(style.getDirectory() + "/" + s.getDisplay() + r.getValue() + ".png"))).getImage()
 					);
 				}
 			}
@@ -123,8 +123,8 @@ public class Images {
 			width = back.getWidth(null);
 		}
 	}
-	
-	public static Style getCurrent(){
+
+	public static Style getCurrent() {
 		return current;
 	}
 
