@@ -1,4 +1,4 @@
-package danish.view;
+package danish.beans;
 
 import javax.swing.JPanel;
 import danish.model.Card;

@@ -1,5 +1,9 @@
 package danish.view;
 
+import danish.beans.CardBean;
+import danish.beans.CardCollectionBean;
+import danish.beans.OpponentBean;
+import danish.beans.HumanPlayerBean;
 import danish.model.DanishModel;
 import danish.model.DanishView;
 import danish.model.Player;

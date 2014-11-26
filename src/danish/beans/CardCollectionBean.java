@@ -1,9 +1,11 @@
-package danish.view;
+package danish.beans;
 
 import javax.swing.JPanel;
 import danish.model.CardPack;
 import danish.model.Card;
 import danish.model.CardDanish;
+import danish.view.OverlapConstraints;
+import danish.view.OverlapLayout;
 import danish.view.img.Images;
 import java.awt.Color;
 import java.awt.Font;

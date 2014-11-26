@@ -2,7 +2,7 @@
  * To change this template, choose Tools | Templates
  * and open the template in the editor.
  */
-package danish.view;
+package danish.beans;
 
 import java.awt.GridBagConstraints;
 import java.awt.GridBagLayout;
@@ -96,15 +96,15 @@ public class HumanPlayerBean extends PlayerBean {
 		gridbag.setConstraints(this.hand, c);
 	}
 
-	void setButtonText(String s) {
+	public void setButtonText(String s) {
 		this.play.setText(s);
 	}
 
-	void disableButton(boolean b) {
+	public void disableButton(boolean b) {
 		this.play.setEnabled(!b);
 	}
 
-	void addActionListener(ActionListener a) {
+	public void addActionListener(ActionListener a) {
 		this.play.addActionListener(a);
 	}
 }

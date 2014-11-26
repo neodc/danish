@@ -1,4 +1,4 @@
-package danish.view;
+package danish.beans;
 
 import java.awt.GridBagConstraints;
 import java.awt.GridBagLayout;
@@ -100,11 +100,11 @@ public class OpponentBean extends PlayerBean {
 		gridbag.setConstraints(this.hand, c);
 	}
 
-	void disableButton(boolean b) {
+	public void disableButton(boolean b) {
 		this.attack.setEnabled(!b);
 	}
 
-	void addActionListener(ActionListener a) {
+	public void addActionListener(ActionListener a) {
 		this.attack.addActionListener(a);
 	}
 }

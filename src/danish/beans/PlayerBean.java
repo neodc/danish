@@ -1,4 +1,4 @@
-package danish.view;
+package danish.beans;
 
 import danish.model.CardDanish;
 import javax.swing.JPanel;
@@ -77,7 +77,7 @@ public abstract class PlayerBean extends JPanel {
 	 *
 	 * @return The bean displaying the player's hidden cards.
 	 */
-	CardCollectionBean getHidden() {
+	public CardCollectionBean getHidden() {
 		return hidden;
 	}
 
@@ -86,7 +86,7 @@ public abstract class PlayerBean extends JPanel {
 	 *
 	 * @return The bean displaying the player's hand.
 	 */
-	CardCollectionBean getHand() {
+	public CardCollectionBean getHand() {
 		return hand;
 	}
 
@@ -95,7 +95,7 @@ public abstract class PlayerBean extends JPanel {
 	 *
 	 * @return The bean displaying the player's visible cards.
 	 */
-	CardCollectionBean getVisible() {
+	public CardCollectionBean getVisible() {
 		return visible;
 	}
 
