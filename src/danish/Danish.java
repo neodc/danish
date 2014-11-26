@@ -94,7 +94,7 @@ public class Danish {
 					Images.Style style = Images.Style.valueOf(e.getActionCommand());
 
 					Images.load(style);
-					danishUI.refresh();
+					danishUI.update();
 				}
 			});
 		}
@@ -225,7 +225,7 @@ public class Danish {
 		jFrame.setVisible(true);
 
 		jFrame.pack();
-		danishUI.refresh();
+		danishUI.update();
 	}
 
 	private static void newGame() {

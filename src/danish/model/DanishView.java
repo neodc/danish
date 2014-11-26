@@ -10,5 +10,5 @@ public interface DanishView {
 	/**
 	 * Refreshes the view.
 	 */
-	public void refresh();
+	public void update();
 }

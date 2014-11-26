@@ -116,7 +116,7 @@ public class DanishUI extends JComponent implements DanishView {
 	}
 
 	@Override
-	public void refresh() {
+	public void update() {
 		refreshButtons();
 		if (danish.getWinner() == null) {
 			warningWinner = true;
@@ -518,6 +518,6 @@ public class DanishUI extends JComponent implements DanishView {
 	 */
 	public void toggleReverse() {
 		this.humanPlayer.toggleReverse();
-		this.refresh();
+		this.update();
 	}
 }

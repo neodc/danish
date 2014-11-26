@@ -442,7 +442,7 @@ public class Danish implements DanishModel {
 
 	private void fireChange() {
 		for (DanishView view : listeners) {
-			view.refresh();
+			view.update();
 		}
 	}
 
