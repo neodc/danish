@@ -41,6 +41,7 @@ public class Danish {
 
 		jFrame = new JFrame();
 		jFrame.setPreferredSize(new Dimension(1500, 1000));
+		jFrame.setMinimumSize(new Dimension(512, 512));
 
 		jFrame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		jFrame.setTitle("Danish");
