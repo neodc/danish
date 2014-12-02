@@ -11,11 +11,14 @@ import static org.junit.Assert.*;
  */
 public class DanishTest {
 
+	/**
+	 * DanishTest constructor without parameter.
+	 */
 	public DanishTest() {
 	}
 
 	/**
-	 * Test of getPlayers method, of class Danish.
+	 * Test of getPlayers method, from class Danish.
 	 */
 	@Test
 	public void testGetPlayers() {
@@ -76,7 +79,7 @@ public class DanishTest {
 	}
 
 	/**
-	 * Test of getDeck method, of class Danish.
+	 * Test of getDeck method, from class Danish.
 	 */
 	@Test
 	public void testGetDeck() {
@@ -93,7 +96,7 @@ public class DanishTest {
 	}
 
 	/**
-	 * Test of getStack method, of class Danish.
+	 * Test of getStack method, from class Danish.
 	 */
 	@Test
 	public void testGetStack() {
@@ -104,7 +107,7 @@ public class DanishTest {
 	}
 
 	/**
-	 * Test of getGraveyard method, of class Danish.
+	 * Test of getGraveyard method, from class Danish.
 	 */
 	@Test
 	public void testGetGraveyard() {
@@ -116,7 +119,7 @@ public class DanishTest {
 	}
 
 	/**
-	 * Test of isPlaying method, of class Danish.
+	 * Test of isPlaying method, from class Danish.
 	 */
 	@Test
 	public void testIsPlaying() {
@@ -136,7 +139,7 @@ public class DanishTest {
 	}
 
 	/**
-	 * Test of getCurrentPlayer method, of class Danish.
+	 * Test of getCurrentPlayer method, from class Danish.
 	 */
 	@Test
 	public void testGetCurrentPlayer() {
@@ -146,7 +149,7 @@ public class DanishTest {
 	}
 
 	/**
-	 * Test of setPlayers method, of class Danish.
+	 * Test of setPlayers method, from class Danish.
 	 */
 	@Test
 	public void testSetPlayers() {
@@ -207,7 +210,7 @@ public class DanishTest {
 	}
 
 	/**
-	 * Test of begin method, of class Danish.
+	 * Test of begin method, from class Danish.
 	 */
 	@Test
 	public void testBegin() {
@@ -226,7 +229,7 @@ public class DanishTest {
 	}
 
 	/**
-	 * Test of turn method, of class Danish.
+	 * Test of turn method, from class Danish.
 	 */
 	@Test
 	public void testTurn_List() {
@@ -377,7 +380,7 @@ public class DanishTest {
 	}
 
 	/**
-	 * Test of turn method, of class Danish, the attack version.
+	 * Test of turn method, from class Danish, the attack version.
 	 */
 	@Test
 	public void testTurn_List_int() {
@@ -528,7 +531,7 @@ public class DanishTest {
 	}
 
 	/**
-	 * Test of switchCard method, of class Danish.
+	 * Test of switchCard method, from class Danish.
 	 */
 	@Test
 	public void testSwitchCard_3args_1() {
@@ -554,7 +557,7 @@ public class DanishTest {
 	}
 
 	/**
-	 * Test of switchCard method, of class Danish.
+	 * Test of switchCard method, from class Danish.
 	 */
 	@Test
 	public void testSwitchCard_3args_2() {
@@ -600,7 +603,7 @@ public class DanishTest {
 	}
 
 	/**
-	 * Test of getWinner method, of class Danish.
+	 * Test of getWinner method, from class Danish.
 	 */
 	@Test
 	public void testGetWinner() {
@@ -630,7 +633,7 @@ public class DanishTest {
 	}
 
 	/**
-	 * Test of getRankStack method, of class Danish.
+	 * Test of getRankStack method, from class Danish.
 	 */
 	@Test
 	public void testGetRankStack() {
@@ -657,7 +660,7 @@ public class DanishTest {
 	}
 
 	/**
-	 * Test of getPlaying method, of class Danish.
+	 * Test of getPlaying method, from class Danish.
 	 */
 	@Test
 	public void testGetPlaying() {

@@ -13,10 +13,16 @@ public class CardPackTest {
 
 	CardPack cardPack;
 
+	/**
+	 * CardPackTest constructor without parameter.
+	 */
 	public CardPackTest() {
 		cardPack = new CardPack();
 	}
 
+	/**
+	 * Test of peek method, from class CardPack.
+	 */
 	@Test
 	public void testPeek() {
 		System.out.println("Peek");
@@ -32,12 +38,18 @@ public class CardPackTest {
 		assertTrue(cardPack.peek().equals(new CardDanish(Rank.ACE, Suit.HEART)));
 	}
 
+	/**
+	 * Test of add method, with exception thrown, from class CardPack.
+	 */
 	@Test(expected = NullPointerException.class)
 	public void testAdd_NullPointerException() throws NullPointerException {
 		System.out.println("Add_NullPointerException");
 		cardPack.add(null);
 	}
 
+	/**
+	 * Test of add method, from class CardPack.
+	 */
 	@Test
 	public void testAdd() {
 		System.out.println("Add");
@@ -56,6 +68,9 @@ public class CardPackTest {
 		assertTrue(cardPack.size() == 3);
 	}
 
+	/**
+	 * Test of offer method, from class CardPack.
+	 */
 	@Test
 	public void testOffer() {
 		System.out.println("Offer");
@@ -74,6 +89,9 @@ public class CardPackTest {
 		assertTrue(cardPack.size() == 3);
 	}
 
+	/**
+	 * Test of clear method, from class CardPack.
+	 */
 	@Test
 	public void testClear() {
 		System.out.println("Clear");
@@ -85,7 +103,7 @@ public class CardPackTest {
 	}
 
 	/**
-	 * Test of isEmpty method, of class CardPack.
+	 * Test of isEmpty method, from class CardPack.
 	 */
 	@Test
 	public void testIsEmpty() {
@@ -98,6 +116,9 @@ public class CardPackTest {
 		assertTrue(cardPack.isEmpty());
 	}
 
+	/**
+	 * Test of getNumberSimilarCard method, from class CardPack.
+	 */
 	@Test
 	public void testGetNumberSimilarCard() {
 		System.out.println("getNumberSimilarCard");
@@ -125,7 +146,7 @@ public class CardPackTest {
 	}
 
 	/**
-	 * Test of pour method, of class CardPack.
+	 * Test of pour method, from class CardPack.
 	 */
 	@Test
 	public void testPour() {
@@ -169,6 +190,9 @@ public class CardPackTest {
 
 	}
 
+	/**
+	 * Test of remove method with no element, from class CardPack.
+	 */
 	@Test(expected = NoSuchElementException.class)
 	public void testRemove_0args_NoSuchElementException() throws NoSuchElementException {
 		System.out.println("Remove_0args_NoSuchElementException");
@@ -176,7 +200,7 @@ public class CardPackTest {
 	}
 
 	/**
-	 * Test of remove method, of class CardPack.
+	 * Test of remove method, from class CardPack.
 	 */
 	@Test
 	public void testRemove_0args() {
@@ -196,7 +220,7 @@ public class CardPackTest {
 	}
 
 	/**
-	 * Test of poll method, of class CardPack.
+	 * Test of poll method, from class CardPack.
 	 */
 	@Test
 	public void testPoll() {
@@ -215,6 +239,9 @@ public class CardPackTest {
 		assertFalse(cardPack.contains(new CardDanish(Rank.ACE, Suit.CLUB)));
 	}
 
+	/**
+	 * Test of element method, with exception thrown, from class CardPack.
+	 */
 	@Test(expected = NoSuchElementException.class)
 	public void testElement_NoSuchElementException() throws NoSuchElementException {
 		System.out.println("Element_NoSuchElementException");
@@ -222,7 +249,7 @@ public class CardPackTest {
 	}
 
 	/**
-	 * Test of element method, of class CardPack.
+	 * Test of element method, from class CardPack.
 	 */
 	@Test
 	public void testElement() {
@@ -240,7 +267,7 @@ public class CardPackTest {
 	}
 
 	/**
-	 * Test of size method, of class CardPack.
+	 * Test of size method, from class CardPack.
 	 */
 	@Test
 	public void testSize() {
@@ -262,12 +289,18 @@ public class CardPackTest {
 		assertTrue(cardPack.size() == 0);
 	}
 
+	/**
+	 * Test of contains method, with exception thrown, from class CardPack.
+	 */
 	@Test(expected = NullPointerException.class)
 	public void testContains_NullPointerException() throws NullPointerException {
 		System.out.println("Contains_NullPointerException");
 		cardPack.contains(null);
 	}
 
+	/**
+	 * Test of contains method, with exception thrown, from class CardPack.
+	 */
 	@Test(expected = ClassCastException.class)
 	public void testContains_NoSuchElementException() throws ClassCastException {
 		System.out.println("Contains_ClassCastException");
@@ -276,7 +309,7 @@ public class CardPackTest {
 	}
 
 	/**
-	 * Test of contains method, of class CardPack.
+	 * Test of contains method, from class CardPack.
 	 */
 	@Test
 	public void testContains() {
@@ -290,7 +323,7 @@ public class CardPackTest {
 	}
 
 	/**
-	 * Test of iterator method, of class CardPack.
+	 * Test of iterator method, from class CardPack.
 	 */
 	@Test
 	public void testIterator() {
@@ -318,6 +351,9 @@ public class CardPackTest {
 		assertFalse(i.hasNext());
 	}
 
+	/**
+	 * Test of iteratorRemove method, from class CardPack.
+	 */
 	@Test(expected = UnsupportedOperationException.class)
 	public void testIteratorRemove() {
 		System.out.println("iterator");
@@ -336,7 +372,7 @@ public class CardPackTest {
 	}
 
 	/**
-	 * Test of toArray method, of class CardPack.
+	 * Test of toArray method, from class CardPack.
 	 */
 	@Test
 	public void testToArray_0args() {
@@ -359,7 +395,7 @@ public class CardPackTest {
 	}
 
 	/**
-	 * Test of toArray method, of class CardPack.
+	 * Test of toArray method, from class CardPack.
 	 */
 	@Test
 	public void testToArray_GenericType() {
@@ -390,7 +426,7 @@ public class CardPackTest {
 	}
 
 	/**
-	 * Test of remove method, of class CardPack.
+	 * Test of remove method, from class CardPack.
 	 */
 	@Test(expected = UnsupportedOperationException.class)
 	public void testRemove_Object() throws UnsupportedOperationException {
@@ -399,7 +435,7 @@ public class CardPackTest {
 	}
 
 	/**
-	 * Test of containsAll method, of class CardPack.
+	 * Test of containsAll method, from class CardPack.
 	 */
 	@Test
 	public void testContainsAll() {
@@ -416,7 +452,7 @@ public class CardPackTest {
 	}
 
 	/**
-	 * Test of addAll method, of class CardPack.
+	 * Test of addAll method, from class CardPack.
 	 */
 	@Test
 	public void testAddAll() {
@@ -431,7 +467,7 @@ public class CardPackTest {
 	}
 
 	/**
-	 * Test of removeAll method, of class CardPack.
+	 * Test of removeAll method, from class CardPack.
 	 */
 	@Test(expected = UnsupportedOperationException.class)
 	public void testRemoveAll() throws UnsupportedOperationException {
@@ -442,7 +478,7 @@ public class CardPackTest {
 	}
 
 	/**
-	 * Test of retainAll method, of class CardPack.
+	 * Test of retainAll method, from class CardPack.
 	 */
 	@Test(expected = UnsupportedOperationException.class)
 	public void testRetainAll() throws UnsupportedOperationException {
@@ -453,7 +489,7 @@ public class CardPackTest {
 	}
 
 	/**
-	 * Test of placeable method, of class CardDanish.
+	 * Test of placeable method, from class CardDanish.
 	 */
 	@Test
 	public void testPlaceable() {

@@ -10,11 +10,14 @@ import danish.model.Rank;
 import javax.swing.ImageIcon;
 
 /**
- *
+ * This class manages the different images for the cards.
  * @author Noé, Julien, Loup.
  */
 public class Images {
 
+	/**
+	 * The different styles of cards.
+	 */
 	public enum Style {
 
 		PONY("Pony V2", "ponyV2"),
@@ -29,10 +32,18 @@ public class Images {
 			this.directory = directory;
 		}
 
+		/**
+		 * Returns the name of the Style.
+		 * @return The name of the Style.
+		 */
 		public String getName() {
 			return name;
 		}
 
+		/**
+		 * Returns the path to the directory containing the images of the cards for this Style.
+		 * @return The path.
+		 */
 		public String getDirectory() {
 			return directory;
 		}
@@ -101,6 +112,10 @@ public class Images {
 		return width;
 	}
 
+	/**
+	 * Loads a Style. The map Images will receive the paths to each card.
+	 * @param style The Style to load.
+	 */
 	public static void load(Style style) {
 		if (current != style) {
 			current = style;
@@ -124,6 +139,10 @@ public class Images {
 		}
 	}
 
+	/**
+	 * Gets the currently chosen Style.
+	 * @return The currently chosen Style.
+	 */
 	public static Style getCurrent() {
 		return current;
 	}

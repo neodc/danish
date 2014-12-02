@@ -6,8 +6,6 @@ import danish.model.Card;
 import danish.model.CardDanish;
 import danish.view.OverlapConstraints;
 import danish.view.OverlapLayout;
-import danish.view.img.Images;
-import java.awt.Color;
 import java.awt.Font;
 import java.awt.Insets;
 import java.awt.Point;
@@ -18,7 +16,6 @@ import java.util.ArrayList;
 import java.util.Collection;
 import javax.swing.JLabel;
 import javax.swing.SwingConstants;
-import javax.swing.border.LineBorder;
 
 /**
  * A bean containing a list of CardBean and allowing them to be displayed
@@ -214,6 +211,10 @@ public class CardCollectionBean extends JPanel {
 		layoutCard.setLayoutAlignmentX(f);
 	}
 
+	/**
+	 * Sets the insets of the layout.
+	 * @param inset The new insets.
+	 */
 	public void setInset(Insets inset) {
 		layoutCard.setInset(inset);
 	}

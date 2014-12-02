@@ -10,11 +10,14 @@ import static org.junit.Assert.*;
  */
 public class PlayerAITest {
 
+	/**
+	 * PlayerAITest constructor without parameter.
+	 */
 	public PlayerAITest() {
 	}
 
 	/**
-	 * Test of play method, of class PlayerAI.
+	 * Test of play method, from class PlayerAI.
 	 */
 	@Test
 	public void testPlay() {

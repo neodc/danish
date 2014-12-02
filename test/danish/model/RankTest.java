@@ -9,11 +9,14 @@ import static org.junit.Assert.*;
  */
 public class RankTest {
 
+	/**
+	 * RankTest constructor without parameter.
+	 */
 	public RankTest() {
 	}
 
 	/**
-	 * Test of getValue method, of class Rank.
+	 * Test of getValue method, from class Rank.
 	 */
 	@Test
 	public void testGetValue() {
@@ -24,7 +27,7 @@ public class RankTest {
 	}
 
 	/**
-	 * Test of getDisplay method, of class Rank.
+	 * Test of getDisplay method, from class Rank.
 	 */
 	@Test
 	public void testGetDisplay() {
@@ -35,7 +38,7 @@ public class RankTest {
 	}
 
 	/**
-	 * Test of toString method, of class Rank.
+	 * Test of toString method, from class Rank.
 	 */
 	@Test
 	public void testToString() {

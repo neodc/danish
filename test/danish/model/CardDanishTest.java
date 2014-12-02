@@ -9,11 +9,14 @@ import static org.junit.Assert.*;
  */
 public class CardDanishTest {
 
+	/**
+	 * CardDanishTest constructor without parameter.
+	 */
 	public CardDanishTest() {
 	}
 
 	/**
-	 * Test of compareTo method, of class CardDanish.
+	 * Test of compareTo method, from class CardDanish.
 	 */
 	@Test
 	public void testCompareTo() {
@@ -26,7 +29,7 @@ public class CardDanishTest {
 	}
 
 	/**
-	 * Test of getRealRank method, of class CardDanish.
+	 * Test of getRealRank method, from class CardDanish.
 	 */
 	@Test
 	public void testGetRealRank() {
@@ -44,7 +47,7 @@ public class CardDanishTest {
 	}
 
 	/**
-	 * Test of getNext method, of class CardDanish.
+	 * Test of getNext method, from class CardDanish.
 	 */
 	@Test
 	public void testGetNext() {
@@ -61,7 +64,7 @@ public class CardDanishTest {
 	}
 
 	/**
-	 * Test of setNext method, of class CardDanish.
+	 * Test of setNext method, from class CardDanish.
 	 */
 	@Test
 	public void testSetNext() {
@@ -78,7 +81,7 @@ public class CardDanishTest {
 	}
 
 	/**
-	 * Test of isJoker method, of class CardDanish.
+	 * Test of isJoker method, from class CardDanish.
 	 */
 	@Test
 	public void testIsJoker() {

@@ -9,11 +9,14 @@ import static org.junit.Assert.*;
  */
 public class PlayerTest {
 
+	/**
+	 * PlayerTest constructor without parameter.
+	 */
 	public PlayerTest() {
 	}
 
 	/**
-	 * Test of getHand method, of class Player.
+	 * Test of getHand method, from class Player.
 	 */
 	@Test
 	public void testGetHand() {
@@ -32,7 +35,7 @@ public class PlayerTest {
 	}
 
 	/**
-	 * Test of getVisible method, of class Player.
+	 * Test of getVisible method, from class Player.
 	 */
 	@Test
 	public void testGetVisible() {
@@ -63,7 +66,7 @@ public class PlayerTest {
 	}
 
 	/**
-	 * Test of getHidden method, of class Player.
+	 * Test of getHidden method, from class Player.
 	 */
 	@Test
 	public void testGetHidden() {
@@ -94,7 +97,7 @@ public class PlayerTest {
 	}
 
 	/**
-	 * Test of getName method, of class Player.
+	 * Test of getName method, from class Player.
 	 */
 	@Test
 	public void testGetName() {
@@ -104,7 +107,7 @@ public class PlayerTest {
 	}
 
 	/**
-	 * Test of addVisible method, of class Player.
+	 * Test of addVisible method, from class Player.
 	 */
 	@Test
 	public void testAddVisible() {
@@ -135,7 +138,7 @@ public class PlayerTest {
 	}
 
 	/**
-	 * Test of addHidden method, of class Player.
+	 * Test of addHidden method, from class Player.
 	 */
 	@Test
 	public void testAddHidden() {
@@ -166,7 +169,7 @@ public class PlayerTest {
 	}
 
 	/**
-	 * Test of removeVisible method, of class Player.
+	 * Test of removeVisible method, from class Player.
 	 */
 	@Test
 	public void testRemoveVisible() {
@@ -197,7 +200,7 @@ public class PlayerTest {
 	}
 
 	/**
-	 * Test of removeHidden method, of class Player.
+	 * Test of removeHidden method, from class Player.
 	 */
 	@Test
 	public void testRemoveHidden() {
@@ -228,7 +231,7 @@ public class PlayerTest {
 	}
 
 	/**
-	 * Test of switchCard method, of class Player.
+	 * Test of switchCard method, from class Player.
 	 */
 	@Test
 	public void testSwitchCard() {
@@ -248,7 +251,7 @@ public class PlayerTest {
 	}
 
 	/**
-	 * Test of draw method, of class Player.
+	 * Test of draw method, from class Player.
 	 */
 	@Test
 	public void testDraw() {

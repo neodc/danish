@@ -96,14 +96,26 @@ public class HumanPlayerBean extends PlayerBean {
 		gridbag.setConstraints(this.hand, c);
 	}
 
+	/**
+	 * Sets the text of the button the player uses.
+	 * @param s The new text of the button.
+	 */
 	public void setButtonText(String s) {
 		this.play.setText(s);
 	}
 
+	/**
+	 * Disables or enables the button the player uses.
+	 * @param b If the button must be disabled.
+	 */
 	public void disableButton(boolean b) {
 		this.play.setEnabled(!b);
 	}
 
+	/**
+	 * Adds a listener to the button.
+	 * @param a The listener to add.
+	 */
 	public void addActionListener(ActionListener a) {
 		this.play.addActionListener(a);
 	}

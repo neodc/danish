@@ -9,11 +9,14 @@ import static org.junit.Assert.*;
  */
 public class CardTest {
 
+	/**
+	 * CardTest constructor without parameter.
+	 */
 	public CardTest() {
 	}
 
 	/**
-	 * Test of getRank method, of class Card.
+	 * Test of getRank method, from class Card.
 	 */
 	@Test
 	public void testGetRank() {
@@ -25,7 +28,7 @@ public class CardTest {
 	}
 
 	/**
-	 * Test of getSuit method, of class Card.
+	 * Test of getSuit method, from class Card.
 	 */
 	@Test
 	public void testGetSuit() {
@@ -37,7 +40,7 @@ public class CardTest {
 	}
 
 	/**
-	 * Test of equals method, of class Card.
+	 * Test of equals method, from class Card.
 	 */
 	@Test
 	public void testEquals() {
@@ -50,7 +53,7 @@ public class CardTest {
 	}
 
 	/**
-	 * Test of hashCode method, of class Card.
+	 * Test of hashCode method, from class Card.
 	 */
 	@Test
 	public void testHashCode() {
@@ -62,7 +65,7 @@ public class CardTest {
 	}
 
 	/**
-	 * Test of toString method, of class Card.
+	 * Test of toString method, from class Card.
 	 */
 	@Test
 	public void testToString() {

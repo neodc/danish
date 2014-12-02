@@ -9,11 +9,14 @@ import static org.junit.Assert.*;
  */
 public class SuitTest {
 
+	/**
+	 * SuitTest constructor without parameter.
+	 */
 	public SuitTest() {
 	}
 
 	/**
-	 * Test of toString method, of class Suit.
+	 * Test of toString method, from class Suit.
 	 */
 	@Test
 	public void testToString() {
