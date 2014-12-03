@@ -13,7 +13,6 @@ import java.awt.event.ActionListener;
 import java.io.IOException;
 import java.net.URI;
 import java.net.URISyntaxException;
-import java.net.URL;
 import javax.swing.ButtonGroup;
 import javax.swing.JCheckBoxMenuItem;
 import javax.swing.JFrame;
@@ -23,7 +22,6 @@ import javax.swing.JMenuBar;
 import javax.swing.JMenuItem;
 import javax.swing.JOptionPane;
 import javax.swing.JRadioButtonMenuItem;
-import javax.swing.JTextArea;
 import javax.swing.KeyStroke;
 
 /**
@@ -184,7 +182,7 @@ public class Danish {
 							"</body>" +
 							"</html>";
 				JLabel label = new JLabel(howTo);
-				label.setFont(new Font("sans serif", Font.PLAIN, 14));
+				label.setFont(label.getFont().deriveFont(Font.PLAIN));
 				JOptionPane.showMessageDialog(jFrame, label, "How to play", JOptionPane.PLAIN_MESSAGE);
 			}
 		});
