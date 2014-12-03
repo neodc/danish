@@ -1,5 +1,10 @@
 package danish;
 
+import danish.db.DBException;
+import danish.db.GameDB;
+import danish.db.PlayerDB;
+import danish.dto.GameDto;
+import danish.dto.PlayerDto;
 import danish.view.DanishUI;
 import danish.view.Settings;
 import danish.view.img.Images;
@@ -13,6 +18,7 @@ import java.awt.event.ActionListener;
 import java.io.IOException;
 import java.net.URI;
 import java.net.URISyntaxException;
+import java.util.Collection;
 import javax.swing.ButtonGroup;
 import javax.swing.JCheckBoxMenuItem;
 import javax.swing.JFrame;
@@ -38,7 +44,25 @@ public class Danish {
 	/**
 	 * @param args the command line arguments.
 	 */
-	public static void main(String[] args) {
+	public static void main(String[] args) throws DBException {
+		/*
+		PlayerDB.createPlayer( new PlayerDto("neodc", Images.Style.PONY, true) );
+		PlayerDB.createPlayer( new PlayerDto("test", Images.Style.OLD, false) );
+		GameDB.createGame( new GameDto(0, true, 0, 1, 3));
+		GameDB.createGame( new GameDto(0, true, 1, 1, 3));
+		GameDB.createGame( new GameDto(0, false, 2, 1, 3));
+		GameDB.createGame( new GameDto(1, false, 0, 1, 1));
+		GameDB.createGame( new GameDto(1, false, 2, 1, 2));
+		GameDB.createGame( new GameDto(1, true, 8, 1, 3));
+		 */
+		PlayerDto player = PlayerDB.getPlayer(0);
+		Collection<GameDto> allGame = GameDB.getAllGame();
+		GameDto game = GameDB.getGame(0);
+		
+		
+		System.exit(0);
+		
+		
 		danish = new danish.model.Danish();
 		settingsUI = new Settings(null, "NewGame", true);
 
