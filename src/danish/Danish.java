@@ -54,13 +54,13 @@ public class Danish {
 		GameDB.createGame( new GameDto(1, false, 0, 1, 1));
 		GameDB.createGame( new GameDto(1, false, 2, 1, 2));
 		GameDB.createGame( new GameDto(1, true, 8, 1, 3));
-		 */
+		 *//*
 		PlayerDto player = PlayerDB.getPlayer(0);
 		Collection<GameDto> allGame = GameDB.getAllGame();
 		GameDto game = GameDB.getGame(0);
 		
 		
-		System.exit(0);
+		System.exit(0);*/
 		
 		
 		danish = new danish.model.Danish();
@@ -77,28 +77,39 @@ public class Danish {
 		jFrame.setTitle("Danish");
 
 		JMenuBar menuBar = new JMenuBar();
-		JMenu play = new JMenu("Play");
-
-		menuBar.add(play);
 		jFrame.setJMenuBar(menuBar);
-
+		
+		JMenu play = new JMenu("Play");
+		menuBar.add(play);
+		
+		JMenu user = new JMenu("User");
+		menuBar.add(user);
+		
+		JMenu help = new JMenu("Help");
+		menuBar.add(help);
+		
 		JMenuItem newGame = new JMenuItem("New game");
-		JMenuItem settings = new JMenuItem("Settings");
-		JCheckBoxMenuItem reverseSort = new JCheckBoxMenuItem("Reverse sort");
-		JMenuItem quit = new JMenuItem("Quit");
-
 		newGame.setAccelerator(KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_N, java.awt.Event.CTRL_MASK));
-		quit.setAccelerator(KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_Q, java.awt.Event.CTRL_MASK));
-		reverseSort.setAccelerator(KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_R, java.awt.Event.CTRL_MASK));
-		settings.setAccelerator(KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_S, java.awt.Event.CTRL_MASK));
-
 		play.add(newGame);
-		play.add(settings);
-		play.add(reverseSort);
+		
+		JMenuItem quit = new JMenuItem("Quit");
+		quit.setAccelerator(KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_Q, java.awt.Event.CTRL_MASK));
 		play.add(quit);
+		
+		JMenuItem changeUser = new JMenuItem("Change user");
+		changeUser.setAccelerator(KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_U, java.awt.Event.CTRL_MASK));
+		user.add(changeUser);
+		
+		JMenuItem settings = new JMenuItem("Settings");
+		settings.setAccelerator(KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_S, java.awt.Event.CTRL_MASK));
+		user.add(settings);
+		
+		JCheckBoxMenuItem reverseSort = new JCheckBoxMenuItem("Reverse sort");
+		//reverseSort.setAccelerator(KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_R, java.awt.Event.CTRL_MASK));
+		user.add(reverseSort);
 
 		JMenu style = new JMenu("Style");
-		menuBar.add(style);
+		user.add(style);
 
 		ButtonGroup styleGroup = new ButtonGroup();
 
@@ -125,19 +136,19 @@ public class Danish {
 				}
 			});
 		}
-
-		JMenu help = new JMenu("Help");
-		menuBar.add(help);
 		
 		JMenuItem rules = new JMenuItem("Rules");
-		JMenuItem howToPlay = new JMenuItem("How to play");
-		JMenuItem about = new JMenuItem("About Danish");
+		rules.setAccelerator(KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_R, java.awt.Event.CTRL_MASK));
 		help.add(rules);
-		help.add(howToPlay);
-		help.add(about);
-		rules.setAccelerator(KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_U, java.awt.Event.CTRL_MASK));
+		
+		JMenuItem howToPlay = new JMenuItem("How to play");
 		howToPlay.setAccelerator(KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_H, java.awt.Event.CTRL_MASK));
+		help.add(howToPlay);
+		
+		JMenuItem about = new JMenuItem("About Danish");
 		about.setAccelerator(KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_A, java.awt.Event.CTRL_MASK));
+		help.add(about);
+		
 		
 		newGame.addActionListener(new ActionListener() {
 			@Override
@@ -146,6 +157,17 @@ public class Danish {
 			}
 		});
 
+		changeUser.addActionListener(new ActionListener() {
+
+			@Override
+			public void actionPerformed(ActionEvent ae) {
+				settingsUI.setVisible(true);
+				if (settingsUI.isSendInfo()) {
+					newGame();
+				}
+			}
+		});
+		
 		settings.addActionListener(new ActionListener() {
 
 			@Override
@@ -267,5 +289,9 @@ public class Danish {
 		danishUI.setPlayerName(settingsUI.getPlayerName());
 		danishUI.setNbOpponent(settingsUI.getNumberAI());
 		danish.newGame();
+	}
+	
+	private static void selectUser(){
+		
 	}
 }
