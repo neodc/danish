@@ -75,25 +75,29 @@ public class PlayerDB{
 		return al;
 	}
 	
-	public static void createPlayer( PlayerDto player ) throws DBException{
+	public static PlayerDto createPlayer( PlayerDto player ) throws DBException{
 		try{
 			String q = "INSERT INTO player (id, player_name, preferred_style, is_reverse) VALUES (?, ?, ?, ?)";
 			Connection connexion = DBManager.getConnection();
 			
+			int newId = SequencesDB.getNextId("player");
+			
 			PreparedStatement stmt = connexion.prepareStatement(q);
-			stmt.setInt(1, SequencesDB.getNextId("player"));
+			stmt.setInt(1, newId);
 			stmt.setString(2, player.getName());
 			stmt.setString(3, player.getPreferredStyle().name());
 			stmt.setInt(4, player.isReverse() ? 1 : 0);
 			
 			stmt.executeUpdate();
 			
+			return new PlayerDto(newId, player.getName(), player.getPreferredStyle(), player.isReverse(), player.getNbGame(), player.getNbVictory(), player.getAverageScore());
+			
 		}catch( DBException | SQLException eSQL ){
 			throw new DBException("ERR:\nSQLException: " + eSQL.getMessage());
 		}
 	}
 	
-	public static void updatePlayer( PlayerDto player ) throws DBException{
+	public static void updatePlayer( int id, PlayerDto player ) throws DBException{
 		try{
 			String q = "UPDATE player SET player_name = ?, preferred_style = ?, is_reverse = ? WHERE id = ?";
 			Connection connexion = DBManager.getConnection();
@@ -102,7 +106,7 @@ public class PlayerDB{
 			stmt.setString(1, player.getName());
 			stmt.setString(2, player.getPreferredStyle().name());
 			stmt.setInt(3, player.isReverse() ? 1 : 0);
-			stmt.setInt(4, player.getId());
+			stmt.setInt(4, id);
 			
 			stmt.executeUpdate();
 			

@@ -61,14 +61,16 @@ public class GameDB{
         return al;
 	}
 	
-	public static void createGame( GameDto game ) throws DBException{
+	public static GameDto createGame( GameDto game ) throws DBException{
 		
 		try{
 			String q = "INSERT INTO game (id, player_id, victory, score, nb_cards_played, nb_opponents) VALUES (?, ?, ?, ?, ?, ?)";
 			Connection connexion = DBManager.getConnection();
 			
+			int newId = SequencesDB.getNextId("game");
+			
 			PreparedStatement stmt = connexion.prepareStatement(q);
-			stmt.setInt(1, SequencesDB.getNextId("game"));
+			stmt.setInt(1, newId);
 			stmt.setInt(2, game.getPlayerId());
 			stmt.setInt(3, game.isVictory() ? 1 : 0);
 			stmt.setInt(4, game.getScore());
@@ -76,6 +78,8 @@ public class GameDB{
 			stmt.setInt(6, game.getNbOpponents());
 			
 			stmt.executeUpdate();
+			
+			return new GameDto(newId, game.getPlayerId(), game.isVictory(), game.getScore(), game.getNbCardsPlayed(), game.getNbOpponents());
 			
 		}catch( DBException | SQLException eSQL ){
 			throw new DBException("ERR:\nSQLException: " + eSQL.getMessage());

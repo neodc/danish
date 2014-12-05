@@ -3,14 +3,14 @@ package danish.dto;
 import danish.view.img.Images;
 
 public class PlayerDto{
-	private int id;
-	private String name;
-	private Images.Style preferredStyle;
-	private boolean reverse;
+	private final int id;
+	private final String name;
+	private final Images.Style preferredStyle;
+	private final boolean reverse;
 	
-	private int nbGame;
-	private int nbVictory;
-	private float averageScore;
+	private final int nbGame;
+	private final int nbVictory;
+	private final float averageScore;
 
 	public PlayerDto( int id, String name, Images.Style preferredStyle, boolean isReverse, int nbGame, int nbVictory, float averageScore){
 		this.id = id;
