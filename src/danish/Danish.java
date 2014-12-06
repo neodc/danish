@@ -7,6 +7,7 @@ import danish.dto.PlayerDto;
 import danish.view.DanishUI;
 import danish.view.SelectUser;
 import danish.view.Settings;
+import danish.view.Stats;
 import danish.view.img.Images;
 import java.awt.Desktop;
 import java.awt.Dimension;
@@ -18,6 +19,12 @@ import java.awt.event.ActionListener;
 import java.io.IOException;
 import java.net.URI;
 import java.net.URISyntaxException;
+import java.util.ArrayList;
+import java.util.Collection;
+import java.util.List;
+import java.util.Vector;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.swing.ButtonGroup;
 import javax.swing.JCheckBoxMenuItem;
 import javax.swing.JFrame;
@@ -88,6 +95,9 @@ public class Danish {
 
 		JMenu help = new JMenu("Help");
 		menuBar.add(help);
+		
+		JMenu stats = new JMenu("Stats");
+		menuBar.add(stats);
 
 		JMenuItem newGame = new JMenuItem("New game");
 		newGame.setAccelerator(KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_N, java.awt.Event.CTRL_MASK));
@@ -108,6 +118,10 @@ public class Danish {
 		reverseSort = new JCheckBoxMenuItem("Reverse sort");
 		//reverseSort.setAccelerator(KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_R, java.awt.Event.CTRL_MASK));
 		user.add(reverseSort);
+
+		JMenuItem playerStats = new JMenuItem("Players");
+		//quit.setAccelerator(KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_Q, java.awt.Event.CTRL_MASK));
+		stats.add(playerStats);
 
 		style = new JMenu("Style");
 		user.add(style);
@@ -149,6 +163,16 @@ public class Danish {
 				if (settingsUI.isSendInfo()) {
 					newGame();
 				}
+			}
+		});
+		
+		playerStats.addActionListener(new ActionListener() {
+
+			@Override
+			public void actionPerformed(ActionEvent ae) {
+				Stats s = new Stats(jFrame);
+				s.setVisible( true );
+				
 			}
 		});
 
