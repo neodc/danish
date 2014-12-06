@@ -5,8 +5,20 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 
+/**
+ * Class used for communications with the DB that concers the SEQUENCES table.
+ *
+ * @author Noé, Julien, Loup.
+ */
 public class SequencesDB {
 
+	/**
+	 * Gets the next free id of a chosen table then increments it.
+	 *
+	 * @param id The table whose next id is needed.
+	 * @return The next free id.
+	 * @throws DBException If something goes wrong.
+	 */
 	public synchronized static int getNextId(String id) throws DBException {
 
 		try {

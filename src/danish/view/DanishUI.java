@@ -26,8 +26,6 @@ import java.awt.event.MouseEvent;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 import javax.swing.JButton;
 import javax.swing.JComponent;
 import javax.swing.JOptionPane;
@@ -530,6 +528,11 @@ public class DanishUI extends JComponent implements DanishView {
 		}
 	}
 
+	/**
+	 * Sets if the sort of the hand must be reversed.
+	 *
+	 * @param reverse If the sort of the hand must be reversed.
+	 */
 	public void setReverse(boolean reverse) {
 		this.humanPlayer.setReverse(reverse);
 		this.update();

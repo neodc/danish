@@ -23,6 +23,10 @@ import javax.swing.JLabel;
 import javax.swing.JOptionPane;
 import javax.swing.JTextField;
 
+/**
+ *
+ * @author Noé, Julien, Loup.
+ */
 public class SelectUser extends JDialog {
 
 	private JPanel selector;
@@ -31,6 +35,12 @@ public class SelectUser extends JDialog {
 	private JCheckBox isNew;
 	private boolean sendInfo;
 
+	/**
+	 * SelectUser constructor with two parameters.
+	 *
+	 * @param parent The parent JFrame.
+	 * @param modal If the Dialog is modal.
+	 */
 	public SelectUser(JFrame parent, boolean modal) {
 		super(parent, "Select user", modal);
 		this.setLocationRelativeTo(null);
@@ -61,18 +71,38 @@ public class SelectUser extends JDialog {
 		pack();
 	}
 
+	/**
+	 * Tells if the user is a new user.
+	 *
+	 * @return If the user is a new user.
+	 */
 	public boolean isNewUser() {
 		return this.isNew.isSelected();
 	}
 
+	/**
+	 * Returns the name of the new user.
+	 *
+	 * @return The name of the new user.
+	 */
 	public String getNewName() {
 		return newUser.getText();
 	}
 
+	/**
+	 * Returns the id of the existing selected user.
+	 *
+	 * @return The id of the existing selected user.
+	 */
 	public int getExistingId() {
 		return ((Item) existingUser.getSelectedItem()).getId();
 	}
 
+	/**
+	 * Tells if the informations of the Dialog will be sent.
+	 *
+	 * @return if the informations of the Dialog will be sent.
+	 */
 	public boolean isSendInfo() {
 		return sendInfo;
 	}
@@ -128,7 +158,7 @@ public class SelectUser extends JDialog {
 		} catch (PersistanceException ex) {
 			JLabel label = new JLabel(ex.getMessage());
 			label.setFont(label.getFont().deriveFont(Font.PLAIN));
-			JOptionPane.showMessageDialog(this, label, "How to play", JOptionPane.PLAIN_MESSAGE);
+			JOptionPane.showMessageDialog(this, label, "Error!", JOptionPane.ERROR_MESSAGE);
 			System.exit(1);
 		}
 		return items.toArray(new Item[0]);

@@ -51,6 +51,7 @@ public class Danish {
 
 	/**
 	 * @param args the command line arguments.
+	 * @throws danish.db.DBException If something goes wrong with the DB.
 	 */
 	public static void main(String[] args) throws DBException {
 		/*
@@ -187,7 +188,9 @@ public class Danish {
 					PlayerDto currentPlayer = DanishFacade.getCurrentPlayer();
 					DanishFacade.updateCurrentPlayer(new PlayerDto(currentPlayer.getName(), currentPlayer.getPreferredStyle(), isReverse));
 				} catch (PersistanceException ex) {
-					System.out.println("ERR"); // TODO
+					JLabel label = new JLabel(ex.getMessage());
+					label.setFont(label.getFont().deriveFont(Font.PLAIN));
+					JOptionPane.showMessageDialog(jFrame, label, "Error!", JOptionPane.ERROR_MESSAGE);
 				}
 			}
 		});
@@ -248,10 +251,7 @@ public class Danish {
 					Desktop desktop = Desktop.getDesktop();
 					try {
 						desktop.browse(new URI(url));
-					} catch (IOException | URISyntaxException e) {
-						// TODO Auto-generated catch block
-						e.printStackTrace();
-					}
+					} catch (IOException | URISyntaxException e) {}
 				}
 			}
 		});
@@ -321,7 +321,9 @@ public class Danish {
 						PlayerDto currentPlayer = DanishFacade.getCurrentPlayer();
 						DanishFacade.updateCurrentPlayer(new PlayerDto(currentPlayer.getName(), style, currentPlayer.isReverse()));
 					} catch (PersistanceException ex) {
-						System.out.println("ERR"); // TODO
+						JLabel label = new JLabel(ex.getMessage());
+						label.setFont(label.getFont().deriveFont(Font.PLAIN));
+						JOptionPane.showMessageDialog(jFrame, label, "Error!", JOptionPane.ERROR_MESSAGE);
 					}
 				}
 			});
@@ -333,7 +335,9 @@ public class Danish {
 			PlayerDto currentPlayer = DanishFacade.getCurrentPlayer();
 			DanishFacade.updateCurrentPlayer(new PlayerDto(settingsUI.getPlayerName(), currentPlayer.getPreferredStyle(), currentPlayer.isReverse()));
 		} catch (PersistanceException ex) {
-			System.out.println("ERR"); // TODO
+			JLabel label = new JLabel(ex.getMessage());
+			label.setFont(label.getFont().deriveFont(Font.PLAIN));
+			JOptionPane.showMessageDialog(jFrame, label, "Error!", JOptionPane.ERROR_MESSAGE);
 		}
 
 		danishUI.setPlayerName(settingsUI.getPlayerName());

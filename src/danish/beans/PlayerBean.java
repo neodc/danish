@@ -133,6 +133,11 @@ public abstract class PlayerBean extends JPanel {
 		this.visible.setPack(this.player.getVisible());
 	}
 
+	/**
+	 * Sets if the sorting must be reversed.
+	 *
+	 * @param reverse If the sorting must be reversed.
+	 */
 	public void setReverse(boolean reverse) {
 		this.reverse = reverse;
 	}

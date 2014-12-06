@@ -33,7 +33,7 @@ public class Settings extends JDialog {
 	private int numberAI;
 
 	/**
-	 * NewGame constructor with three parameters.
+	 * Settings constructor with three parameters.
 	 *
 	 * @param parent The parent JFrame.
 	 * @param title The title of the Dialog.
