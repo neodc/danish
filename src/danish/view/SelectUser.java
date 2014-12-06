@@ -7,6 +7,8 @@ import java.awt.BorderLayout;
 import java.awt.Dimension;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.awt.event.WindowAdapter;
+import java.awt.event.WindowEvent;
 import java.util.ArrayList;
 import java.util.Collection;
 import javax.swing.BorderFactory;
@@ -24,14 +26,26 @@ public class SelectUser extends JDialog {
 	private JComboBox<Item> existingUser;
 	private JTextField newUser;
 	private JCheckBox isNew;
+	private boolean sendInfo;
 	
 	public SelectUser(JFrame parent, boolean modal) {
 		super(parent, "Select user", modal);
 		this.setLocationRelativeTo(null);
 		this.setResizable(false);
-		this.setDefaultCloseOperation(JDialog.DO_NOTHING_ON_CLOSE);
+		this.setDefaultCloseOperation(JDialog.HIDE_ON_CLOSE);
 
+		this.sendInfo = false;
+		
 		this.initComponent();
+		
+		addWindowListener(new WindowAdapter() {
+			@Override
+			public void windowActivated(WindowEvent e) {
+				sendInfo = false;
+			}
+
+		});
+		
 		refresh();
 		
 		this.isNew.addActionListener( new ActionListener() {
@@ -55,6 +69,10 @@ public class SelectUser extends JDialog {
 	public int getExistingId(){
 		return ((Item)existingUser.getSelectedItem()).getId();
 	}
+	
+	public boolean isSendInfo() {
+		return sendInfo;
+	}
 
 	private void initComponent() {
 		JPanel bottom = new JPanel(new BorderLayout());
@@ -68,6 +86,7 @@ public class SelectUser extends JDialog {
 		ok.addActionListener(new ActionListener() {
 			@Override
 			public void actionPerformed( ActionEvent e ){
+				sendInfo = true;
 				setVisible(false);
 			}
 		});

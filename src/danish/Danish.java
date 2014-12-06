@@ -138,7 +138,7 @@ public class Danish {
 
 			@Override
 			public void actionPerformed(ActionEvent ae) {
-				selectUser();
+				selectUser(true);
 			}
 		});
 		
@@ -261,7 +261,7 @@ public class Danish {
 
 		jFrame.add(danishUI, c);
 
-		selectUser();
+		selectUser(false);
 		
 		jFrame.setVisible(true);
 
@@ -318,7 +318,7 @@ public class Danish {
 		danish.newGame();
 	}
 	
-	private static void selectUser(){
+	private static void selectUser(boolean allowCancel){
 		SelectUser selectUser = new SelectUser(jFrame, true);
 
 		boolean ok = false;
@@ -326,6 +326,17 @@ public class Danish {
 		while( !ok ){
 			ok = true;
 			selectUser.setVisible(true);
+			
+			if( !selectUser.isSendInfo() ){
+				
+				if( allowCancel ){
+					return;
+				}else{
+					ok = false;
+					continue;
+				}
+				
+			}
 
 			if( selectUser.isNewUser() ){
 				try{
