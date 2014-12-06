@@ -530,11 +530,8 @@ public class DanishUI extends JComponent implements DanishView {
 		}
 	}
 
-	/**
-	 * Reverses the sort the player's hand.
-	 */
-	public void toggleReverse() {
-		this.humanPlayer.toggleReverse();
+	public void setReverse(boolean reverse) {
+		this.humanPlayer.setReverse( reverse );
 		this.update();
 	}
 }

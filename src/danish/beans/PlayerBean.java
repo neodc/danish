@@ -133,11 +133,8 @@ public abstract class PlayerBean extends JPanel {
 		this.visible.setPack(this.player.getVisible());
 	}
 
-	/**
-	 * Reverses the sort of the hand.
-	 */
-	public void toggleReverse() {
-		this.reverse = !reverse;
+	public void setReverse( boolean reverse) {
+		this.reverse = reverse;
 	}
 
 }

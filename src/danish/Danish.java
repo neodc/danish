@@ -1,11 +1,11 @@
 package danish;
 
+import danish.business.DanishFacade;
+import danish.business.PersistanceException;
 import danish.db.DBException;
-import danish.db.GameDB;
-import danish.db.PlayerDB;
-import danish.dto.GameDto;
 import danish.dto.PlayerDto;
 import danish.view.DanishUI;
+import danish.view.SelectUser;
 import danish.view.Settings;
 import danish.view.img.Images;
 import java.awt.Desktop;
@@ -18,7 +18,6 @@ import java.awt.event.ActionListener;
 import java.io.IOException;
 import java.net.URI;
 import java.net.URISyntaxException;
-import java.util.Collection;
 import javax.swing.ButtonGroup;
 import javax.swing.JCheckBoxMenuItem;
 import javax.swing.JFrame;
@@ -40,7 +39,9 @@ public class Danish {
 	private static DanishUI danishUI;
 	private static Settings settingsUI;
 	private static danish.model.Danish danish;
-
+	private static JCheckBoxMenuItem reverseSort;
+	private static JMenu style;
+	
 	/**
 	 * @param args the command line arguments.
 	 */
@@ -104,38 +105,14 @@ public class Danish {
 		settings.setAccelerator(KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_S, java.awt.Event.CTRL_MASK));
 		user.add(settings);
 		
-		JCheckBoxMenuItem reverseSort = new JCheckBoxMenuItem("Reverse sort");
+		reverseSort = new JCheckBoxMenuItem("Reverse sort");
 		//reverseSort.setAccelerator(KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_R, java.awt.Event.CTRL_MASK));
 		user.add(reverseSort);
 
-		JMenu style = new JMenu("Style");
+		style = new JMenu("Style");
 		user.add(style);
 
-		ButtonGroup styleGroup = new ButtonGroup();
-
-		for (Images.Style s : Images.Style.values()) {
-			JRadioButtonMenuItem rb = new JRadioButtonMenuItem(s.getName());
-
-			rb.setActionCommand(s.name());
-
-			if (s.equals(Images.getCurrent())) {
-				rb.setSelected(true);
-			}
-
-			styleGroup.add(rb);
-			style.add(rb);
-
-			rb.addActionListener(new ActionListener() {
-
-				@Override
-				public void actionPerformed(ActionEvent e) {
-					Images.Style style = Images.Style.valueOf(e.getActionCommand());
-
-					Images.load(style);
-					danishUI.update();
-				}
-			});
-		}
+		updateStyles();
 		
 		JMenuItem rules = new JMenuItem("Rules");
 		rules.setAccelerator(KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_R, java.awt.Event.CTRL_MASK));
@@ -161,10 +138,7 @@ public class Danish {
 
 			@Override
 			public void actionPerformed(ActionEvent ae) {
-				settingsUI.setVisible(true);
-				if (settingsUI.isSendInfo()) {
-					newGame();
-				}
+				selectUser();
 			}
 		});
 		
@@ -183,7 +157,15 @@ public class Danish {
 
 			@Override
 			public void actionPerformed(ActionEvent ae) {
-				danishUI.toggleReverse();
+				boolean isReverse = !((JCheckBoxMenuItem)ae.getSource()).isSelected();
+				danishUI.setReverse( isReverse );
+				
+				try{
+					PlayerDto currentPlayer = DanishFacade.getCurrentPlayer();
+					DanishFacade.updateCurrentPlayer( new PlayerDto(currentPlayer.getName(), currentPlayer.getPreferredStyle(), isReverse) );
+				}catch( PersistanceException ex ){
+					System.out.println( "ERR" ); // TODO
+				}
 			}
 		});
 
@@ -279,19 +261,97 @@ public class Danish {
 
 		jFrame.add(danishUI, c);
 
+		selectUser();
+		
 		jFrame.setVisible(true);
 
 		jFrame.pack();
 		danishUI.update();
 	}
+	
+	private static void updateStyles(){
+		ButtonGroup styleGroup = new ButtonGroup();
+		style.removeAll();
+		
+		for (Images.Style s : Images.Style.values()) {
+			JRadioButtonMenuItem rb = new JRadioButtonMenuItem(s.getName());
+
+			rb.setActionCommand(s.name());
+
+			if (s.equals(Images.getCurrent())) {
+				rb.setSelected(true);
+			}
+
+			styleGroup.add(rb);
+			style.add(rb);
+
+			rb.addActionListener(new ActionListener() {
+
+				@Override
+				public void actionPerformed(ActionEvent e) {
+					Images.Style style = Images.Style.valueOf(e.getActionCommand());
+
+					Images.load(style);
+					danishUI.update();
+					
+					try{
+						PlayerDto currentPlayer = DanishFacade.getCurrentPlayer();
+						DanishFacade.updateCurrentPlayer( new PlayerDto(currentPlayer.getName(), style, currentPlayer.isReverse()) );
+					}catch( PersistanceException ex ){
+						System.out.println( "ERR" ); // TODO
+					}
+				}
+			});
+		}
+	}
 
 	private static void newGame() {
+		try{
+			PlayerDto currentPlayer = DanishFacade.getCurrentPlayer();
+			DanishFacade.updateCurrentPlayer( new PlayerDto(settingsUI.getPlayerName(), currentPlayer.getPreferredStyle(), currentPlayer.isReverse()) );
+		}catch( PersistanceException ex ){
+			System.out.println( "ERR" ); // TODO
+		}
+		
 		danishUI.setPlayerName(settingsUI.getPlayerName());
 		danishUI.setNbOpponent(settingsUI.getNumberAI());
 		danish.newGame();
 	}
 	
 	private static void selectUser(){
+		SelectUser selectUser = new SelectUser(jFrame, true);
+
+		boolean ok = false;
+
+		while( !ok ){
+			ok = true;
+			selectUser.setVisible(true);
+
+			if( selectUser.isNewUser() ){
+				try{
+					PlayerDto p = DanishFacade.createPlayer( new PlayerDto(selectUser.getNewName()) );
+					DanishFacade.setCurrentPlayer( p.getId() );
+				}catch( PersistanceException ex ){
+					ok = false;
+				}
+			}else{
+				DanishFacade.setCurrentPlayer( selectUser.getExistingId() );
+			}
+
+		}
 		
+		try{
+			PlayerDto currentPlayer = DanishFacade.getCurrentPlayer();
+			
+			danishUI.setReverse( currentPlayer.isReverse() );
+			reverseSort.setSelected( !currentPlayer.isReverse() );
+			
+			Images.load( currentPlayer.getPreferredStyle() );
+			updateStyles();
+			
+			danishUI.update();
+		}catch( PersistanceException ex ){
+			
+		}
 	}
 }

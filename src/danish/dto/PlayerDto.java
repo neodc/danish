@@ -33,6 +33,10 @@ public class PlayerDto{
 	public PlayerDto( String name, Images.Style preferredStyle, boolean isReverse ){
 		this(-1, name, preferredStyle, isReverse);
 	}
+	
+	public PlayerDto( String name ){
+		this(name, Images.Style.PONY, false);
+	}
 
 	public int getId(){
 		return id;

@@ -1,5 +1,8 @@
 package danish.view;
 
+import danish.business.DanishFacade;
+import danish.business.PersistanceException;
+import danish.dto.PlayerDto;
 import java.awt.BorderLayout;
 import java.awt.Dimension;
 import java.awt.event.ActionEvent;
@@ -110,6 +113,7 @@ public class Settings extends JDialog {
 		});
 
 		JPanel name = new JPanel();
+		
 		this.nameField = new JTextField("Player", 10);
 
 		name.add(new JLabel("Name : "));
@@ -126,6 +130,13 @@ public class Settings extends JDialog {
 			@Override
 			public void windowActivated(WindowEvent e) {
 				sendInfo = false;
+				
+				try{
+					PlayerDto currentPlayer = DanishFacade.getCurrentPlayer();
+					if( currentPlayer.getName() != null ){
+						nameField.setText(currentPlayer.getName());
+					}
+				}catch( PersistanceException ex ){}
 			}
 
 		});
@@ -133,7 +144,9 @@ public class Settings extends JDialog {
 		this.nameField.addKeyListener(new KeyAdapter() {
 			@Override
 			public void keyReleased(KeyEvent e) {
-				nameField.setText(nameField.getText().substring(0, 30));
+				if( nameField.getText().length() > 30 ){
+					nameField.setText(nameField.getText().substring(0, 30));
+				}
 			}
 		});
 	}

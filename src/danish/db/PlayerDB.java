@@ -1,6 +1,5 @@
 package danish.db;
 
-import danish.dto.GameDto;
 import danish.dto.PlayerDto;
 import danish.view.img.Images;
 import java.sql.Connection;
@@ -16,7 +15,7 @@ public class PlayerDB{
 		try{
 			String q = "SELECT player.id, player.player_name, player.preferred_style, player.is_reverse, COUNT(*) as nb_game, AVG(game.score) as average_score, SUM(victory) as nb_victory "
 					+ "FROM player "
-					+ "JOIN game ON player_id = player.id "
+					+ "LEFT JOIN game ON player_id = player.id "
 					+ "WHERE player.id = ? "
 					+ "GROUP BY player.id, player.player_name, player.preferred_style, player.is_reverse";
 			Connection connexion = DBManager.getConnection();
@@ -48,7 +47,7 @@ public class PlayerDB{
 		try{
 			String q = "SELECT player.id, player.player_name, player.preferred_style, player.is_reverse, COUNT(*) as nb_game, AVG(game.score) as average_score, SUM(victory) as nb_victory "
 					+ "FROM player "
-					+ "JOIN game ON player_id = player.id "
+					+ "LEFT JOIN game ON player_id = player.id "
 					+ "GROUP BY player.id, player.player_name, player.preferred_style, player.is_reverse";
 			Connection connexion = DBManager.getConnection();
 			

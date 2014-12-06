@@ -1,197 +1,156 @@
 package danish.view;
 
-import danish.db.DBException;
-import danish.db.PlayerDB;
+import danish.business.DanishFacade;
+import danish.business.PersistanceException;
 import danish.dto.PlayerDto;
 import java.awt.BorderLayout;
 import java.awt.Dimension;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.awt.event.KeyAdapter;
-import java.awt.event.KeyEvent;
-import java.awt.event.WindowAdapter;
-import java.awt.event.WindowEvent;
 import java.util.ArrayList;
 import java.util.Collection;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 import javax.swing.BorderFactory;
 import javax.swing.JButton;
 import javax.swing.JDialog;
 import javax.swing.JFrame;
 import javax.swing.JPanel;
-import javax.swing.JRadioButton;
-import javax.swing.ButtonGroup;
-import javax.swing.DefaultListModel;
-import javax.swing.JLabel;
-import javax.swing.JList;
-import javax.swing.JScrollPane;
+import javax.swing.JCheckBox;
+import javax.swing.JComboBox;
 import javax.swing.JTextField;
 
-/**
- *
- * @author Noé, Julien, Loup.
- */
 public class SelectUser extends JDialog {
-
-	private JRadioButton nbAI1, nbAI2, nbAI3;
-	private JTextField nameField;
-	private boolean sendInfo;
-	private int numberAI;
 	
-	private JScrollPane jScrollPane;
-	Collection<PlayerDto> users;
-	private JList userList;
-	private JTextField name;
-
-	/**
-	 * NewGame constructor with three parameters.
-	 *
-	 * @param parent The parent JFrame.
-	 * @param title The title of the Dialog.
-	 * @param modal If the Dialog is modal.
-	 */
-	public SelectUser(JFrame parent, String title, boolean modal) {
-		super(parent, title, modal);
+	private JPanel selector;
+	private JComboBox<Item> existingUser;
+	private JTextField newUser;
+	private JCheckBox isNew;
+	
+	public SelectUser(JFrame parent, boolean modal) {
+		super(parent, "Select user", modal);
 		this.setLocationRelativeTo(null);
 		this.setResizable(false);
-		this.setDefaultCloseOperation(JDialog.HIDE_ON_CLOSE);
+		this.setDefaultCloseOperation(JDialog.DO_NOTHING_ON_CLOSE);
 
 		this.initComponent();
+		refresh();
+		
+		this.isNew.addActionListener( new ActionListener() {
+			@Override
+			public void actionPerformed( ActionEvent e ){
+				refresh();
+			}
+		});
 
-		sendInfo = false;
-		numberAI = 3;
 		pack();
+	}
+	
+	public boolean isNewUser(){
+		return this.isNew.isSelected();
+	}
+	
+	public String getNewName(){
+		return newUser.getText();
+	}
+	
+	public int getExistingId(){
+		return ((Item)existingUser.getSelectedItem()).getId();
 	}
 
 	private void initComponent() {
+		JPanel bottom = new JPanel(new BorderLayout());
+		add(bottom, BorderLayout.SOUTH);
 		
-		jScrollPane = new JScrollPane();
-		DefaultListModel listModel = new DefaultListModel();
+		isNew = new JCheckBox("New ?");
+		bottom.add(isNew, BorderLayout.WEST);
 		
-		try {
-			users = PlayerDB.getAllPlayer();
-			for(PlayerDto u : users){
-				listModel.addElement(u.getName());
+		JButton ok = new JButton("OK");
+		bottom.add(ok, BorderLayout.EAST);
+		ok.addActionListener(new ActionListener() {
+			@Override
+			public void actionPerformed( ActionEvent e ){
+				setVisible(false);
 			}
-			userList = new JList(listModel);
-		} catch (DBException ex) {
-			Logger.getLogger(SelectUser.class.getName()).log(Level.SEVERE, null, ex);
+		});
+		
+		selector = new JPanel();
+		selector.setBorder(BorderFactory.createTitledBorder("Who are you?"));
+		selector.setPreferredSize(new Dimension(300, 60));
+		add(selector, BorderLayout.CENTER);
+		
+		newUser = new JTextField(20);
+		existingUser = new JComboBox( getItems() );
+		
+		selectItem();
+	}
+	
+	private void refresh(){
+		selector.removeAll();
+		if( isNew.isSelected() ){
+			selector.add(newUser);
+		}else{
+			selector.add(existingUser);
 		}
+		revalidate();
+		repaint();
+	}
+	
+	private Item[] getItems(){
+		Collection<Item> items = new ArrayList<>();
 		
-		add(jScrollPane);
-		JPanel nbAI = new JPanel();
-		nbAI.setBorder(BorderFactory.createTitledBorder("Number of opponents"));
-		nbAI.setPreferredSize(new Dimension(440, 60));
-
-		nbAI1 = new JRadioButton("1");
-		nbAI2 = new JRadioButton("2");
-		nbAI3 = new JRadioButton("3");
-		nbAI3.setSelected(true);
-
-		ButtonGroup bg = new ButtonGroup();
-		bg.add(nbAI1);
-		bg.add(nbAI2);
-		bg.add(nbAI3);
-		nbAI.add(nbAI1);
-		nbAI.add(nbAI2);
-		nbAI.add(nbAI3);
-
-		nbAI1.addActionListener(new ActionListener() {
-			@Override
-			public void actionPerformed(ActionEvent arg0) {
-				numberAI = 1;
+		try{
+			for( PlayerDto p : DanishFacade.getAllPlayer() ){
+				items.add( new Item(p.getName(), p.getId()) );
 			}
-		});
-		nbAI2.addActionListener(new ActionListener() {
-			@Override
-			public void actionPerformed(ActionEvent arg0) {
-				numberAI = 2;
-			}
-		});
-		nbAI3.addActionListener(new ActionListener() {
-			@Override
-			public void actionPerformed(ActionEvent arg0) {
-				numberAI = 3;
-			}
-		});
-		JButton okBouton = new JButton("OK");
-		JButton cancelBouton = new JButton("Cancel");
-
-		JPanel control = new JPanel();
-		control.add(okBouton);
-		control.add(cancelBouton);
-		getRootPane().setDefaultButton(okBouton);
-
-		okBouton.addActionListener(new ActionListener() {
-			@Override
-			public void actionPerformed(ActionEvent arg0) {
-				sendInfo = true;
-				setVisible(false);
-			}
-		});
-
-		cancelBouton.addActionListener(new ActionListener() {
-			@Override
-			public void actionPerformed(ActionEvent arg0) {
-				sendInfo = false;
-				setVisible(false);
-			}
-		});
-
-		JPanel name = new JPanel();
-		this.nameField = new JTextField("Player", 10);
-
-		name.add(new JLabel("Name : "));
-		name.add(this.nameField);
-
-		JPanel content = new JPanel();
-		content.add(nbAI);
-
-		add(content, BorderLayout.NORTH);
-		add(name, BorderLayout.CENTER);
-		add(control, BorderLayout.SOUTH);
-
-		addWindowListener(new WindowAdapter() {
-			@Override
-			public void windowActivated(WindowEvent e) {
-				sendInfo = false;
-			}
-
-		});
-
-		this.nameField.addKeyListener(new KeyAdapter() {
-			@Override
-			public void keyReleased(KeyEvent e) {
-				nameField.setText(nameField.getText().substring(0, 30));
-			}
-		});
+		}catch( PersistanceException ex ){
+			System.out.println( "ERR" ); // TODO
+		}
+		return items.toArray( new Item[0] );
 	}
-
-	/**
-	 * Tells if the informations of the Dialog will be sent.
-	 *
-	 * @return if the informations of the Dialog will be sent.
-	 */
-	public boolean isSendInfo() {
-		return sendInfo;
+	
+	private void selectItem(){
+		PlayerDto currentPlayer = null;
+		try{
+			currentPlayer = DanishFacade.getCurrentPlayer();
+		}catch( PersistanceException ex ){}
+		if( currentPlayer == null ){
+			return;
+		}
+		existingUser.setSelectedItem( new Item(currentPlayer.getName(), currentPlayer.getId()) );
 	}
+	
+	private class Item{
+		private String name;
+		private int id;
 
-	/**
-	 * Returns the numbers of AI of the new game.
-	 *
-	 * @return The numbers of AI of the new game.
-	 */
-	public int getNumberAI() {
-		return numberAI;
-	}
+		public Item( String name, int id ){
+			this.name = name;
+			this.id = id;
+		}
 
-	/**
-	 * Returns the player's name.
-	 *
-	 * @return The player's name.
-	 */
-	public String getPlayerName() {
-		return this.nameField.getText();
+		public String getName(){
+			return name;
+		}
+
+		public int getId(){
+			return id;
+		}
+
+		@Override
+		public String toString(){
+			return getName();
+		}
+
+		@Override
+		public int hashCode(){
+			return id;
+		}
+
+		@Override
+		public boolean equals( Object obj ){
+			if( obj == null || getClass() != obj.getClass() ){
+				return false;
+			}
+			return this.id == ((Item)obj).id;
+		}
 	}
 }
