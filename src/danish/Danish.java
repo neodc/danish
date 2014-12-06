@@ -7,7 +7,7 @@ import danish.dto.PlayerDto;
 import danish.view.DanishUI;
 import danish.view.SelectUser;
 import danish.view.Settings;
-import danish.view.Stats;
+import danish.view.PlayerStats;
 import danish.view.img.Images;
 import java.awt.Desktop;
 import java.awt.Dimension;
@@ -19,12 +19,6 @@ import java.awt.event.ActionListener;
 import java.io.IOException;
 import java.net.URI;
 import java.net.URISyntaxException;
-import java.util.ArrayList;
-import java.util.Collection;
-import java.util.List;
-import java.util.Vector;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 import javax.swing.ButtonGroup;
 import javax.swing.JCheckBoxMenuItem;
 import javax.swing.JFrame;
@@ -54,27 +48,8 @@ public class Danish {
 	 * @throws danish.db.DBException If something goes wrong with the DB.
 	 */
 	public static void main(String[] args) throws DBException {
-		/*
-		 PlayerDB.createPlayer( new PlayerDto("neodc", Images.Style.PONY, true) );
-		 PlayerDB.createPlayer( new PlayerDto("test", Images.Style.OLD, false) );
-		 GameDB.createGame( new GameDto(0, true, 0, 1, 3));
-		 GameDB.createGame( new GameDto(0, true, 1, 1, 3));
-		 GameDB.createGame( new GameDto(0, false, 2, 1, 3));
-		 GameDB.createGame( new GameDto(1, false, 0, 1, 1));
-		 GameDB.createGame( new GameDto(1, false, 2, 1, 2));
-		 GameDB.createGame( new GameDto(1, true, 8, 1, 3));
-		 *//*
-		 PlayerDto player = PlayerDB.getPlayer(0);
-		 Collection<GameDto> allGame = GameDB.getAllGame();
-		 GameDto game = GameDB.getGame(0);
-		
-		
-		 System.exit(0);*/
-
-
 		danish = new danish.model.Danish();
-		settingsUI = new Settings(null, "NewGame", true);
-
+		
 		danishUI = new DanishUI(danish);
 		danish.addDanishListener(danishUI);
 
@@ -84,6 +59,8 @@ public class Danish {
 
 		jFrame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		jFrame.setTitle("Danish");
+		
+		settingsUI = new Settings(jFrame, "Setings", true);
 
 		JMenuBar menuBar = new JMenuBar();
 		jFrame.setJMenuBar(menuBar);
@@ -171,7 +148,7 @@ public class Danish {
 
 			@Override
 			public void actionPerformed(ActionEvent ae) {
-				Stats s = new Stats(jFrame);
+				PlayerStats s = new PlayerStats(jFrame);
 				s.setVisible( true );
 				
 			}

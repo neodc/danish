@@ -3,22 +3,16 @@ package danish.view;
 import danish.business.DanishFacade;
 import danish.business.PersistanceException;
 import danish.dto.PlayerDto;
-import java.awt.BorderLayout;
-import java.awt.Dialog;
 import java.util.Collection;
 import javax.swing.JDialog;
 import javax.swing.JFrame;
 import javax.swing.JScrollPane;
 import javax.swing.JTable;
 
-/**
- *
- * @author Noé, Julien, Loup.
- */
-public class Stats extends JDialog {
+public class PlayerStats extends JDialog {
 	private JTable table;
 
-	public Stats(JFrame parent) {
+	public PlayerStats(JFrame parent) {
 		super(parent, "Stats", true);
 		this.setLocationRelativeTo(null);
 		this.setResizable(true);
@@ -26,7 +20,6 @@ public class Stats extends JDialog {
 
 		this.initComponent();		
 		this.pack();
-
 	}
 
 	private void initComponent() {

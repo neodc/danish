@@ -25,7 +25,7 @@ public class PlayerDB {
 	 */
 	public static PlayerDto getPlayer(int id) throws DBException {
 		try {
-			String q = "SELECT player.id, player.player_name, player.preferred_style, player.is_reverse, COUNT(*) as nb_game, AVG(game.score) as average_score, SUM(victory) as nb_victory "
+			String q = "SELECT player.id, player.player_name, player.preferred_style, player.is_reverse, COUNT(game.id) as nb_game, AVG(game.score) as average_score, SUM(victory) as nb_victory "
 					+ "FROM player "
 					+ "LEFT JOIN game ON player_id = player.id "
 					+ "WHERE player.id = ? "
@@ -64,7 +64,7 @@ public class PlayerDB {
 	public static Collection<PlayerDto> getAllPlayer() throws DBException {
 		Collection<PlayerDto> al = new ArrayList<>();
 		try {
-			String q = "SELECT player.id, player.player_name, player.preferred_style, player.is_reverse, COUNT(*) as nb_game, AVG(game.score) as average_score, SUM(victory) as nb_victory "
+			String q = "SELECT player.id, player.player_name, player.preferred_style, player.is_reverse, COUNT(game.id) as nb_game, AVG(game.score) as average_score, SUM(victory) as nb_victory "
 					+ "FROM player "
 					+ "LEFT JOIN game ON player_id = player.id "
 					+ "GROUP BY player.id, player.player_name, player.preferred_style, player.is_reverse";
