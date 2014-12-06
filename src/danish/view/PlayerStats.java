@@ -25,7 +25,7 @@ public class PlayerStats extends JDialog {
 	private void initComponent() {
 		try{
 			Collection<PlayerDto> p = DanishFacade.getAllPlayer();
-			String[] columnNames = {"name","preferredStyle","isReverse","nbGame","nbVictory","averageScore"};
+			String[] columnNames = {"Name","Preferred style","Sort reversed","Number of game played","Number of victory","Average score"};
 			Object[][] data = new Object[p.size()][6];
 			int i = 0;
 			for( PlayerDto playerDto : p ){
@@ -39,6 +39,7 @@ public class PlayerStats extends JDialog {
 			}
 			
 			table = new JTable(data, columnNames);
+			table.setAutoCreateRowSorter(true);
 			table.setEnabled(false);
 			table.setPreferredScrollableViewportSize(table.getPreferredSize());
 			JScrollPane tmp = new JScrollPane(table);
