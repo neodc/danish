@@ -5,6 +5,7 @@ import danish.business.PersistanceException;
 import danish.dto.PlayerDto;
 import java.awt.BorderLayout;
 import java.awt.Dimension;
+import java.awt.Font;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.WindowAdapter;
@@ -18,6 +19,8 @@ import javax.swing.JFrame;
 import javax.swing.JPanel;
 import javax.swing.JCheckBox;
 import javax.swing.JComboBox;
+import javax.swing.JLabel;
+import javax.swing.JOptionPane;
 import javax.swing.JTextField;
 
 public class SelectUser extends JDialog {
@@ -123,7 +126,10 @@ public class SelectUser extends JDialog {
 				items.add(new Item(p.getName(), p.getId()));
 			}
 		} catch (PersistanceException ex) {
-			System.out.println("ERR"); // TODO
+			JLabel label = new JLabel(ex.getMessage());
+			label.setFont(label.getFont().deriveFont(Font.PLAIN));
+			JOptionPane.showMessageDialog(this, label, "How to play", JOptionPane.PLAIN_MESSAGE);
+			System.exit(1);
 		}
 		return items.toArray(new Item[0]);
 	}
