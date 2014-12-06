@@ -3,7 +3,6 @@ package danish.view;
 import danish.business.DanishFacade;
 import danish.business.PersistanceException;
 import danish.dto.GameDto;
-import danish.dto.PlayerDto;
 import java.util.Collection;
 import javax.swing.JDialog;
 import javax.swing.JFrame;
@@ -26,7 +25,7 @@ public class GameStats extends JDialog {
 	private void initComponent() {
 		try{
 			Collection<GameDto> games = DanishFacade.getAllGame();
-			String[] columnNames = {"Player name","Vistory","Score","Number of game played","Number of opponent"};
+			String[] columnNames = {"Player name","Victory","Score","Number of game played","Number of opponent"};
 			Object[][] data = new Object[games.size()][5];
 			int i = 0;
 			for( GameDto g : games ){
