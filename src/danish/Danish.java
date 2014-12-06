@@ -139,6 +139,14 @@ public class Danish {
 			public void actionPerformed(ActionEvent ae) {
 				settingsUI.setVisible(true);
 				if (settingsUI.isSendInfo()) {
+					try {
+						PlayerDto currentPlayer = DanishFacade.getCurrentPlayer();
+						DanishFacade.updateCurrentPlayer(new PlayerDto(settingsUI.getPlayerName(), currentPlayer.getPreferredStyle(), currentPlayer.isReverse()));
+					} catch (PersistanceException ex) {
+						JLabel label = new JLabel(ex.getMessage());
+						label.setFont(label.getFont().deriveFont(Font.PLAIN));
+						JOptionPane.showMessageDialog(jFrame, label, "Error!", JOptionPane.ERROR_MESSAGE);
+					}
 					newGame();
 				}
 			}
@@ -308,15 +316,6 @@ public class Danish {
 	}
 
 	private static void newGame() {
-		try {
-			PlayerDto currentPlayer = DanishFacade.getCurrentPlayer();
-			DanishFacade.updateCurrentPlayer(new PlayerDto(settingsUI.getPlayerName(), currentPlayer.getPreferredStyle(), currentPlayer.isReverse()));
-		} catch (PersistanceException ex) {
-			JLabel label = new JLabel(ex.getMessage());
-			label.setFont(label.getFont().deriveFont(Font.PLAIN));
-			JOptionPane.showMessageDialog(jFrame, label, "Error!", JOptionPane.ERROR_MESSAGE);
-		}
-
 		danishUI.setPlayerName(settingsUI.getPlayerName());
 		danishUI.setNbOpponent(settingsUI.getNumberAI());
 		danish.newGame();
