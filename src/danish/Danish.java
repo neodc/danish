@@ -44,6 +44,7 @@ public class Danish {
 
 	/**
 	 * @param args the command line arguments.
+	 * @throws danish.db.DBException If something goes wrong with the DB.
 	 */
 	public static void main(String[] args) throws DBException {
 		/*

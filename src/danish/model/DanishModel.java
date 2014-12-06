@@ -141,5 +141,10 @@ public interface DanishModel {
 	 */
 	public Player getWinner();
 
+	/**
+	 * Returns the number of cards that have been played during this game.
+	 *
+	 * @return The number of cards that have been played during this game.
+	 */
 	public int getNbCardPlayed();
 }

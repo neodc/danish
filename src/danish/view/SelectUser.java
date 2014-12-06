@@ -20,6 +20,10 @@ import javax.swing.JCheckBox;
 import javax.swing.JComboBox;
 import javax.swing.JTextField;
 
+/**
+ *
+ * @author Noé, Julien, Loup.
+ */
 public class SelectUser extends JDialog {
 
 	private JPanel selector;
@@ -28,6 +32,12 @@ public class SelectUser extends JDialog {
 	private JCheckBox isNew;
 	private boolean sendInfo;
 
+	/**
+	 * SelectUser constructor with two parameters.
+	 *
+	 * @param parent The parent JFrame.
+	 * @param modal If the Dialog is modal.
+	 */
 	public SelectUser(JFrame parent, boolean modal) {
 		super(parent, "Select user", modal);
 		this.setLocationRelativeTo(null);
@@ -58,18 +68,38 @@ public class SelectUser extends JDialog {
 		pack();
 	}
 
+	/**
+	 * Tells if the user is a new user.
+	 *
+	 * @return If the user is a new user.
+	 */
 	public boolean isNewUser() {
 		return this.isNew.isSelected();
 	}
 
+	/**
+	 * Returns the name of the new user.
+	 *
+	 * @return The name of the new user.
+	 */
 	public String getNewName() {
 		return newUser.getText();
 	}
 
+	/**
+	 * Returns the id of the existing selected user.
+	 *
+	 * @return The id of the existing selected user.
+	 */
 	public int getExistingId() {
 		return ((Item) existingUser.getSelectedItem()).getId();
 	}
 
+	/**
+	 * Tells if the informations of the Dialog will be sent.
+	 *
+	 * @return if the informations of the Dialog will be sent.
+	 */
 	public boolean isSendInfo() {
 		return sendInfo;
 	}

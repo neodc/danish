@@ -456,6 +456,12 @@ public class Danish implements DanishModel {
 		}
 	}
 
+	/**
+	 * Returns the number of cards that have been played during this game.
+	 *
+	 * @return The number of cards that have been played during this game.
+	 */
+	@Override
 	public int getNbCardPlayed() {
 		return nbCardPlayed;
 	}
