@@ -91,6 +91,8 @@ public class SelectUser extends JDialog {
 			}
 		});
 		
+		getRootPane().setDefaultButton(ok);
+		
 		selector = new JPanel();
 		selector.setBorder(BorderFactory.createTitledBorder("Who are you?"));
 		selector.setPreferredSize(new Dimension(300, 60));
