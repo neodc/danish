@@ -1,5 +1,8 @@
 package danish.view;
 
+import danish.db.DBException;
+import danish.db.PlayerDB;
+import danish.dto.PlayerDto;
 import java.awt.BorderLayout;
 import java.awt.Dimension;
 import java.awt.event.ActionEvent;
@@ -8,6 +11,10 @@ import java.awt.event.KeyAdapter;
 import java.awt.event.KeyEvent;
 import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
+import java.util.ArrayList;
+import java.util.Collection;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.swing.BorderFactory;
 import javax.swing.JButton;
 import javax.swing.JDialog;
@@ -15,7 +22,10 @@ import javax.swing.JFrame;
 import javax.swing.JPanel;
 import javax.swing.JRadioButton;
 import javax.swing.ButtonGroup;
+import javax.swing.DefaultListModel;
 import javax.swing.JLabel;
+import javax.swing.JList;
+import javax.swing.JScrollPane;
 import javax.swing.JTextField;
 
 /**
@@ -28,6 +38,11 @@ public class SelectUser extends JDialog {
 	private JTextField nameField;
 	private boolean sendInfo;
 	private int numberAI;
+	
+	private JScrollPane jScrollPane;
+	Collection<PlayerDto> users;
+	private JList userList;
+	private JTextField name;
 
 	/**
 	 * NewGame constructor with three parameters.
@@ -50,6 +65,21 @@ public class SelectUser extends JDialog {
 	}
 
 	private void initComponent() {
+		
+		jScrollPane = new JScrollPane();
+		DefaultListModel listModel = new DefaultListModel();
+		
+		try {
+			users = PlayerDB.getAllPlayer();
+			for(PlayerDto u : users){
+				listModel.addElement(u.getName());
+			}
+			userList = new JList(listModel);
+		} catch (DBException ex) {
+			Logger.getLogger(SelectUser.class.getName()).log(Level.SEVERE, null, ex);
+		}
+		
+		add(jScrollPane);
 		JPanel nbAI = new JPanel();
 		nbAI.setBorder(BorderFactory.createTitledBorder("Number of opponents"));
 		nbAI.setPreferredSize(new Dimension(440, 60));
