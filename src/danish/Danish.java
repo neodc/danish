@@ -349,6 +349,9 @@ public class Danish {
 			Images.load( currentPlayer.getPreferredStyle() );
 			updateStyles();
 			
+			danishUI.setPlayerName(currentPlayer.getName());
+			danish.newGame();
+			
 			danishUI.update();
 		}catch( PersistanceException ex ){
 			
