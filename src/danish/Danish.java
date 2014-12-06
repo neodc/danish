@@ -5,6 +5,7 @@ import danish.business.PersistanceException;
 import danish.db.DBException;
 import danish.dto.PlayerDto;
 import danish.view.DanishUI;
+import danish.view.GameStats;
 import danish.view.SelectUser;
 import danish.view.Settings;
 import danish.view.PlayerStats;
@@ -94,12 +95,13 @@ public class Danish {
 		user.add(settings);
 
 		reverseSort = new JCheckBoxMenuItem("Reverse sort");
-		//reverseSort.setAccelerator(KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_R, java.awt.Event.CTRL_MASK));
 		user.add(reverseSort);
 
 		JMenuItem playerStats = new JMenuItem("Players");
-		//quit.setAccelerator(KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_Q, java.awt.Event.CTRL_MASK));
 		stats.add(playerStats);
+
+		JMenuItem gamesStats = new JMenuItem("Games");
+		stats.add(gamesStats);
 
 		style = new JMenu("Style");
 		user.add(style);
@@ -157,6 +159,16 @@ public class Danish {
 			@Override
 			public void actionPerformed(ActionEvent ae) {
 				PlayerStats s = new PlayerStats(jFrame);
+				s.setVisible( true );
+				
+			}
+		});
+		
+		gamesStats.addActionListener(new ActionListener() {
+
+			@Override
+			public void actionPerformed(ActionEvent ae) {
+				GameStats s = new GameStats(jFrame);
 				s.setVisible( true );
 				
 			}

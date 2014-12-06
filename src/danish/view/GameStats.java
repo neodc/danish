@@ -2,6 +2,7 @@ package danish.view;
 
 import danish.business.DanishFacade;
 import danish.business.PersistanceException;
+import danish.dto.GameDto;
 import danish.dto.PlayerDto;
 import java.util.Collection;
 import javax.swing.JDialog;
@@ -9,11 +10,11 @@ import javax.swing.JFrame;
 import javax.swing.JScrollPane;
 import javax.swing.JTable;
 
-public class PlayerStats extends JDialog {
+public class GameStats extends JDialog {
 	private JTable table;
 
-	public PlayerStats(JFrame parent) {
-		super(parent, "Player stats", true);
+	public GameStats(JFrame parent) {
+		super(parent, "Games stats", true);
 		this.setLocationRelativeTo(null);
 		this.setResizable(true);
 		this.setDefaultCloseOperation(JDialog.HIDE_ON_CLOSE);
@@ -24,17 +25,16 @@ public class PlayerStats extends JDialog {
 
 	private void initComponent() {
 		try{
-			Collection<PlayerDto> p = DanishFacade.getAllPlayer();
-			String[] columnNames = {"Name","Preferred style","Sort reversed","Number of game played","Number of victory","Average score"};
-			Object[][] data = new Object[p.size()][6];
+			Collection<GameDto> games = DanishFacade.getAllGame();
+			String[] columnNames = {"Player name","Vistory","Score","Number of game played","Number of opponent"};
+			Object[][] data = new Object[games.size()][5];
 			int i = 0;
-			for( PlayerDto playerDto : p ){
-				data[i][0] = playerDto.getName();
-				data[i][1] = playerDto.getPreferredStyle();
-				data[i][2] = !(playerDto.isReverse());
-				data[i][3] = playerDto.getNbGame();
-				data[i][4] = playerDto.getNbVictory();
-				data[i][5] = playerDto.getAverageScore();
+			for( GameDto g : games ){
+				data[i][0] = DanishFacade.getPlayer(g.getPlayerId()).getName();
+				data[i][1] = g.isVictory();
+				data[i][2] = g.getScore();
+				data[i][3] = g.getNbCardsPlayed();
+				data[i][4] = g.getNbOpponents();
 				i++;
 			}
 			
