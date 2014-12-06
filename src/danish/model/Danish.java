@@ -21,6 +21,8 @@ public class Danish implements DanishModel {
 	private boolean playing;
 	private int currentPlayer;
 	private Player winner;
+	
+	private int nbCardPlayed;
 
 	/**
 	 * Returns the winner of the game.
@@ -46,6 +48,8 @@ public class Danish implements DanishModel {
 		this.playing = false;
 		this.currentPlayer = 0;
 		this.winner = null;
+		
+		this.nbCardPlayed = 0;
 	}
 
 	/**
@@ -61,6 +65,8 @@ public class Danish implements DanishModel {
 		this.playing = false;
 		this.currentPlayer = 0;
 		this.winner = null;
+		
+		this.nbCardPlayed = 0;
 		fireChange();
 	}
 
@@ -223,6 +229,8 @@ public class Danish implements DanishModel {
 		getPlaying().hand.removeAll(cards);
 
 		stack.addAll(cards);
+		
+		nbCardPlayed += cards.size();
 
 		draw();
 
@@ -276,6 +284,8 @@ public class Danish implements DanishModel {
 		getPlaying().hand.removeAll(cards);
 
 		stack.addAll(cards);
+		
+		nbCardPlayed += cards.size();
 
 		draw();
 
@@ -445,5 +455,10 @@ public class Danish implements DanishModel {
 			view.update();
 		}
 	}
+
+	public int getNbCardPlayed(){
+		return nbCardPlayed;
+	}
+	
 
 }

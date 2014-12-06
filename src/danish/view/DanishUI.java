@@ -4,6 +4,9 @@ import danish.beans.CardBean;
 import danish.beans.CardCollectionBean;
 import danish.beans.OpponentBean;
 import danish.beans.HumanPlayerBean;
+import danish.business.DanishFacade;
+import danish.business.PersistanceException;
+import danish.dto.GameDto;
 import danish.model.DanishModel;
 import danish.model.DanishView;
 import danish.model.Player;
@@ -23,6 +26,8 @@ import java.awt.event.MouseEvent;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.swing.JButton;
 import javax.swing.JComponent;
 import javax.swing.JOptionPane;
@@ -161,8 +166,16 @@ public class DanishUI extends JComponent implements DanishView {
 		timerAI.restart();
 
 		if (!danish.isPlaying() && danish.getWinner() != null && warningWinner) {
-			JOptionPane.showMessageDialog(this, "The Winner is ... " + danish.getWinner().getName(), "Winner", JOptionPane.INFORMATION_MESSAGE);
-			warningWinner = false;
+			try{
+				JOptionPane.showMessageDialog(this, "The Winner is ... " + danish.getWinner().getName(), "Winner", JOptionPane.INFORMATION_MESSAGE);
+				boolean victory = (danish.getWinner() == humanPlayer.getPlayer());
+				int score = humanPlayer.getPlayer().getHand().size() + humanPlayer.getPlayer().getHidden().size()+ humanPlayer.getPlayer().getVisible().size();
+				int nbCardPlayed = danish.getNbCardPlayed();
+				DanishFacade.createGame4current(new GameDto(victory,score,nbCardPlayed, nbOpponent));
+				warningWinner = false;
+			}catch( PersistanceException ex ){
+				System.out.println( ex.getMessage() );
+			}
 		}
 	}
 

@@ -182,4 +182,28 @@ public class DanishFacade{
 		}
 		
 	}
+	public static GameDto createGame4current(GameDto g) throws PersistanceException{
+		
+		try{
+			DBManager.startTransaction();
+			
+			PlayerDto p = getCurrentPlayer();
+			GameDto tmp = new GameDto(p.getId(), g.isVictory(), g.getScore(), g.getNbCardsPlayed(), g.getNbOpponents());
+			GameDto ret = GameDB.createGame(tmp);
+			
+			DBManager.valideTransaction();
+			
+			return ret;
+		}catch( DBException ex1 ){
+			String msg = ex1.getMessage();
+            try {
+                DBManager.annuleTransaction();
+            } catch (DBException ex) {
+                msg = ex.getMessage() + "\n" + msg;
+            } finally {
+                throw new PersistanceException("Impossible de modifier les stats du mot \n" + msg); // TODO
+            }
+		}
+		
+	}
 }

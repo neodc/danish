@@ -20,6 +20,9 @@ public class GameDto{
 	public GameDto( int playerId, boolean victory, int score, int nbCardsPlayed, int nbOpponents ){
 		this(-1, playerId, victory, score, nbCardsPlayed, nbOpponents);
 	}
+	public GameDto( boolean victory, int score, int nbCardsPlayed, int nbOpponents ){
+		this(-1, -1, victory, score, nbCardsPlayed, nbOpponents);
+	}
 
 	public int getId(){
 		return id;
