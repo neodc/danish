@@ -158,7 +158,7 @@ public class SelectUser extends JDialog {
 		} catch (PersistanceException ex) {
 			JLabel label = new JLabel(ex.getMessage());
 			label.setFont(label.getFont().deriveFont(Font.PLAIN));
-			JOptionPane.showMessageDialog(this, label, "How to play", JOptionPane.PLAIN_MESSAGE);
+			JOptionPane.showMessageDialog(this, label, "Error!", JOptionPane.ERROR_MESSAGE);
 			System.exit(1);
 		}
 		return items.toArray(new Item[0]);

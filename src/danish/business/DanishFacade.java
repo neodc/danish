@@ -49,9 +49,8 @@ public class DanishFacade {
 				DBManager.annuleTransaction();
 			} catch (DBException ex) {
 				msg = ex.getMessage() + "\n" + msg;
-			} finally {
-				throw new PersistanceException("Impossible de modifier les stats du mot \n" + msg); // TODO
 			}
+			throw new PersistanceException("Impossible to get the player's infos \n" + msg);
 		}
 
 	}
@@ -92,9 +91,8 @@ public class DanishFacade {
 				DBManager.annuleTransaction();
 			} catch (DBException ex) {
 				msg = ex.getMessage() + "\n" + msg;
-			} finally {
-				throw new PersistanceException("Impossible de modifier les stats du mot \n" + msg); // TODO
 			}
+			throw new PersistanceException("Impossible to get the players' infos \n" + msg);
 		}
 
 	}
@@ -122,9 +120,8 @@ public class DanishFacade {
 				DBManager.annuleTransaction();
 			} catch (DBException ex) {
 				msg = ex.getMessage() + "\n" + msg;
-			} finally {
-				throw new PersistanceException("Impossible de modifier les stats du mot \n" + msg); // TODO
 			}
+			throw new PersistanceException("Impossible to get the game's infos \n" + msg);
 		}
 
 	}
@@ -151,9 +148,8 @@ public class DanishFacade {
 				DBManager.annuleTransaction();
 			} catch (DBException ex) {
 				msg = ex.getMessage() + "\n" + msg;
-			} finally {
-				throw new PersistanceException("Impossible de modifier les stats du mot \n" + msg); // TODO
 			}
+			throw new PersistanceException("Impossible to get the games' infos \n" + msg);
 		}
 
 	}
@@ -181,9 +177,8 @@ public class DanishFacade {
 				DBManager.annuleTransaction();
 			} catch (DBException ex) {
 				msg = ex.getMessage() + "\n" + msg;
-			} finally {
-				throw new PersistanceException("Impossible de modifier les stats du mot \n" + msg); // TODO
 			}
+			throw new PersistanceException("Impossible to create the player \n" + msg);
 		}
 
 	}
@@ -208,9 +203,8 @@ public class DanishFacade {
 					DBManager.annuleTransaction();
 				} catch (DBException ex) {
 					msg = ex.getMessage() + "\n" + msg;
-				} finally {
-					throw new PersistanceException("Impossible de modifier les stats du mot \n" + msg); // TODO
 				}
+				throw new PersistanceException("Impossible to update the current player's infos \n" + msg);
 			}
 		}
 	}
@@ -238,9 +232,8 @@ public class DanishFacade {
 				DBManager.annuleTransaction();
 			} catch (DBException ex) {
 				msg = ex.getMessage() + "\n" + msg;
-			} finally {
-				throw new PersistanceException("Impossible de modifier les stats du mot \n" + msg); // TODO
 			}
+			throw new PersistanceException("Impossible to createe the game \n" + msg);
 		}
 
 	}
@@ -253,27 +246,9 @@ public class DanishFacade {
 	 * @throws PersistanceException
 	 */
 	public static GameDto createGame4current(GameDto g) throws PersistanceException {
-
-		try {
-			DBManager.startTransaction();
-
-			PlayerDto p = getCurrentPlayer();
-			GameDto tmp = new GameDto(p.getId(), g.isVictory(), g.getScore(), g.getNbCardsPlayed(), g.getNbOpponents());
-			GameDto ret = GameDB.createGame(tmp);
-
-			DBManager.valideTransaction();
-
-			return ret;
-		} catch (DBException ex1) {
-			String msg = ex1.getMessage();
-			try {
-				DBManager.annuleTransaction();
-			} catch (DBException ex) {
-				msg = ex.getMessage() + "\n" + msg;
-			} finally {
-				throw new PersistanceException("Impossible de modifier les stats du mot \n" + msg); // TODO
-			}
+		if (currentPlayer >= 0) {
+			return createGame( new GameDto(currentPlayer, g.isVictory(), g.getScore(), g.getNbCardsPlayed(), g.getNbOpponents()) );
 		}
-
+		return null;
 	}
 }

@@ -21,8 +21,7 @@ public class DBManager {
 			connection.setAutoCommit(true);
 		} catch (ClassNotFoundException | SQLException ex) {
 			ex.printStackTrace();
-			throw new DBException("Probleme de connexion.  \n " + ex.getMessage()); // TODO trad
-
+			throw new DBException(ex.getMessage());
 		}
 	}
 
@@ -49,7 +48,7 @@ public class DBManager {
 			getConnection().setAutoCommit(false);
 		} catch (SQLException ex) {
 			ex.printStackTrace();
-			throw new DBException("Impossible de demarrer une transaction"); // TODO trad
+			throw new DBException("Unable to start the transaction.");
 		}
 	}
 
@@ -64,7 +63,7 @@ public class DBManager {
 			getConnection().setAutoCommit(true);
 		} catch (SQLException ex) {
 			ex.printStackTrace();
-			throw new DBException("Impossible de valider la transaction"); // TODO trad
+			throw new DBException("Unable to validate the transaction.");
 		}
 	}
 
@@ -79,7 +78,7 @@ public class DBManager {
 			getConnection().setAutoCommit(true);
 		} catch (SQLException ex) {
 			ex.printStackTrace();
-			throw new DBException("Impossible d'annuler la transaction"); // TODO trad
+			throw new DBException("Unable to cancel a transaction.");
 		}
 	}
 }
