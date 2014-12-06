@@ -213,6 +213,7 @@ public class CardCollectionBean extends JPanel {
 
 	/**
 	 * Sets the insets of the layout.
+	 *
 	 * @param inset The new insets.
 	 */
 	public void setInset(Insets inset) {

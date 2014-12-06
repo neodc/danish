@@ -166,15 +166,15 @@ public class DanishUI extends JComponent implements DanishView {
 		timerAI.restart();
 
 		if (!danish.isPlaying() && danish.getWinner() != null && warningWinner) {
-			try{
+			try {
 				JOptionPane.showMessageDialog(this, "The Winner is ... " + danish.getWinner().getName(), "Winner", JOptionPane.INFORMATION_MESSAGE);
 				boolean victory = (danish.getWinner() == humanPlayer.getPlayer());
-				int score = humanPlayer.getPlayer().getHand().size() + humanPlayer.getPlayer().getHidden().size()+ humanPlayer.getPlayer().getVisible().size();
+				int score = humanPlayer.getPlayer().getHand().size() + humanPlayer.getPlayer().getHidden().size() + humanPlayer.getPlayer().getVisible().size();
 				int nbCardPlayed = danish.getNbCardPlayed();
-				DanishFacade.createGame4current(new GameDto(victory,score,nbCardPlayed, nbOpponent));
+				DanishFacade.createGame4current(new GameDto(victory, score, nbCardPlayed, nbOpponent));
 				warningWinner = false;
-			}catch( PersistanceException ex ){
-				System.out.println( ex.getMessage() );
+			} catch (PersistanceException ex) {
+				System.out.println(ex.getMessage());
 			}
 		}
 	}
@@ -531,7 +531,7 @@ public class DanishUI extends JComponent implements DanishView {
 	}
 
 	public void setReverse(boolean reverse) {
-		this.humanPlayer.setReverse( reverse );
+		this.humanPlayer.setReverse(reverse);
 		this.update();
 	}
 }

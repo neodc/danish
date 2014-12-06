@@ -98,6 +98,7 @@ public class HumanPlayerBean extends PlayerBean {
 
 	/**
 	 * Sets the text of the button the player uses.
+	 *
 	 * @param s The new text of the button.
 	 */
 	public void setButtonText(String s) {
@@ -106,6 +107,7 @@ public class HumanPlayerBean extends PlayerBean {
 
 	/**
 	 * Disables or enables the button the player uses.
+	 *
 	 * @param b If the button must be disabled.
 	 */
 	public void disableButton(boolean b) {
@@ -114,6 +116,7 @@ public class HumanPlayerBean extends PlayerBean {
 
 	/**
 	 * Adds a listener to the button.
+	 *
 	 * @param a The listener to add.
 	 */
 	public void addActionListener(ActionListener a) {

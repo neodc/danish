@@ -8,146 +8,146 @@ import danish.dto.GameDto;
 import danish.dto.PlayerDto;
 import java.util.Collection;
 
-public class DanishFacade{
-	
+public class DanishFacade {
+
 	private static int currentPlayer = -1;
 
-	public static void setCurrentPlayer( int currentPlayer ){
+	public static void setCurrentPlayer(int currentPlayer) {
 		DanishFacade.currentPlayer = currentPlayer;
 	}
-	
-	public static PlayerDto getPlayer(int id) throws PersistanceException{
-		
-		try{
+
+	public static PlayerDto getPlayer(int id) throws PersistanceException {
+
+		try {
 			DBManager.startTransaction();
-			
-			PlayerDto ret = PlayerDB.getPlayer( id );
-			
+
+			PlayerDto ret = PlayerDB.getPlayer(id);
+
 			DBManager.valideTransaction();
-			
+
 			return ret;
-		}catch( DBException ex1 ){
+		} catch (DBException ex1) {
 			String msg = ex1.getMessage();
-            try {
-                DBManager.annuleTransaction();
-            } catch (DBException ex) {
-                msg = ex.getMessage() + "\n" + msg;
-            } finally {
-                throw new PersistanceException("Impossible de modifier les stats du mot \n" + msg); // TODO
-            }
+			try {
+				DBManager.annuleTransaction();
+			} catch (DBException ex) {
+				msg = ex.getMessage() + "\n" + msg;
+			} finally {
+				throw new PersistanceException("Impossible de modifier les stats du mot \n" + msg); // TODO
+			}
 		}
-		
+
 	}
-	
-	public static PlayerDto getCurrentPlayer() throws PersistanceException{
-		if( currentPlayer >= 0 ){
-			return getPlayer( currentPlayer );
+
+	public static PlayerDto getCurrentPlayer() throws PersistanceException {
+		if (currentPlayer >= 0) {
+			return getPlayer(currentPlayer);
 		}
-		
+
 		return null;
 	}
-	
-	public static Collection<PlayerDto> getAllPlayer() throws PersistanceException{
-		
-		try{
+
+	public static Collection<PlayerDto> getAllPlayer() throws PersistanceException {
+
+		try {
 			DBManager.startTransaction();
-			
+
 			Collection<PlayerDto> ret = PlayerDB.getAllPlayer();
-			
+
 			DBManager.valideTransaction();
-			
+
 			return ret;
-		}catch( DBException ex1 ){
+		} catch (DBException ex1) {
 			String msg = ex1.getMessage();
-            try {
-                DBManager.annuleTransaction();
-            } catch (DBException ex) {
-                msg = ex.getMessage() + "\n" + msg;
-            } finally {
-                throw new PersistanceException("Impossible de modifier les stats du mot \n" + msg); // TODO
-            }
+			try {
+				DBManager.annuleTransaction();
+			} catch (DBException ex) {
+				msg = ex.getMessage() + "\n" + msg;
+			} finally {
+				throw new PersistanceException("Impossible de modifier les stats du mot \n" + msg); // TODO
+			}
 		}
-		
+
 	}
-	
-	public static GameDto getGame(int id) throws PersistanceException{
-		
-		try{
+
+	public static GameDto getGame(int id) throws PersistanceException {
+
+		try {
 			DBManager.startTransaction();
-			
-			GameDto ret = GameDB.getGame( id );
-			
+
+			GameDto ret = GameDB.getGame(id);
+
 			DBManager.valideTransaction();
-			
+
 			return ret;
-		}catch( DBException ex1 ){
+		} catch (DBException ex1) {
 			String msg = ex1.getMessage();
-            try {
-                DBManager.annuleTransaction();
-            } catch (DBException ex) {
-                msg = ex.getMessage() + "\n" + msg;
-            } finally {
-                throw new PersistanceException("Impossible de modifier les stats du mot \n" + msg); // TODO
-            }
+			try {
+				DBManager.annuleTransaction();
+			} catch (DBException ex) {
+				msg = ex.getMessage() + "\n" + msg;
+			} finally {
+				throw new PersistanceException("Impossible de modifier les stats du mot \n" + msg); // TODO
+			}
 		}
-		
+
 	}
-	
-	public static Collection<GameDto> getAllGame() throws PersistanceException{
-		
-		try{
+
+	public static Collection<GameDto> getAllGame() throws PersistanceException {
+
+		try {
 			DBManager.startTransaction();
-			
+
 			Collection<GameDto> ret = GameDB.getAllGame();
-			
+
 			DBManager.valideTransaction();
-			
+
 			return ret;
-		}catch( DBException ex1 ){
+		} catch (DBException ex1) {
 			String msg = ex1.getMessage();
-            try {
-                DBManager.annuleTransaction();
-            } catch (DBException ex) {
-                msg = ex.getMessage() + "\n" + msg;
-            } finally {
-                throw new PersistanceException("Impossible de modifier les stats du mot \n" + msg); // TODO
-            }
+			try {
+				DBManager.annuleTransaction();
+			} catch (DBException ex) {
+				msg = ex.getMessage() + "\n" + msg;
+			} finally {
+				throw new PersistanceException("Impossible de modifier les stats du mot \n" + msg); // TODO
+			}
 		}
-		
+
 	}
-	
-	public static PlayerDto createPlayer(PlayerDto p) throws PersistanceException{
-		
-		try{
+
+	public static PlayerDto createPlayer(PlayerDto p) throws PersistanceException {
+
+		try {
 			DBManager.startTransaction();
-			
+
 			PlayerDto ret = PlayerDB.createPlayer(p);
-			
+
 			DBManager.valideTransaction();
-			
+
 			return ret;
-		}catch( DBException ex1 ){
+		} catch (DBException ex1) {
 			String msg = ex1.getMessage();
-            try {
-                DBManager.annuleTransaction();
-            } catch (DBException ex) {
-                msg = ex.getMessage() + "\n" + msg;
-            } finally {
-                throw new PersistanceException("Impossible de modifier les stats du mot \n" + msg); // TODO
-            }
+			try {
+				DBManager.annuleTransaction();
+			} catch (DBException ex) {
+				msg = ex.getMessage() + "\n" + msg;
+			} finally {
+				throw new PersistanceException("Impossible de modifier les stats du mot \n" + msg); // TODO
+			}
 		}
-		
+
 	}
-	
-	public static void updateCurrentPlayer(PlayerDto p) throws PersistanceException{
-		if( currentPlayer >= 0 ){
-			try{
+
+	public static void updateCurrentPlayer(PlayerDto p) throws PersistanceException {
+		if (currentPlayer >= 0) {
+			try {
 				DBManager.startTransaction();
 
 				PlayerDB.updatePlayer(currentPlayer, p);
 
 				DBManager.valideTransaction();
-			}catch( DBException ex1 ){
+			} catch (DBException ex1) {
 				String msg = ex1.getMessage();
 				try {
 					DBManager.annuleTransaction();
@@ -159,51 +159,52 @@ public class DanishFacade{
 			}
 		}
 	}
-	
-	public static GameDto createGame(GameDto g) throws PersistanceException{
-		
-		try{
+
+	public static GameDto createGame(GameDto g) throws PersistanceException {
+
+		try {
 			DBManager.startTransaction();
-			
+
 			GameDto ret = GameDB.createGame(g);
-			
+
 			DBManager.valideTransaction();
-			
+
 			return ret;
-		}catch( DBException ex1 ){
+		} catch (DBException ex1) {
 			String msg = ex1.getMessage();
-            try {
-                DBManager.annuleTransaction();
-            } catch (DBException ex) {
-                msg = ex.getMessage() + "\n" + msg;
-            } finally {
-                throw new PersistanceException("Impossible de modifier les stats du mot \n" + msg); // TODO
-            }
+			try {
+				DBManager.annuleTransaction();
+			} catch (DBException ex) {
+				msg = ex.getMessage() + "\n" + msg;
+			} finally {
+				throw new PersistanceException("Impossible de modifier les stats du mot \n" + msg); // TODO
+			}
 		}
-		
+
 	}
-	public static GameDto createGame4current(GameDto g) throws PersistanceException{
-		
-		try{
+
+	public static GameDto createGame4current(GameDto g) throws PersistanceException {
+
+		try {
 			DBManager.startTransaction();
-			
+
 			PlayerDto p = getCurrentPlayer();
 			GameDto tmp = new GameDto(p.getId(), g.isVictory(), g.getScore(), g.getNbCardsPlayed(), g.getNbOpponents());
 			GameDto ret = GameDB.createGame(tmp);
-			
+
 			DBManager.valideTransaction();
-			
+
 			return ret;
-		}catch( DBException ex1 ){
+		} catch (DBException ex1) {
 			String msg = ex1.getMessage();
-            try {
-                DBManager.annuleTransaction();
-            } catch (DBException ex) {
-                msg = ex.getMessage() + "\n" + msg;
-            } finally {
-                throw new PersistanceException("Impossible de modifier les stats du mot \n" + msg); // TODO
-            }
+			try {
+				DBManager.annuleTransaction();
+			} catch (DBException ex) {
+				msg = ex.getMessage() + "\n" + msg;
+			} finally {
+				throw new PersistanceException("Impossible de modifier les stats du mot \n" + msg); // TODO
+			}
 		}
-		
+
 	}
 }

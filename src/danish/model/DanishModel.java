@@ -140,5 +140,6 @@ public interface DanishModel {
 	 * @return The winner of the game.
 	 */
 	public Player getWinner();
+
 	public int getNbCardPlayed();
 }

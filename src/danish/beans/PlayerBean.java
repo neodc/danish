@@ -133,7 +133,7 @@ public abstract class PlayerBean extends JPanel {
 		this.visible.setPack(this.player.getVisible());
 	}
 
-	public void setReverse( boolean reverse) {
+	public void setReverse(boolean reverse) {
 		this.reverse = reverse;
 	}
 

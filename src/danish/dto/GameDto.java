@@ -1,6 +1,7 @@
 package danish.dto;
 
-public class GameDto{
+public class GameDto {
+
 	private int id;
 	private int playerId;
 	private boolean victory;
@@ -8,7 +9,7 @@ public class GameDto{
 	private int nbCardsPlayed;
 	private int nbOpponents;
 
-	public GameDto( int id, int playerId, boolean victory, int score, int nbCardsPlayed, int nbOpponents ){
+	public GameDto(int id, int playerId, boolean victory, int score, int nbCardsPlayed, int nbOpponents) {
 		this.id = id;
 		this.playerId = playerId;
 		this.victory = victory;
@@ -16,35 +17,36 @@ public class GameDto{
 		this.nbCardsPlayed = nbCardsPlayed;
 		this.nbOpponents = nbOpponents;
 	}
-	
-	public GameDto( int playerId, boolean victory, int score, int nbCardsPlayed, int nbOpponents ){
+
+	public GameDto(int playerId, boolean victory, int score, int nbCardsPlayed, int nbOpponents) {
 		this(-1, playerId, victory, score, nbCardsPlayed, nbOpponents);
 	}
-	public GameDto( boolean victory, int score, int nbCardsPlayed, int nbOpponents ){
+
+	public GameDto(boolean victory, int score, int nbCardsPlayed, int nbOpponents) {
 		this(-1, -1, victory, score, nbCardsPlayed, nbOpponents);
 	}
 
-	public int getId(){
+	public int getId() {
 		return id;
 	}
 
-	public int getPlayerId(){
+	public int getPlayerId() {
 		return playerId;
 	}
 
-	public boolean isVictory(){
+	public boolean isVictory() {
 		return victory;
 	}
 
-	public int getScore(){
+	public int getScore() {
 		return score;
 	}
 
-	public int getNbCardsPlayed(){
+	public int getNbCardsPlayed() {
 		return nbCardsPlayed;
 	}
 
-	public int getNbOpponents(){
+	public int getNbOpponents() {
 		return nbOpponents;
 	}
 }

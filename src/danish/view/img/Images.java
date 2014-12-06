@@ -11,6 +11,7 @@ import javax.swing.ImageIcon;
 
 /**
  * This class manages the different images for the cards.
+ *
  * @author Noé, Julien, Loup.
  */
 public class Images {
@@ -34,6 +35,7 @@ public class Images {
 
 		/**
 		 * Returns the name of the Style.
+		 *
 		 * @return The name of the Style.
 		 */
 		public String getName() {
@@ -41,7 +43,9 @@ public class Images {
 		}
 
 		/**
-		 * Returns the path to the directory containing the images of the cards for this Style.
+		 * Returns the path to the directory containing the images of the cards
+		 * for this Style.
+		 *
 		 * @return The path.
 		 */
 		public String getDirectory() {
@@ -114,6 +118,7 @@ public class Images {
 
 	/**
 	 * Loads a Style. The map Images will receive the paths to each card.
+	 *
 	 * @param style The Style to load.
 	 */
 	public static void load(Style style) {
@@ -141,6 +146,7 @@ public class Images {
 
 	/**
 	 * Gets the currently chosen Style.
+	 *
 	 * @return The currently chosen Style.
 	 */
 	public static Style getCurrent() {

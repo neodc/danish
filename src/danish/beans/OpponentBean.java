@@ -102,6 +102,7 @@ public class OpponentBean extends PlayerBean {
 
 	/**
 	 * Disables or enables the button used to attack the opponent.
+	 *
 	 * @param b If the button must be disabled.
 	 */
 	public void disableButton(boolean b) {
@@ -110,6 +111,7 @@ public class OpponentBean extends PlayerBean {
 
 	/**
 	 * Adds a listener to the button.
+	 *
 	 * @param a The listener to add.
 	 */
 	public void addActionListener(ActionListener a) {
