@@ -25,7 +25,7 @@ public class GameStats extends JDialog {
 	private void initComponent() {
 		try{
 			Collection<GameDto> games = DanishFacade.getAllGame();
-			String[] columnNames = {"Player name","Victory","Score","Number of game played","Number of opponent"};
+			String[] columnNames = {"Player name","Victory","Score","Number of card played","Number of opponent"};
 			Object[][] data = new Object[games.size()][5];
 			int i = 0;
 			for( GameDto g : games ){
