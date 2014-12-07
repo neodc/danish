@@ -347,8 +347,7 @@ public class Danish {
 				if (allowCancel) {
 					return;
 				} else {
-					ok = false;
-					continue;
+					System.exit(0);
 				}
 
 			}
