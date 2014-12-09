@@ -34,6 +34,7 @@ public class SelectUser extends JDialog {
 	private JTextField newUser;
 	private JCheckBox isNew;
 	private boolean sendInfo;
+	private JButton ok;
 
 	/**
 	 * SelectUser constructor with two parameters.
@@ -114,7 +115,7 @@ public class SelectUser extends JDialog {
 		isNew = new JCheckBox("New ?");
 		bottom.add(isNew, BorderLayout.WEST);
 
-		JButton ok = new JButton("OK");
+		ok = new JButton("OK");
 		bottom.add(ok, BorderLayout.EAST);
 		ok.addActionListener(new ActionListener() {
 			@Override
@@ -144,6 +145,9 @@ public class SelectUser extends JDialog {
 		} else {
 			selector.add(existingUser);
 		}
+		
+		ok.setEnabled( isNew.isSelected() || existingUser.getItemCount() > 0 );
+		
 		revalidate();
 		repaint();
 	}
