@@ -3,9 +3,12 @@ package danish.view;
 import danish.business.DanishFacade;
 import danish.business.PersistanceException;
 import danish.dto.GameDto;
+import java.awt.Font;
 import java.util.Collection;
 import javax.swing.JDialog;
 import javax.swing.JFrame;
+import javax.swing.JLabel;
+import javax.swing.JOptionPane;
 import javax.swing.JScrollPane;
 import javax.swing.JTable;
 
@@ -57,7 +60,10 @@ public class GameStats extends JDialog {
 			add(tmp);
 			setResizable(false);
 		} catch (PersistanceException ex) {
-			//TODO
+			JLabel label = new JLabel(ex.getMessage());
+			label.setFont(label.getFont().deriveFont(Font.PLAIN));
+			JOptionPane.showMessageDialog(this, label, "Error!", JOptionPane.ERROR_MESSAGE);
+			System.exit(1);
 		}
 	}
 }
