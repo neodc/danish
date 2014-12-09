@@ -60,6 +60,11 @@ public class SelectUser extends JDialog {
 
 		});
 
+		if (existingUser.getItemCount() == 0){
+			isNew.setSelected(true);
+			isNew.setEnabled(false);
+		}
+		
 		refresh();
 
 		this.isNew.addActionListener(new ActionListener() {
@@ -68,7 +73,7 @@ public class SelectUser extends JDialog {
 				refresh();
 			}
 		});
-
+		
 		pack();
 	}
 
@@ -140,13 +145,12 @@ public class SelectUser extends JDialog {
 
 	private void refresh() {
 		selector.removeAll();
+		
 		if (isNew.isSelected()) {
 			selector.add(newUser);
 		} else {
 			selector.add(existingUser);
 		}
-		
-		ok.setEnabled( isNew.isSelected() || existingUser.getItemCount() > 0 );
 		
 		revalidate();
 		repaint();
@@ -182,8 +186,8 @@ public class SelectUser extends JDialog {
 
 	private class Item {
 
-		private String name;
-		private int id;
+		private final String name;
+		private final int id;
 
 		public Item(String name, int id) {
 			this.name = name;
