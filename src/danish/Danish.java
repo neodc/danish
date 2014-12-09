@@ -72,11 +72,11 @@ public class Danish {
 		JMenu user = new JMenu("User");
 		menuBar.add(user);
 
-		JMenu help = new JMenu("Help");
-		menuBar.add(help);
-		
 		JMenu stats = new JMenu("Stats");
 		menuBar.add(stats);
+		
+		JMenu help = new JMenu("Help");
+		menuBar.add(help);
 
 		JMenuItem newGame = new JMenuItem("New game");
 		newGame.setAccelerator(KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_N, java.awt.Event.CTRL_MASK));
@@ -259,14 +259,14 @@ public class Danish {
 			public void actionPerformed(ActionEvent ae) {
 				String aboutDanish
 						= "<html>"
-						+ "<body style='width: 500px'>"
-						+ "	<h1>About Danish</h1>"
-						+ "	<p><b><i><u>TO DO</u></i></b></p>"
+						+ "<body>"
+						+ "	<h1>Danish V3.2.1</h1>"
+						+ "	<p>Developed by Noé De Cuyper, Julien Durieux and Loup Vismara.</p>"
 						+ "</body>"
 						+ "</html>";
 				JLabel label = new JLabel(aboutDanish);
 				label.setFont(new Font("sans serif", Font.PLAIN, 14));
-				JOptionPane.showMessageDialog(jFrame, label, "About Danish", JOptionPane.PLAIN_MESSAGE);
+				JOptionPane.showMessageDialog(jFrame, label, "About", JOptionPane.PLAIN_MESSAGE);
 			}
 		});
 

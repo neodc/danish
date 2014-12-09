@@ -83,7 +83,7 @@ public class PlayerDto {
 	 * @param name The player's name.
 	 */
 	public PlayerDto(String name) {
-		this(name, Images.Style.PONY, false);
+		this(name, Images.Style.PONY, true);
 	}
 
 	/**
