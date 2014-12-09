@@ -247,7 +247,7 @@ public class DanishFacade {
 	 */
 	public static GameDto createGame4current(GameDto g) throws PersistanceException {
 		if (currentPlayer >= 0) {
-			return createGame( new GameDto(currentPlayer, g.isVictory(), g.getScore(), g.getNbCardsPlayed(), g.getNbOpponents()) );
+			return createGame(new GameDto(currentPlayer, g.isVictory(), g.getScore(), g.getNbCardsPlayed(), g.getNbOpponents()));
 		}
 		return null;
 	}

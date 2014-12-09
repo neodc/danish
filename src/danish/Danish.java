@@ -50,7 +50,7 @@ public class Danish {
 	 */
 	public static void main(String[] args) throws DBException {
 		danish = new danish.model.Danish();
-		
+
 		danishUI = new DanishUI(danish);
 		danish.addDanishListener(danishUI);
 
@@ -60,7 +60,7 @@ public class Danish {
 
 		jFrame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		jFrame.setTitle("Danish");
-		
+
 		settingsUI = new Settings(jFrame, "Setings", true);
 
 		JMenuBar menuBar = new JMenuBar();
@@ -74,7 +74,7 @@ public class Danish {
 
 		JMenu stats = new JMenu("Stats");
 		menuBar.add(stats);
-		
+
 		JMenu help = new JMenu("Help");
 		menuBar.add(help);
 
@@ -153,24 +153,24 @@ public class Danish {
 				}
 			}
 		});
-		
+
 		playerStats.addActionListener(new ActionListener() {
 
 			@Override
 			public void actionPerformed(ActionEvent ae) {
 				PlayerStats s = new PlayerStats(jFrame);
-				s.setVisible( true );
-				
+				s.setVisible(true);
+
 			}
 		});
-		
+
 		gamesStats.addActionListener(new ActionListener() {
 
 			@Override
 			public void actionPerformed(ActionEvent ae) {
 				GameStats s = new GameStats(jFrame);
-				s.setVisible( true );
-				
+				s.setVisible(true);
+
 			}
 		});
 
@@ -248,7 +248,8 @@ public class Danish {
 					Desktop desktop = Desktop.getDesktop();
 					try {
 						desktop.browse(new URI(url));
-					} catch (IOException | URISyntaxException e) {}
+					} catch (IOException | URISyntaxException e) {
+					}
 				}
 			}
 		});

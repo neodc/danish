@@ -11,13 +11,16 @@ import javax.swing.JTable;
 
 /**
  * Dialog used to display the stats of all players.
+ *
  * @author Noé, Julien, Loup.
  */
 public class PlayerStats extends JDialog {
+
 	private JTable table;
 
 	/**
 	 * PlayerStats constructor with one parameter.
+	 *
 	 * @param parent The parent JFrame.
 	 */
 	public PlayerStats(JFrame parent) {
@@ -26,17 +29,17 @@ public class PlayerStats extends JDialog {
 		this.setResizable(true);
 		this.setDefaultCloseOperation(JDialog.HIDE_ON_CLOSE);
 
-		this.initComponent();		
+		this.initComponent();
 		this.pack();
 	}
 
 	private void initComponent() {
-		try{
+		try {
 			Collection<PlayerDto> p = DanishFacade.getAllPlayer();
-			String[] columnNames = {"Name","Preferred style","Sort reversed","Number of game played","Number of victory","Average score"};
+			String[] columnNames = {"Name", "Preferred style", "Sort reversed", "Number of game played", "Number of victory", "Average score"};
 			Object[][] data = new Object[p.size()][6];
 			int i = 0;
-			for( PlayerDto playerDto : p ){
+			for (PlayerDto playerDto : p) {
 				data[i][0] = playerDto.getName();
 				data[i][1] = playerDto.getPreferredStyle();
 				data[i][2] = !(playerDto.isReverse());
@@ -45,7 +48,7 @@ public class PlayerStats extends JDialog {
 				data[i][5] = playerDto.getAverageScore();
 				i++;
 			}
-			
+
 			table = new JTable(data, columnNames);
 			table.setAutoCreateRowSorter(true);
 			table.setEnabled(false);
@@ -54,7 +57,7 @@ public class PlayerStats extends JDialog {
 			table.getTableHeader().setReorderingAllowed(false);
 			add(tmp);
 			setResizable(false);
-		}catch( PersistanceException ex ){
+		} catch (PersistanceException ex) {
 			//TODO
 		}
 	}
