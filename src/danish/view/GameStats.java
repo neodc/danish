@@ -9,9 +9,17 @@ import javax.swing.JFrame;
 import javax.swing.JScrollPane;
 import javax.swing.JTable;
 
+/**
+ * Dialog used to display the stats of all games.
+ * @author Noé, Julien, Loup.
+ */
 public class GameStats extends JDialog {
 	private JTable table;
 
+	/**
+	 * GameStats constructor with one parameter.
+	 * @param parent The parent JFrame.
+	 */
 	public GameStats(JFrame parent) {
 		super(parent, "Games stats", true);
 		this.setLocationRelativeTo(null);
